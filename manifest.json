@@ -1,0 +1,11 @@
+{
+    "name": "Galaxy PS2 Plugin",
+    "platform": "ps2",
+    "guid": "",
+    "version": "0.1.0",
+    "description": "Galaxy PS2 Plugin",
+    "author": "AHCoder",
+    "email": "",
+    "url": "https://github.com/AHCoder/galaxy-integration-ps2",
+    "script": "plugin.py"
+}
