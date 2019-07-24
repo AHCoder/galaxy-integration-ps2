@@ -6,11 +6,9 @@ import sys
 import urllib.parse, urllib.request
 
 import config, user_config
-
 from galaxy.api.plugin import Plugin, create_and_run_plugin
 from galaxy.api.consts import Platform, LicenseType, LocalGameState
 from galaxy.api.types import Authentication, Game, LocalGame, LicenseInfo, NextStep
-
 from version import __version__
 
 class PlayStation2Plugin(Plugin):
@@ -51,9 +49,22 @@ class PlayStation2Plugin(Plugin):
     """
 
     async def launch_game(self, game_id):
+        emu_path = user_config.emu_path
+        no_gui = user_config.emu_no_gui
+        fullscreen = user_config.emu_fullscreen
+        
         for game in self.games:
             if str(game[1]) == game_id:
-                subprocess.Popen([user_config.emu_path, game[0]])
+                if no_gui and fullscreen:
+                    subprocess.Popen([emu_path, "--nogui", "--fullscreen", game[0]])
+                    break
+                if no_gui and not fullscreen:
+                    subprocess.Popen([emu_path, "--nogui", game[0]])
+                    break
+                if not no_gui and fullscreen:
+                    subprocess.Popen([emu_path, "--fullscreen", game[0]])
+                    break
+                subprocess.Popen([emu_path, game[0]])
                 break
         return
 
