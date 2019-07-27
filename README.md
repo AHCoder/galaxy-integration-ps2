@@ -9,8 +9,8 @@ A PS2 integration for GOG Galaxy 2.0
 
 Download this repository, name it "ps2" and put it in %LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed
 
-You can choose to use the PCSX2 database or the Giant Bomb database for pulling ids and game names
-Open user_config.py in your installation folder and set your folder path for your roms and your emulator path etc.
+* You can choose to use the PCSX2 database or the Giant Bomb database for pulling ids and game names
+* Open user_config.py in your installation folder and set your folder path for your roms and your emulator path etc.
 
 Additional steps for the Giant Bomb variant:
 
