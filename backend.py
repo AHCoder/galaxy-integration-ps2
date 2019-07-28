@@ -32,7 +32,7 @@ class BackendClient:
 
 
     def parse_dbf(self):
-        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2\GameIndex.txt")
+        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
         
         records = []
         serials = []

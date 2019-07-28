@@ -18,34 +18,20 @@ class PlayStation2Plugin(Plugin):
 
         
     async def authenticate(self, stored_credentials=None):
-        return Authentication(user_id="userId", user_name="username")
-    """
-        username = None
-
-        if stored_credentials:
-            username = stored_credentials["username"]
-
-        if username:
-            return self.do_auth(username, store_username=False)
-        else:
-            username = user_config.roms_path
-            PARAMS = {}
-            return NextStep("web session", PARAMS)
-
-        return self.do_auth(username, store_username=True)
-        
+        return self.do_auth()
 
         
     async def pass_login_credentials(self, step, credentials, cookies):
-        return self.do_auth(credentials["username"], store_username=False)
-    
-    def do_auth(self, username, store_username):
-        if store_username:
-            user_data = dict()
-            user_data["username"] = username
-            self.store_credentials(user_data)
-        return Authentication(user_id="PCSX2 User", user_name=username)
-    """
+        return self.do_auth()
+
+
+    def do_auth(self):
+        user_data = {}
+        username = user_config.roms_path
+        user_data["username"] = username
+        self.store_credentials(user_data)
+        return Authentication("userId", user_data["username"])
+
 
     async def launch_game(self, game_id):
         emu_path = user_config.emu_path
