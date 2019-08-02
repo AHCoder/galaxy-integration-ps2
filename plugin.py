@@ -30,7 +30,7 @@ class PlayStation2Plugin(Plugin):
         username = user_config.roms_path
         user_data["username"] = username
         self.store_credentials(user_data)
-        return Authentication("userId", user_data["username"])
+        return Authentication("pcsx2_user", user_data["username"])
 
 
     async def launch_game(self, game_id):
@@ -106,6 +106,9 @@ class PlayStation2Plugin(Plugin):
 
     async def get_local_games(self):
         return self.local_games_cache
+
+    def shutdown(self):
+        pass
 
 
 def main():
