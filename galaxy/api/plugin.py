@@ -1,20 +1,18 @@
 import asyncio
+import dataclasses
 import json
 import logging
 import logging.handlers
-import dataclasses
-from enum import Enum
-from collections import OrderedDict
 import sys
+from collections import OrderedDict
+from enum import Enum
+from itertools import count
+from typing import Any, Dict, List, Optional, Set, Union
 
-from typing import Any, List, Dict, Optional, Union
-
-from galaxy.api.types import Achievement, Game, LocalGame, FriendInfo, GameTime, UserInfo, Room
-
-from galaxy.api.jsonrpc import Server, NotificationClient, ApplicationError
 from galaxy.api.consts import Feature
-from galaxy.api.errors import UnknownError, ImportInProgress
-from galaxy.api.types import Authentication, NextStep, Message
+from galaxy.api.errors import ImportInProgress, UnknownError
+from galaxy.api.jsonrpc import ApplicationError, NotificationClient, Server
+from galaxy.api.types import Achievement, Authentication, FriendInfo, Game, GameTime, LocalGame, NextStep
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -23,6 +21,7 @@ class JSONEncoder(json.JSONEncoder):
             # filter None values
             def dict_factory(elements):
                 return {k: v for k, v in elements if v is not None}
+
             return dataclasses.asdict(o, dict_factory=dict_factory)
         if isinstance(o, Enum):
             return o.value
@@ -31,12 +30,13 @@ class JSONEncoder(json.JSONEncoder):
 
 class Plugin:
     """Use and override methods of this class to create a new platform integration."""
+
     def __init__(self, platform, version, reader, writer, handshake_token):
         logging.info("Creating plugin for platform %s, version %s", platform.value, version)
         self._platform = platform
         self._version = version
 
-        self._feature_methods = OrderedDict()
+        self._features: Set[Feature] = set()
         self._active = True
         self._pass_control_task = None
 
@@ -49,12 +49,16 @@ class Plugin:
 
         def eof_handler():
             self._shutdown()
+
         self._server.register_eof(eof_handler)
 
         self._achievements_import_in_progress = False
         self._game_times_import_in_progress = False
 
         self._persistent_cache = dict()
+
+        self._tasks = OrderedDict()
+        self._task_counter = count()
 
         # internal
         self._register_method("shutdown", self._shutdown, internal=True)
@@ -81,92 +85,47 @@ class Plugin:
         self._register_method(
             "import_owned_games",
             self.get_owned_games,
-            result_name="owned_games",
-            feature=Feature.ImportOwnedGames
+            result_name="owned_games"
         )
+        self._detect_feature(Feature.ImportOwnedGames, ["get_owned_games"])
+
         self._register_method(
             "import_unlocked_achievements",
             self.get_unlocked_achievements,
-            result_name="unlocked_achievements",
-            feature=Feature.ImportAchievements
+            result_name="unlocked_achievements"
         )
-        self._register_method(
-            "start_achievements_import",
-            self.start_achievements_import,
-        )
-        self._register_method(
-            "import_local_games",
-            self.get_local_games,
-            result_name="local_games",
-            feature=Feature.ImportInstalledGames
-        )
-        self._register_notification("launch_game", self.launch_game, feature=Feature.LaunchGame)
-        self._register_notification("install_game", self.install_game, feature=Feature.InstallGame)
-        self._register_notification(
-            "uninstall_game",
-            self.uninstall_game,
-            feature=Feature.UninstallGame
-        )
-        self._register_method(
-            "import_friends",
-            self.get_friends,
-            result_name="friend_info_list",
-            feature=Feature.ImportFriends
-        )
-        self._register_method(
-            "import_user_infos",
-            self.get_users,
-            result_name="user_info_list",
-            feature=Feature.ImportUsers
-        )
-        self._register_method(
-            "send_message",
-            self.send_message,
-            feature=Feature.Chat
-        )
-        self._register_method(
-            "mark_as_read",
-            self.mark_as_read,
-            feature=Feature.Chat
-        )
-        self._register_method(
-            "import_rooms",
-            self.get_rooms,
-            result_name="rooms",
-            feature=Feature.Chat
-        )
-        self._register_method(
-            "import_room_history_from_message",
-            self.get_room_history_from_message,
-            result_name="messages",
-            feature=Feature.Chat
-        )
-        self._register_method(
-            "import_room_history_from_timestamp",
-            self.get_room_history_from_timestamp,
-            result_name="messages",
-            feature=Feature.Chat
-        )
-        self._register_method(
-            "import_game_times",
-            self.get_game_times,
-            result_name="game_times",
-            feature=Feature.ImportGameTime
-        )
-        self._register_method(
-            "start_game_times_import",
-            self.start_game_times_import,
-        )
+        self._detect_feature(Feature.ImportAchievements, ["get_unlocked_achievements"])
+
+        self._register_method("start_achievements_import", self.start_achievements_import)
+        self._detect_feature(Feature.ImportAchievements, ["import_games_achievements"])
+
+        self._register_method("import_local_games", self.get_local_games, result_name="local_games")
+        self._detect_feature(Feature.ImportInstalledGames, ["get_local_games"])
+
+        self._register_notification("launch_game", self.launch_game)
+        self._detect_feature(Feature.LaunchGame, ["launch_game"])
+
+        self._register_notification("install_game", self.install_game)
+        self._detect_feature(Feature.InstallGame, ["install_game"])
+
+        self._register_notification("uninstall_game", self.uninstall_game)
+        self._detect_feature(Feature.UninstallGame, ["uninstall_game"])
+
+        self._register_notification("shutdown_platform_client", self.shutdown_platform_client)
+        self._detect_feature(Feature.ShutdownPlatformClient, ["shutdown_platform_client"])
+
+        self._register_method("import_friends", self.get_friends, result_name="friend_info_list")
+        self._detect_feature(Feature.ImportFriends, ["get_friends"])
+
+        self._register_method("import_game_times", self.get_game_times, result_name="game_times")
+        self._detect_feature(Feature.ImportGameTime, ["get_game_times"])
+
+        self._register_method("start_game_times_import", self.start_game_times_import)
+        self._detect_feature(Feature.ImportGameTime, ["import_game_times"])
 
     @property
-    def features(self):
-        features = []
-        if self.__class__ != Plugin:
-            for feature, handlers in self._feature_methods.items():
-                if self._implements(handlers):
-                    features.append(feature)
-
-        return features
+    def features(self) -> List[Feature]:
+        return list(self._features)
 
     @property
     def persistent_cache(self) -> Dict:
@@ -174,13 +133,17 @@ class Plugin:
         """
         return self._persistent_cache
 
-    def _implements(self, handlers):
-        for handler in handlers:
-            if handler.__name__ not in self.__class__.__dict__:
+    def _implements(self, methods: List[str]) -> bool:
+        for method in methods:
+            if method not in self.__class__.__dict__:
                 return False
         return True
 
-    def _register_method(self, name, handler, result_name=None, internal=False, sensitive_params=False, feature=None):
+    def _detect_feature(self, feature: Feature, methods: List[str]):
+        if self._implements(methods):
+            self._features.add(feature)
+
+    def _register_method(self, name, handler, result_name=None, internal=False, sensitive_params=False):
         if internal:
             def method(*args, **kwargs):
                 result = handler(*args, **kwargs)
@@ -189,6 +152,7 @@ class Plugin:
                         result_name: result
                     }
                 return result
+
             self._server.register_method(name, method, True, sensitive_params)
         else:
             async def method(*args, **kwargs):
@@ -198,22 +162,36 @@ class Plugin:
                         result_name: result
                     }
                 return result
+
             self._server.register_method(name, method, False, sensitive_params)
 
-        if feature is not None:
-            self._feature_methods.setdefault(feature, []).append(handler)
-
-    def _register_notification(self, name, handler, internal=False, sensitive_params=False, feature=None):
+    def _register_notification(self, name, handler, internal=False, sensitive_params=False):
         self._server.register_notification(name, handler, internal, sensitive_params)
-
-        if feature is not None:
-            self._feature_methods.setdefault(feature, []).append(handler)
 
     async def run(self):
         """Plugin's main coroutine."""
         await self._server.run()
         if self._pass_control_task is not None:
             await self._pass_control_task
+
+    def create_task(self, coro, description):
+        """Wrapper around asyncio.create_task - takes care of canceling tasks on shutdown"""
+
+        async def task_wrapper(task_id):
+            try:
+                return await coro
+            except asyncio.CancelledError:
+                logging.debug("Canceled task %d (%s)", task_id, description)
+            except Exception:
+                logging.exception("Exception raised in task %d (%s)", task_id, description)
+            finally:
+                del self._tasks[task_id]
+
+        task_id = next(self._task_counter)
+        logging.debug("Creating task %d (%s)", task_id, description)
+        task = asyncio.create_task(task_wrapper(task_id))
+        self._tasks[task_id] = task
+        return task
 
     async def _pass_control(self):
         while self._active:
@@ -228,6 +206,8 @@ class Plugin:
         self._server.stop()
         self._active = False
         self.shutdown()
+        for task in self._tasks.values():
+            task.cancel()
 
     def _get_capabilities(self):
         return {
@@ -412,26 +392,6 @@ class Plugin:
         params = {"user_id": user_id}
         self._notification_client.notify("friend_removed", params)
 
-    def update_room(
-        self,
-        room_id: str,
-        unread_message_count: Optional[int]=None,
-        new_messages: Optional[List[Message]]=None
-    ) -> None:
-        """WIP, Notify the client to update the information regarding
-        a chat room that the currently authenticated user is in.
-
-        :param room_id: id of the room to update
-        :param unread_message_count: information about the new unread message count in the room
-        :param new_messages: list of new messages that the user received
-        """
-        params = {"room_id": room_id}
-        if unread_message_count is not None:
-            params["unread_message_count"] = unread_message_count
-        if new_messages is not None:
-            params["messages"] = new_messages
-        self._notification_client.notify("chat_room_updated", params)
-
     def update_game_time(self, game_time: GameTime) -> None:
         """Notify the client to update game time for a game.
 
@@ -549,7 +509,7 @@ class Plugin:
         raise NotImplementedError()
 
     async def pass_login_credentials(self, step: str, credentials: Dict[str, str], cookies: List[Dict[str, str]]) \
-            -> Union[NextStep, Authentication]:
+        -> Union[NextStep, Authentication]:
         """This method is called if we return galaxy.api.types.NextStep from authenticate or from pass_login_credentials.
         This method's parameters provide the data extracted from the web page navigation that previous NextStep finished on.
         This method should either return galaxy.api.types.Authentication if the authentication is finished
@@ -632,6 +592,7 @@ class Plugin:
 
         :param game_ids: ids of the games for which to import unlocked achievements
         """
+
         async def import_game_achievements(game_id):
             try:
                 achievements = await self.get_unlocked_achievements(game_id)
@@ -718,6 +679,11 @@ class Plugin:
         """
         raise NotImplementedError()
 
+    async def shutdown_platform_client(self) -> None:
+        """Override this method to gracefully terminate platform client.
+        This method is called by the GOG Galaxy Client."""
+        raise NotImplementedError()
+
     async def get_friends(self) -> List[FriendInfo]:
         """Override this method to return the friends list
         of the currently authenticated user.
@@ -735,57 +701,6 @@ class Plugin:
                 friends = self.retrieve_friends()
                 return friends
 
-        """
-        raise NotImplementedError()
-
-    async def get_users(self, user_id_list: List[str]) -> List[UserInfo]:
-        """WIP, Override this method to return the list of users matching the provided ids.
-        This method is called by the GOG Galaxy Client.
-
-        :param user_id_list: list of user ids
-        """
-        raise NotImplementedError()
-
-    async def send_message(self, room_id: str, message_text: str) -> None:
-        """WIP, Override this method to send message to a chat room.
-         This method is called by the GOG Galaxy Client.
-
-         :param room_id: id of the room to which the message should be sent
-         :param message_text: text which should be sent in the message
-         """
-        raise NotImplementedError()
-
-    async def mark_as_read(self, room_id: str, last_message_id: str) -> None:
-        """WIP, Override this method to mark messages in a chat room as read up to the id provided in the parameter.
-        This method is called by the GOG Galaxy Client.
-
-        :param room_id: id of the room
-        :param last_message_id: id of the last message; room is marked as read only if this id matches
-         the last message id known to the client
-        """
-        raise NotImplementedError()
-
-    async def get_rooms(self) -> List[Room]:
-        """WIP, Override this method to return the chat rooms in which the user is currently in.
-        This method is called by the GOG Galaxy Client
-        """
-        raise NotImplementedError()
-
-    async def get_room_history_from_message(self, room_id: str, message_id: str) -> List[Message]:
-        """WIP, Override this method to return the chat room history since the message provided in parameter.
-        This method is called by the GOG Galaxy Client.
-
-        :param room_id: id of the room
-        :param message_id: id of the message since which the history should be retrieved
-        """
-        raise NotImplementedError()
-
-    async def get_room_history_from_timestamp(self, room_id: str, from_timestamp: int) -> List[Message]:
-        """WIP, Override this method to return the chat room history since the timestamp provided in parameter.
-        This method is called by the GOG Galaxy Client.
-
-        :param room_id: id of the room
-        :param from_timestamp: timestamp since which the history should be retrieved
         """
         raise NotImplementedError()
 
@@ -884,6 +799,9 @@ def create_and_run_plugin(plugin_class, argv):
         await plugin.run()
 
     try:
+        if sys.platform == "win32":
+            asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
         asyncio.run(coroutine())
     except Exception:
         logging.exception("Error while running plugin")
