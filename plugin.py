@@ -2,11 +2,11 @@ import asyncio
 import subprocess
 import sys
 
-from backend import BackendClient
 import user_config
+from backend import BackendClient
+from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
-from galaxy.api.consts import Platform, LicenseType, LocalGameState
-from galaxy.api.types import Authentication, Game, LocalGame, LicenseInfo, NextStep
+from galaxy.api.types import Authentication, Game, LicenseInfo, LocalGame
 from version import __version__
 
 class PlayStation2Plugin(Plugin):

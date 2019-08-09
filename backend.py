@@ -1,9 +1,11 @@
 import json
 import os
 import sys
-import urllib.parse, urllib.request
+import urllib.parse
+import urllib.request
 
-import config, user_config
+import config
+import user_config
 
 class BackendClient:
     def __init__(self):
@@ -65,12 +67,14 @@ class BackendClient:
 
         # Retrieve the info for each iso/gz found
         for rom in self.roms:
-            url = query_url.format(config.api_key, urllib.parse.quote(rom)) # Add in params to the above url
-            response = urllib.request.urlopen(url)
-            search_results = json.loads(response.read())
-            self.results.append(
-                [search_results["results"][0]["id"], search_results["results"][0]["name"]] # Add games in the form of list with id and name
-            )
+            # Add in params to the above url
+            url = query_url.format(config.api_key, urllib.parse.quote(rom))
+            
+            with urllib.request.urlopen(url) as response:
+                search_results = json.loads(response.read())
+                self.results.append(
+                    [search_results["results"][0]["id"], search_results["results"][0]["name"]] # Add games in the form of list with id and name
+                )
 
         for x,y in zip(self.paths, self.results):
             x.extend(y)
@@ -82,7 +86,7 @@ class BackendClient:
         # Search through directory for iso or gz files (PS2 roms)
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
-               if file.endswith(".iso") or file.endswith(".gz"):
+               if file.lower().endswith(".iso") or file.lower().endswith(".gz"):
                     self.paths.append([os.path.join(root, file)])
                     self.roms.append(os.path.splitext(os.path.basename(file))[0]) # Split name of file from it's path/extension
 
