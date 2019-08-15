@@ -4,6 +4,7 @@ A PS2 integration for GOG Galaxy 2.0
 ## Features
 * Looks for iso and gz files in a folder you specify
 * Supports launching games with PCSX2
+* Supports the usage of game specific settings
 
 ## Installation and Config
 
