@@ -18099,7 +18099,7 @@ Name   = Astro Boy - The Video Game
 Region = PAL-M5
 ---------------------------------------------
 Serial = SLES-55605
-Name   = Naruto Shipuuden - Ultimate Ninja 5
+Name   = Naruto Shippuden - Ultimate Ninja 5
 Region = PAL-M5
 Compat = 5
 ---------------------------------------------
