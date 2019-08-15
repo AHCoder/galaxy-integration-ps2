@@ -12,8 +12,10 @@ emu_fullscreen = False
 use_database = True
 # Set to True if you want to use game specific configurations
 emu_config = False
-# Select your Documents/PCSX2/configs folder containing your game specific configurations.
-# Make sure that the contained folders have the same name as the corresponding rom without the extension.
+# To use this feature, create a folder named "configs" inside "Documents/PCSX2" (the folder containing your bios, savestates etc.)
+# Put the path to that folder down below
+# To create settings for a game, copy the "inis" or "inis_1.4.0" folder into the "configs" folder and rename it to match the rom.
+# Make sure that the renamed folders have the same name as the corresponding rom without the extension.
 # eg. ROM: "Shadow of the Colossus.iso" | FOLDER: "Shadow of the Colossus"
 # Without a specific config folder for a game, the default settings will be used.
 config_path = "D:/Documents/PCSX2/configs"
