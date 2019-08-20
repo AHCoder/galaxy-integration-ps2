@@ -1,6 +1,7 @@
 import asyncio
 import subprocess
 import sys
+import os
 
 import user_config
 from backend import BackendClient
@@ -42,9 +43,10 @@ class PlayStation2Plugin(Plugin):
 
         for game in self.games:
             if str(game[1]) == game_id:
-                if config:
-                    config_arg = '--cfgpath=' + config_folder + "/" + game[2]
-                    
+                rom_file = os.path.splitext(os.path.basename(game[0]))[0]
+                config_folder_game = config_folder + "/" + rom_file
+                if config and os.path.isdir(config_folder_game):
+                    config_arg = '--cfgpath=' + config_folder + "/" + rom_file
                     if no_gui and fullscreen:
                         subprocess.Popen([emu_path, "--nogui", "--fullscreen", config_arg, game[0]])
                         break
