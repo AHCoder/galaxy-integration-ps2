@@ -1,6 +1,7 @@
 import asyncio
 import subprocess
 import sys
+import os
 
 import user_config
 from backend import BackendClient
@@ -37,20 +38,38 @@ class PlayStation2Plugin(Plugin):
         emu_path = user_config.emu_path
         no_gui = user_config.emu_no_gui
         fullscreen = user_config.emu_fullscreen
-        
+        config = user_config.emu_config
+        config_folder = user_config.config_path
+
         for game in self.games:
             if str(game[1]) == game_id:
-                if no_gui and fullscreen:
-                    subprocess.Popen([emu_path, "--nogui", "--fullscreen", game[0]])
+                rom_file = os.path.splitext(os.path.basename(game[0]))[0]
+                config_folder_game = config_folder + "/" + rom_file
+                if config and os.path.isdir(config_folder_game):
+                    config_arg = '--cfgpath=' + config_folder + "/" + rom_file
+                    if no_gui and fullscreen:
+                        subprocess.Popen([emu_path, "--nogui", "--fullscreen", config_arg, game[0]])
+                        break
+                    if no_gui and not fullscreen:
+                        subprocess.Popen([emu_path, "--nogui", config_arg, game[0]])
+                        break
+                    if not no_gui and fullscreen:
+                        subprocess.Popen([emu_path, "--fullscreen", config_arg, game[0]])
+                        break
+                    subprocess.Popen([emu_path, config_arg, game[0]])
                     break
-                if no_gui and not fullscreen:
-                    subprocess.Popen([emu_path, "--nogui", game[0]])
+                else:
+                    if no_gui and fullscreen:
+                        subprocess.Popen([emu_path, "--nogui", "--fullscreen", game[0]])
+                        break
+                    if no_gui and not fullscreen:
+                        subprocess.Popen([emu_path, "--nogui", game[0]])
+                        break
+                    if not no_gui and fullscreen:
+                        subprocess.Popen([emu_path, "--fullscreen", game[0]])
+                        break
+                    subprocess.Popen([emu_path, game[0]])
                     break
-                if not no_gui and fullscreen:
-                    subprocess.Popen([emu_path, "--fullscreen", game[0]])
-                    break
-                subprocess.Popen([emu_path, game[0]])
-                break
         return
 
     async def install_game(self, game_id):
