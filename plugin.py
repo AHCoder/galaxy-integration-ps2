@@ -7,7 +7,7 @@ import user_config
 from backend import BackendClient
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
-from galaxy.api.types import Authentication, Game, LicenseInfo, LocalGame
+from galaxy.api.types import Authentication, Game, GameTime, LicenseInfo, LocalGame
 from version import __version__
 
 class PlayStation2Plugin(Plugin):
@@ -72,11 +72,61 @@ class PlayStation2Plugin(Plugin):
                     break
         return
 
+    # Only as placeholders so the feature is recognized
     async def install_game(self, game_id):
         pass
 
     async def uninstall_game(self, game_id):
         pass
+
+
+    async def prepare_game_times_context(self, game_ids):
+        return self.get_games_times_dict()
+
+    
+    async def get_game_time(self, game_id, context):
+        game_time = context.get(game_id)
+        return game_time
+
+
+    def get_games_times_dict(self):
+
+        # Get the directory of this file and format it to
+        # have the path to the game times file
+        base_dir = os.path.dirname(os.path.realpath(__file__))
+        game_times_path = "{}/game_times.txt".format(base_dir)
+
+        # Check if the file exists
+        # If not create it with the default value of 0 minutes played
+        if not os.path.exists(game_times_path):
+            game_times_list = []
+            for game in self.games:
+                entry = {}
+                entry["game_id"] = str(game[1])
+                entry["name"] = game[2]
+                entry["time_played"] = 0
+                entry["last_time_played"] = 0
+                game_times_list.append(entry)
+
+            with open(game_times_path, "w") as game_times_file:
+                game_times_file.write(str(game_times_list))
+
+        # Once the file exists read it and return the game times    
+        game_times = {}
+
+        with open(game_times_path, "r") as game_times_file:
+            parsed_game_times_file = eval(game_times_file.read())
+            for entry in parsed_game_times_file:
+                game_id = entry["game_id"]
+                time_played = int(entry["time_played"])
+                last_time_played = int(entry["last_time_played"])
+                game_times[game_id] = GameTime(
+                    game_id,
+                    time_played,
+                    last_time_played
+                )
+
+        return game_times
 
 
     def local_games_list(self):
@@ -125,9 +175,6 @@ class PlayStation2Plugin(Plugin):
 
     async def get_local_games(self):
         return self.local_games_cache
-
-    def shutdown(self):
-        pass
 
 
 def main():
