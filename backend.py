@@ -65,7 +65,7 @@ class BackendClient:
 
         self.get_rom_names()
 
-        # Retrieve the info for each iso/gz found
+        # Retrieve the info for each rom found
         for rom in self.roms:
             # Add in params to the above url
             url = query_url.format(config.api_key, urllib.parse.quote(rom))
@@ -83,10 +83,10 @@ class BackendClient:
 
 
     def get_rom_names(self):
-        # Search through directory for iso or gz files (PS2 roms)
+        # Search through directory for bin, gz, and iso files (PS2 roms)
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
-               if file.lower().endswith(".iso") or file.lower().endswith(".gz"):
+               if file.lower().endswith((".bin", ".gz", ".iso")):
                     self.paths.append([os.path.join(root, file)])
                     self.roms.append(os.path.splitext(os.path.basename(file))[0]) # Split name of file from it's path/extension
 
