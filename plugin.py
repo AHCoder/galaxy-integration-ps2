@@ -101,7 +101,7 @@ class PlayStation2Plugin(Plugin):
         # If not create it with the default value of 0 minutes played
         if not os.path.exists(game_times_path):
             game_times_dict = {}
-            for game in self_games:
+            for game in self.games:
                 entry = {}
                 id = str(game[1])
                 entry["name"] = game[2]
