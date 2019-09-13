@@ -5,6 +5,8 @@ import urllib.parse
 import urllib.request
 
 import config
+import pycdlib
+import re
 import user_config
 
 class BackendClient:
@@ -15,16 +17,19 @@ class BackendClient:
 
     
     # Used if the user chooses to pull from the PCSX2 games database
-    def get_games_db(self):
+    def get_games_database(self):
         database_records = self.parse_dbf()
 
         self.get_rom_names()
 
         for rom in self.roms:
             for record in database_records:
-                if(rom == record[1]):
+                if(rom == record[1].replace(":", "")):
                     self.results.append(
-                        [record[0], record[1]]
+                        [
+                            record[0],
+                            record[1]
+                        ]
                     )
 
         for x,y in zip(self.paths, self.results):
@@ -55,25 +60,33 @@ class BackendClient:
 
         return records
 
-
-    # Used if the user chooses to pull from Giant Bomb database
-    # More potential here if GOG allows us to pull images etc.
-    def get_games_gb(self):
-        # Use Giant Bomb api to search for roms (first result is used)
-        # Only call for id and name, in json format, limited to 1 result
+    '''
+    Used if the user chooses to pull from Giant Bomb database
+    More potential here if GOG allows us to pull images etc.
+    '''
+    def get_games_giant_bomb(self):
+        '''
+        Use Giant Bomb api to search for roms (first result is used)
+        Only call for id and name, in json format, limited to 1 result
+        '''
         query_url = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
 
         self.get_rom_names()
 
         # Retrieve the info for each rom found
         for rom in self.roms:
-            # Add in params to the above url
+            
             url = query_url.format(config.api_key, urllib.parse.quote(rom))
             
             with urllib.request.urlopen(url) as response:
                 search_results = json.loads(response.read())
+
+                # Add games in the form of list with id and name
                 self.results.append(
-                    [search_results["results"][0]["id"], search_results["results"][0]["name"]] # Add games in the form of list with id and name
+                    [
+                        search_results["results"][0]["id"],
+                        search_results["results"][0]["name"]
+                    ]
                 )
 
         for x,y in zip(self.paths, self.results):
@@ -82,8 +95,51 @@ class BackendClient:
         return self.paths
 
 
+    # Reads serial from iso and matches a name from the database
+    def get_games_read_iso(self):
+        database_records = self.parse_dbf()
+        directory = user_config.roms_path
+        iso = pycdlib.PyCdlib()
+        serials = []
+
+        # Get the serials
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                if file.lower().endswith(".iso"):
+                    try:
+                        iso.open(os.path.join(root, file))
+                        self.paths.append([os.path.join(root, file)])
+                    except:
+                        continue
+
+                    for child in iso.list_children(iso_path='/'):
+                        string = child.file_identifier().decode("utf-8")
+
+                        if re.search(r"\w{4}_\d{3}\.\d{2}|$", string)[0]:
+                            serials.append(string.replace("_", "-").replace(".", "").replace(";1", ""))
+                            break
+
+                    iso.close()
+
+        # Match the serials to names
+        for serial in serials:
+            for record in database_records:
+                if(serial == record[0]):
+                    self.results.append(
+                        [
+                            record[0],
+                            record[1]
+                        ]
+                    )
+
+        for x,y in zip(self.paths, self.results):
+            x.extend(y)
+
+        return self.paths
+
+
     def get_rom_names(self):
-        # Search through directory for bin, gz, and iso files (PS2 roms)
+        
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
                if file.lower().endswith((".bin", ".gz", ".iso")):

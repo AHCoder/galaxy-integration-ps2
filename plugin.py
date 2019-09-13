@@ -2,6 +2,7 @@ import asyncio
 import json
 import subprocess
 import sys
+import time
 import os
 
 import user_config
@@ -91,14 +92,17 @@ class PlayStation2Plugin(Plugin):
 
 
     def get_games_times_dict(self):
-
-        # Get the directory of this file and format it to
-        # have the path to the game times file
+        '''
+        Get the directory of this file and format it to
+        have the path to the game times file
+        '''
         base_dir = os.path.dirname(os.path.realpath(__file__))
         game_times_path = "{}/game_times.json".format(base_dir)
 
-        # Check if the file exists
-        # If not create it with the default value of 0 minutes played
+        '''
+        Check if the file exists
+        If not create it with the default value of 0 minutes played
+        '''
         if not os.path.exists(game_times_path):
             game_times_dict = {}
             for game in self.games:
@@ -106,7 +110,7 @@ class PlayStation2Plugin(Plugin):
                 id = str(game[1])
                 entry["name"] = game[2]
                 entry["time_played"] = 0
-                entry["last_time_played"] = 0
+                entry["last_time_played"] = int(time.time())
                 game_times_dict[id] = entry
 
             with open(game_times_path, "w") as game_times_file:
@@ -156,11 +160,15 @@ class PlayStation2Plugin(Plugin):
 
 
     async def get_owned_games(self):
-        if(user_config.use_database):
-            self.games = self.backend_client.get_games_db()
-        else:
-            self.games = self.backend_client.get_games_gb()
+        method = user_config.method
         owned_games = []
+        
+        if(method == "default"):
+            self.games = self.backend_client.get_games_database()
+        elif(method == "giant"):
+            self.games = self.backend_client.get_games_giant_bomb()
+        else:
+            self.games = self.backend_client.get_games_read_iso()
         
         for game in self.games:
             owned_games.append(
