@@ -1,13 +1,14 @@
 import json
 import os
+import re
 import sys
 import urllib.parse
 import urllib.request
 
 import config
 import pycdlib
-import re
 import user_config
+
 
 class BackendClient:
     def __init__(self):
@@ -38,6 +39,7 @@ class BackendClient:
         return self.paths
 
 
+    # Use this when avoiding adding double names of roms
     def parse_dbf(self):
         filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
         
@@ -53,6 +55,27 @@ class BackendClient:
                         names.append(split_line[1])                 # add it
                         if prev_line.startswith("Serial"):          # Check if the line before started with "Serial"
                             serials.append(prev_line.split()[2])    # Only then add the corresponding serial
+                prev_line = line
+
+        for serial, name in zip(serials, names):
+            records.append([serial, name])
+
+        return records
+
+    # Dumb workaround, this function only exists to avoid double names
+    def parse_dbf_no_doubles(self):
+        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
+        
+        records = []
+        serials = []
+        names = []
+        with open(filename) as fh:                                 
+            for line in fh:
+                line = line.strip()                                
+                if line.startswith("Name"):                 # Both checks here are removed, simply add the serial and name          
+                    split_line = line.split("= ")
+                    names.append(split_line[1])
+                    serials.append(prev_line.split()[2])
                 prev_line = line
 
         for serial, name in zip(serials, names):
@@ -97,7 +120,7 @@ class BackendClient:
 
     # Reads serial from iso and matches a name from the database
     def get_games_read_iso(self):
-        database_records = self.parse_dbf()
+        database_records = self.parse_dbf_no_doubles()
         directory = user_config.roms_path
         iso = pycdlib.PyCdlib()
         serials = []

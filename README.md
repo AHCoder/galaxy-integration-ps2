@@ -34,6 +34,6 @@ A PS2 integration for GOG Galaxy 2.0
 Adding game time manually is supported through editing a file
 
 1. Open your installation folder after connecting the plugin and your games are added
-2. A file name "game_times.json" should now be there
+2. A file named "game_times.json" should now be there
 3. Open the file, find the name of the game you want to edit and change the field time_played to what you want (in minutes)
    

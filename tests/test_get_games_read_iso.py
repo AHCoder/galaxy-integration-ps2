@@ -1,23 +1,26 @@
 import os
+import re
 
 import pycdlib
-import re
 import user_config
 
-filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
-        
+filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")        
 records = []
 serials = []
 names = []
-with open(filename) as fh:                                  # Open GameIndex.txt
+directory = user_config.roms_path
+iso = pycdlib.PyCdlib()
+paths = []
+results = []
+serials_test = []
+
+with open(filename) as fh:                              # Open GameIndex.txt
     for line in fh:
-        line = line.strip()                                 # For each line
-        if line.startswith("Name"):                         # check if it starts with "Name"
-            split_line = line.split("= ")                   # Split the line into "Name" and the name of the game
-            if(split_line[1] not in names):                 # If the name isn't already in the list,
-                names.append(split_line[1])                 # add it
-                if prev_line.startswith("Serial"):          # Check if the line before started with "Serial"
-                    serials.append(prev_line.split()[2])    # Only then add the corresponding serial
+        line = line.strip()                             # For each line
+        if line.startswith("Name"):                     # check if it starts with "Name"
+            split_line = line.split("= ")               # Split the line into "Name" and the name of the game
+            names.append(split_line[1])                 # Add the name
+            serials.append(prev_line.split()[2])        # Only then add the corresponding serial
         prev_line = line
 
 for serial, name in zip(serials, names):
@@ -25,12 +28,6 @@ for serial, name in zip(serials, names):
 
 database_records = records
 print(len(database_records))
-
-directory = user_config.roms_path
-iso = pycdlib.PyCdlib()
-paths = []
-results = []
-serials_test = []
 
 # Get the serials
 for root, dirs, files in os.walk(directory):

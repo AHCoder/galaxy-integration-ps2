@@ -1,16 +1,18 @@
 import asyncio
 import json
+import os
 import subprocess
 import sys
 import time
-import os
 
 import user_config
 from backend import BackendClient
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
-from galaxy.api.types import Authentication, Game, GameTime, LicenseInfo, LocalGame
+from galaxy.api.types import (Authentication, Game, GameTime, LicenseInfo,
+                              LocalGame)
 from version import __version__
+
 
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
