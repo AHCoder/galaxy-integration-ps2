@@ -115,13 +115,13 @@ class PlayStation2Plugin(Plugin):
                 entry["last_time_played"] = int(time.time())
                 game_times_dict[id] = entry
 
-            with open(game_times_path, "w") as game_times_file:
+            with open(game_times_path, "w", encoding="utf-8") as game_times_file:
                 json.dump(game_times_dict, game_times_file, indent=4)
 
         # Once the file exists read it and return the game times    
         game_times = {}
 
-        with open(game_times_path, "r") as game_times_file:
+        with open(game_times_path, encoding="utf-8") as game_times_file:
             parsed_game_times_file = json.load(game_times_file)
             for entry in parsed_game_times_file:
                 game_id = entry

@@ -1,11 +1,11 @@
 import os
 
-filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2\GameIndex.txt")
+filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
         
 records = []
 serials = []
 names = []
-with open(filename) as fh:                                  # Open GameIndex.txt
+with open(filename, encoding="utf-8") as fh:                # Open GameIndex.txt
     for line in fh:                                         # For each line
         if line.startswith("Name"):                         # check if it starts with "Name"
             split_line = line.split("= ")                   # Split the line into "Name" and the name of the game

@@ -46,7 +46,7 @@ class BackendClient:
         records = []
         serials = []
         names = []
-        with open(filename) as fh:                                  # Open GameIndex.txt
+        with open(filename, encoding="utf-8") as fh:                # Open GameIndex.txt
             for line in fh:
                 line = line.strip()                                 # For each line
                 if line.startswith("Name"):                         # check if it starts with "Name"
@@ -69,7 +69,7 @@ class BackendClient:
         records = []
         serials = []
         names = []
-        with open(filename) as fh:                                 
+        with open(filename, encoding="utf-8") as fh:                                 
             for line in fh:
                 line = line.strip()                                
                 if line.startswith("Name"):                 # Both checks here are removed, simply add the serial and name          
