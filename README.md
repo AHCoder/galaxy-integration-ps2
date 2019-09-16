@@ -5,7 +5,7 @@ A PS2 integration for GOG Galaxy 2.0
 * Looks for bin, gz, and iso files in a folder you specify
 * Supports launching games with PCSX2
 * Supports the usage of game specific settings
-* Supports manually adding time played (tracking game time coming soon)
+* Supports manually editing time played, and game time tracking
 
 ## Installation and Config
 
@@ -13,11 +13,17 @@ A PS2 integration for GOG Galaxy 2.0
 
 2. Decide whether to use the local PCSX2 database (default), the Giant Bomb API (requires an account) or reading your iso files directly for pulling ids and game names
 
-    #### Giant Bomb variant
+    #### Local PCSX2 database method
+
+    1. Name all your files exactly as they are in the database (it's stored in the installation folder as GameIndex.txt)
+    2. If the name of the game has a ":" simply leave it out of your file name
+    
+    #### Giant Bomb method
 
     1. When you have an account go here: https://www.giantbomb.com/api/
-    2. Open "config.py" in your installation folder and add a line:
+    2. Open "user_config.py" in your installation folder set your API key at the appropriate line:
         * api_key = YOUR_KEY_GOES_HERE_IN_QUOTES i.e. api_key = "abcdefghijklmnopqrstuvwxyz"
+    3. Don't share this key with anyone or your user_config once you have set it
 
 3. Open user_config.py in the installation folder and set your folder path for your roms and your emulator path etc.
     
@@ -36,4 +42,9 @@ Adding game time manually is supported through editing a file
 1. Open your installation folder after connecting the plugin and your games are added
 2. A file named "game_times.json" should now be there
 3. Open the file, find the name of the game you want to edit and change the field time_played to what you want (in minutes)
+
+Note:
+The plugin tracks the PCSX2 process that is launched when you click on "play",
+so only launch your roms from within Galaxy. Starting a game and then choosing another rom
+from within PCSX2 itself will continue tracking game time for the first game.
    

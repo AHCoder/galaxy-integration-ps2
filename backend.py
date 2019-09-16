@@ -2,10 +2,10 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 
-import config
 import pycdlib
 import user_config
 
@@ -15,6 +15,9 @@ class BackendClient:
         self.paths = []
         self.results = []
         self.roms = []
+
+        self.start_time = 0
+        self.end_time = 0
 
     
     # Used if the user chooses to pull from the PCSX2 games database
@@ -99,7 +102,7 @@ class BackendClient:
         # Retrieve the info for each rom found
         for rom in self.roms:
             
-            url = query_url.format(config.api_key, urllib.parse.quote(rom))
+            url = query_url.format(user_config.api_key, urllib.parse.quote(rom))
             
             with urllib.request.urlopen(url) as response:
                 search_results = json.loads(response.read())
@@ -179,5 +182,22 @@ class BackendClient:
         # added games
         result.extend(local_game for local_game in new_list if local_game.game_id in new_dict.keys() - old_dict.keys())
         # state changed
-        result.extend(LocalGame(id, new_dict[id]) for id in new_dict.keys() & old_dict.keys() if new_dict[id] != old_dict[id])
+        result.extend(
+            LocalGame(id, new_dict[id]) for id in new_dict.keys() & old_dict.keys() if new_dict[id] != old_dict[id]
+            )
         return result
+
+
+    def _set_session_start(self):
+        '''Sets the session start to the current time'''
+        self.start_time = time.time()
+
+
+    def _set_session_end(self):
+        '''Sets the session end to the current time'''
+        self.end_time = time.time()
+
+
+    def _get_session_duration(self):
+        '''Gets the duration of the game session as int'''
+        return int(round((self.end_time - self.start_time) / 60))

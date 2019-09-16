@@ -20,6 +20,9 @@ Decide which method you want to use when adding your games
 '''
 method = "default"
 
+# Set your API key here if you are using the Giant Bomb method
+api_key = ""
+
 # Set to True if you want to use game specific configurations
 emu_config = False
 
