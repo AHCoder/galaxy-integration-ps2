@@ -20,8 +20,8 @@ class PlayStation2Plugin(Plugin):
         self.backend_client = BackendClient()
         self.games = []
         self.local_games_cache = []
-        self.running_game_id = ""
         self.proc = None
+        self.running_game_id = ""
 
         self.create_task(self._update_local_games(), "Update local games")
 
@@ -34,7 +34,7 @@ class PlayStation2Plugin(Plugin):
         return self._do_auth()
 
 
-    def _do_auth(self):
+    def _do_auth(self) -> Authentication:
         user_data = {}
         username = user_config.roms_path
         user_data["username"] = username
@@ -54,39 +54,29 @@ class PlayStation2Plugin(Plugin):
         self.backend_client._set_session_start()
 
 
-    def _launch_game(self, game_id, emu_path, no_gui, fullscreen, config, config_folder):
+    def _launch_game(self, game_id, emu_path, no_gui, fullscreen, config, config_folder) -> None:
+        ''' Returns None
 
+        Interprets user configurated options and launches PCSX2 with the chosen rom
+        '''
         for game in self.games:
             if str(game[1]) == game_id:
                 rom_file = os.path.splitext(os.path.basename(game[0]))[0]
                 config_folder_game = config_folder + "/" + rom_file
+                args = [emu_path]
                 if config and os.path.isdir(config_folder_game):
-                    config_arg = '--cfgpath=' + config_folder + "/" + rom_file
-                    if no_gui and fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--nogui", "--fullscreen", config_arg, game[0]])
-                        break
-                    if no_gui and not fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--nogui", config_arg, game[0]])
-                        break
-                    if not no_gui and fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--fullscreen", config_arg, game[0]])
-                        break
-                    self.proc = subprocess.Popen([emu_path, config_arg, game[0]])
-                    break
-                else:
-                    if no_gui and fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--nogui", "--fullscreen", game[0]])
-                        break
-                    if no_gui and not fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--nogui", game[0]])
-                        break
-                    if not no_gui and fullscreen:
-                        self.proc = subprocess.Popen([emu_path, "--fullscreen", game[0]])
-                        break
-                    self.proc = subprocess.Popen([emu_path, game[0]])
-                    break
+                    config_arg = "--cfgpath=" + config_folder + "/" + rom_file
+                    args.append(config_arg)
+                if fullscreen:
+                    args.append("--fullscreen")
+                if no_gui:
+                    args.append("--nogui")
+                args.append(game[0])
+                self.proc = subprocess.Popen(args)
+                break
 
-    # Only as placeholders so the feature is recognized
+
+    # Only as placeholders so the launch game feature is recognized
     async def install_game(self, game_id):
         pass
 
@@ -104,11 +94,14 @@ class PlayStation2Plugin(Plugin):
 
 
     # TODO: this function is a mess, needs to be condensed
-    def _get_games_times_dict(self):
-        ''' Returns the game times json as a dict of GameTime objects'''
+    def _get_games_times_dict(self) -> dict:
+        ''' Returns a dict of GameTime objects
+        
+        Creates and reads the game_times.json file
+        '''
         base_dir = os.path.dirname(os.path.realpath(__file__))
-        game_times = {}
         data = {}
+        game_times = {}
         path = "{}/game_times.json".format(base_dir)
         
         # Check if the file exists, otherwise create it with defaults
@@ -142,6 +135,7 @@ class PlayStation2Plugin(Plugin):
         # Now read it and return the game times
         with open(path, encoding="utf-8") as game_times_file:
             parsed_game_times_file = json.load(game_times_file)
+
         for entry in parsed_game_times_file:
             game_id = entry
             time_played = parsed_game_times_file.get(entry).get("time_played")
@@ -151,8 +145,12 @@ class PlayStation2Plugin(Plugin):
         return game_times
 
 
-    def local_games_list(self):
-        local_games = []
+    def _local_games_list(self) -> list:
+        ''' Returns a list of LocalGame objects
+
+        Goes through retrieved games and adds them as local games with default state of "Installed"
+        '''
+        local_games = []        
         for game in self.games:
             local_games.append(
                 LocalGame(
@@ -178,15 +176,16 @@ class PlayStation2Plugin(Plugin):
         self.create_task(self._update_local_games(), "Update local games")
 
 
-    async def _update_local_games(self):
+    async def _update_local_games(self) -> None:
         loop = asyncio.get_running_loop()
-        new_list = await loop.run_in_executor(None, self.local_games_list)
-        notify_list = self.backend_client.get_state_changes(self.local_games_cache, new_list)
+        new_list = await loop.run_in_executor(None, self._local_games_list)
+        notify_list = self.backend_client._get_state_changes(self.local_games_cache, new_list)
         self.local_games_cache = new_list
         for local_game_notify in notify_list:
             self.update_local_game_status(local_game_notify)
 
-    async def _update_all_game_times(self):
+
+    async def _update_all_game_times(self) -> None:
         await asyncio.sleep(60) # Leave time for Galaxy to fetch games before updating times
         loop = asyncio.get_running_loop()
         new_game_times = await loop.run_in_executor(None, self._get_games_times_dict)
@@ -194,8 +193,11 @@ class PlayStation2Plugin(Plugin):
             self.update_game_time(new_game_times[game_time])
 
 
-    def _update_game_time(self, game_id, session_duration, last_time_played):
-        ''' Update the game time of a single game '''
+    def _update_game_time(self, game_id, session_duration, last_time_played) -> None:
+        ''' Returns None 
+        
+        Update the game time of a single game
+        '''
         base_dir = os.path.dirname(os.path.realpath(__file__))
         game_times_path = "{}/game_times.json".format(base_dir)
 
@@ -216,11 +218,11 @@ class PlayStation2Plugin(Plugin):
         owned_games = []
         
         if(method == "default"):
-            self.games = self.backend_client.get_games_database()
+            self.games = self.backend_client._get_games_database()
         elif(method == "giant"):
-            self.games = self.backend_client.get_games_giant_bomb()
+            self.games = self.backend_client._get_games_giant_bomb()
         else:
-            self.games = self.backend_client.get_games_read_iso()
+            self.games = self.backend_client._get_games_read_iso()
         
         for game in self.games:
             owned_games.append(

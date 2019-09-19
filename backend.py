@@ -15,16 +15,18 @@ class BackendClient:
         self.paths = []
         self.results = []
         self.roms = []
-
         self.start_time = 0
         self.end_time = 0
 
     
-    # Used if the user chooses to pull from the PCSX2 games database
-    def get_games_database(self):
-        database_records = self.parse_dbf()
+    def _get_games_database(self) -> list:
+        '''Returns a list of games with path, id, and name
 
-        self.get_rom_names()
+        Used if the user chooses to pull from the PCSX2 games database
+        by matching their files' names with the db
+        '''
+        database_records = self._parse_dbf()
+        self._get_rom_names()
 
         for rom in self.roms:
             for record in database_records:
@@ -42,13 +44,16 @@ class BackendClient:
         return self.paths
 
 
-    # Use this when avoiding adding double names of roms
-    def parse_dbf(self):
+    def _parse_dbf(self) -> list:
+        '''Returns a list of records in the PCSX2 database without duplicate names
+
+        Use this when wanting to avoid duplicates (and when serial number isn't important)
+        '''
         filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
-        
         records = []
         serials = []
         names = []
+
         with open(filename, encoding="utf-8") as fh:                # Open GameIndex.txt
             for line in fh:
                 line = line.strip()                                 # For each line
@@ -65,13 +70,16 @@ class BackendClient:
 
         return records
 
-    # Dumb workaround, this function only exists to avoid double names
-    def parse_dbf_no_doubles(self):
-        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
+    def _parse_dbf_with_doubles(self) -> list:
+        ''' Returns a list of records in the PCSX2 database
         
+        Use this to get all serial-name pairs in the PCSX2 database irregardless whether the name is a duplicate
+        '''
+        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")       
         records = []
         serials = []
         names = []
+
         with open(filename, encoding="utf-8") as fh:                                 
             for line in fh:
                 line = line.strip()                                
@@ -86,28 +94,21 @@ class BackendClient:
 
         return records
 
-    '''
-    Used if the user chooses to pull from Giant Bomb database
-    More potential here if GOG allows us to pull images etc.
-    '''
-    def get_games_giant_bomb(self):
-        '''
-        Use Giant Bomb api to search for roms (first result is used)
-        Only call for id and name, in json format, limited to 1 result
+    
+    def _get_games_giant_bomb(self) -> list:
+        ''' Returns a list of games with path, id, and name
+
+        Used if the user chooses to pull from Giant Bomb database
+        The first result is used and only call for id and name, in json format, limited to 1 result
         '''
         query_url = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
+        self._get_rom_names()
 
-        self.get_rom_names()
-
-        # Retrieve the info for each rom found
         for rom in self.roms:
-            
             url = query_url.format(user_config.api_key, urllib.parse.quote(rom))
             
             with urllib.request.urlopen(url) as response:
                 search_results = json.loads(response.read())
-
-                # Add games in the form of list with id and name
                 self.results.append(
                     [
                         search_results["results"][0]["id"],
@@ -121,14 +122,17 @@ class BackendClient:
         return self.paths
 
 
-    # Reads serial from iso and matches a name from the database
-    def get_games_read_iso(self):
-        database_records = self.parse_dbf_no_doubles()
+    def _get_games_read_iso(self) -> list:
+        ''' Returns a list of games with path, id, and name
+
+        Use this to read serials from iso's and match them to a name from the db
+        '''
+        database_records = self._parse_dbf_with_doubles()
         directory = user_config.roms_path
         iso = pycdlib.PyCdlib()
         serials = []
 
-        # Get the serials
+        # Get the serials by reading the iso's directly
         for root, dirs, files in os.walk(directory):
             for file in files:
                 if file.lower().endswith(".iso"):
@@ -140,11 +144,9 @@ class BackendClient:
 
                     for child in iso.list_children(iso_path='/'):
                         string = child.file_identifier().decode("utf-8")
-
                         if re.search(r"\w{4}_\d{3}\.\d{2}|$", string)[0]:
                             serials.append(string.replace("_", "-").replace(".", "").replace(";1", ""))
                             break
-
                     iso.close()
 
         # Match the serials to names
@@ -164,8 +166,11 @@ class BackendClient:
         return self.paths
 
 
-    def get_rom_names(self):
+    def _get_rom_names(self) -> None:
+        ''' Returns none
         
+        Appends the rom names and paths to their corresponding lists
+        '''        
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
                if file.lower().endswith((".bin", ".gz", ".iso")):
@@ -173,7 +178,7 @@ class BackendClient:
                     self.roms.append(os.path.splitext(os.path.basename(file))[0]) # Split name of file from it's path/extension
 
 
-    def get_state_changes(self, old_list, new_list):
+    def _get_state_changes(self, old_list, new_list) -> list:
         old_dict = {x.game_id: x.local_game_state for x in old_list}
         new_dict = {x.game_id: x.local_game_state for x in new_list}
         result = []
@@ -188,16 +193,16 @@ class BackendClient:
         return result
 
 
-    def _set_session_start(self):
-        '''Sets the session start to the current time'''
+    def _set_session_start(self) -> None:
+        ''' Sets the session start to the current time'''
         self.start_time = time.time()
 
 
-    def _set_session_end(self):
-        '''Sets the session end to the current time'''
+    def _set_session_end(self) -> None:
+        ''' Sets the session end to the current time'''
         self.end_time = time.time()
 
 
-    def _get_session_duration(self):
-        '''Gets the duration of the game session as int'''
+    def _get_session_duration(self) -> int:
+        ''' Returns the duration of the game session in minutes as an int'''
         return int(round((self.end_time - self.start_time) / 60))

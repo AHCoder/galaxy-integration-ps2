@@ -33,7 +33,7 @@ A PS2 integration for GOG Galaxy 2.0
 2. Put the path to that folder into user_config.py and enable the feature by setting emu_config = True
 3. To create settings for a game, copy the "inis" or "inis_1.4.0" folder into the "configs" folder and rename it to match the rom.
    Make sure that the renamed folders have the same name as the corresponding rom without the extension.
-   eg. ROM: "Shadow of the Colossus.iso" | FOLDER: "Shadow of the Colossus"
+   e.g. ROM: "Shadow of the Colossus.iso" | FOLDER: "Shadow of the Colossus"
    Without a specific config folder for a game, the default settings will be used.
 
 ### Game time
