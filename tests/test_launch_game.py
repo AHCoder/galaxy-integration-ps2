@@ -13,12 +13,14 @@ rom_file = os.path.splitext(os.path.basename(path))[0]
 config_folder_game = config_folder + "/" + rom_file
 args = [emu_path]
 if config and os.path.isdir(config_folder_game):
-    config_arg = "--cfgpath=" + config_folder + "/" + rom_file
+    config_arg = "--cfgpath=" + config_folder_game
     args.append(config_arg)
 if fullscreen:
     args.append("--fullscreen")
 if no_gui:
     args.append("--nogui")
+if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
+    args.append("--fullboot")
 args.append(path)
 print(args)
 subprocess.Popen(args)

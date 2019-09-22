@@ -6,11 +6,11 @@ roms_path = "C:/Games/PS2"
 # Set the path to your pcsx2.exe here
 emu_path = "C:/Programs/Emulators/PCSX2 1.4.0/pcsx2.exe"
 
-# Set to True if you want to suppress the gui when launching a game
-emu_no_gui = False
-
 # Set to True if you want to launch in fullscreen by default
 emu_fullscreen = False
+
+# Set to True if you want to suppress the gui when launching a game
+emu_no_gui = False
 
 '''
 Decide which method you want to use when adding your games
@@ -32,6 +32,9 @@ Put the path to that folder down below
 To create settings for a game, copy the "inis" or "inis_1.4.0" folder into the "configs" folder and rename it to match the rom.
 Make sure that the renamed folders have the same name as the corresponding rom without the extension.
 eg. ROM: "Shadow of the Colossus.iso" | FOLDER: "Shadow of the Colossus"
+
 Without a specific config folder for a game, the default settings will be used.
+If you want to specify that PCSX2 does a full boot for a game follow the above instructions
+and simply add an empty file "fullboot.ini" to the rom folder in "configs"
 '''
 config_path = "C:/Documents/PCSX2/configs"

@@ -45,8 +45,8 @@ class PlayStation2Plugin(Plugin):
     async def launch_game(self, game_id):
         self.running_game_id = game_id
         emu_path = user_config.emu_path
-        no_gui = user_config.emu_no_gui
         fullscreen = user_config.emu_fullscreen
+        no_gui = user_config.emu_no_gui
         config = user_config.emu_config
         config_folder = user_config.config_path
 
@@ -65,12 +65,14 @@ class PlayStation2Plugin(Plugin):
                 config_folder_game = config_folder + "/" + rom_file
                 args = [emu_path]
                 if config and os.path.isdir(config_folder_game):
-                    config_arg = "--cfgpath=" + config_folder + "/" + rom_file
+                    config_arg = "--cfgpath=" + config_folder_game
                     args.append(config_arg)
                 if fullscreen:
                     args.append("--fullscreen")
                 if no_gui:
                     args.append("--nogui")
+                if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
+                    args.append("--fullboot")
                 args.append(game[0])
                 self.proc = subprocess.Popen(args)
                 break

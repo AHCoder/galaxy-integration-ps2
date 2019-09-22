@@ -24,7 +24,7 @@ method = "default"
 api_key = ""
 
 # Set to True if you want to use game specific configurations
-emu_config = True
+emu_config = False
 
 '''
 To use this feature, create a folder named "configs" inside "Documents/PCSX2" (the folder containing your bios, savestates etc.)
