@@ -60,8 +60,8 @@ class PlayStation2Plugin(Plugin):
         Interprets user configurated options and launches PCSX2 with the chosen rom
         '''
         for game in self.games:
-            if str(game[1]) == game_id:
-                rom_file = os.path.splitext(os.path.basename(game[0]))[0]
+            if game.id == game_id:
+                rom_file = os.path.splitext(os.path.basename(game.path))[0]
                 config_folder_game = config_folder + "/" + rom_file
                 args = [emu_path]
                 if config and os.path.isdir(config_folder_game):
@@ -73,7 +73,7 @@ class PlayStation2Plugin(Plugin):
                     args.append("--nogui")
                 if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
                     args.append("--fullboot")
-                args.append(game[0])
+                args.append(game.path)
                 self.proc = subprocess.Popen(args)
                 break
 
@@ -110,8 +110,8 @@ class PlayStation2Plugin(Plugin):
         if not os.path.exists(path):
             for game in self.games:
                 entry = {}
-                id = str(game[1])
-                entry["name"] = game[2]
+                id = game.id
+                entry["name"] = game.name
                 entry["time_played"] = 0
                 entry["last_time_played"] = None
                 data[id] = entry
@@ -156,7 +156,7 @@ class PlayStation2Plugin(Plugin):
         for game in self.games:
             local_games.append(
                 LocalGame(
-                    str(game[1]),
+                    game.id,
                     LocalGameState.Installed
                 )
             )
@@ -229,8 +229,8 @@ class PlayStation2Plugin(Plugin):
         for game in self.games:
             owned_games.append(
                 Game(
-                    str(game[1]),
-                    game[2],
+                    game.id,
+                    game.name,
                     None,
                     LicenseInfo(LicenseType.SinglePurchase, None)
                 )

@@ -4,7 +4,7 @@
 roms_path = "C:/Games/PS2"
 
 # Set the path to your pcsx2.exe here
-emu_path = "C:/Programs/Emulators/PCSX2 1.4.0/pcsx2.exe"
+emu_path = "C:/Program Files (x86)/PCSX2 1.4.0/pcsx2.exe"
 
 # Set to True if you want to launch in fullscreen by default
 emu_fullscreen = False

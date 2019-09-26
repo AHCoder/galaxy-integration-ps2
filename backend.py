@@ -8,95 +8,42 @@ import urllib.request
 
 import pycdlib
 import user_config
+from definitions import PS2Game
 
 
 class BackendClient:
     def __init__(self):
-        self.paths = []
-        self.results = []
-        self.roms = []
+        self.games = []
+        self.roms = {}
         self.start_time = 0
         self.end_time = 0
 
     
     def _get_games_database(self) -> list:
-        '''Returns a list of games with path, id, and name
+        ''' Returns a list of PS2Game objects with id, name, and path
 
         Used if the user chooses to pull from the PCSX2 games database
         by matching their files' names with the db
         '''
-        database_records = self._parse_dbf()
+        database_records = self._parse_dbf(False)
         self._get_rom_names()
 
         for rom in self.roms:
-            for record in database_records:
-                if(rom == record[1].replace(":", "")):
-                    self.results.append(
-                        [
-                            record[0],
-                            record[1]
-                        ]
+            for key in database_records:
+                if(rom == database_records.get(key).replace(":", "")):
+                    self.games.append(
+                        PS2Game(
+                            str(key),
+                            str(database_records.get(key)),
+                            str(self.roms.get(rom))
+                        )
                     )
 
-        for x,y in zip(self.paths, self.results):
-            x.extend(y)
-
-        return self.paths
-
-
-    def _parse_dbf(self) -> list:
-        '''Returns a list of records in the PCSX2 database without duplicate names
-
-        Use this when wanting to avoid duplicates (and when serial number isn't important)
-        '''
-        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
-        records = []
-        serials = []
-        names = []
-
-        with open(filename, encoding="utf-8") as fh:                # Open GameIndex.txt
-            for line in fh:
-                line = line.strip()                                 # For each line
-                if line.startswith("Name"):                         # check if it starts with "Name"
-                    split_line = line.split("= ")                   # Split the line into "Name" and the name of the game
-                    if(split_line[1] not in names):                 # If the name isn't already in the list,
-                        names.append(split_line[1])                 # add it
-                        if prev_line.startswith("Serial"):          # Check if the line before started with "Serial"
-                            serials.append(prev_line.split()[2])    # Only then add the corresponding serial
-                prev_line = line
-
-        for serial, name in zip(serials, names):
-            records.append([serial, name])
-
-        return records
-
-    def _parse_dbf_with_doubles(self) -> list:
-        ''' Returns a list of records in the PCSX2 database
-        
-        Use this to get all serial-name pairs in the PCSX2 database irregardless whether the name is a duplicate
-        '''
-        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")       
-        records = []
-        serials = []
-        names = []
-
-        with open(filename, encoding="utf-8") as fh:                                 
-            for line in fh:
-                line = line.strip()                                
-                if line.startswith("Name"):                 # Both checks here are removed, simply add the serial and name          
-                    split_line = line.split("= ")
-                    names.append(split_line[1])
-                    serials.append(prev_line.split()[2])
-                prev_line = line
-
-        for serial, name in zip(serials, names):
-            records.append([serial, name])
-
-        return records
+        return self.games
 
     
     def _get_games_giant_bomb(self) -> list:
-        ''' Returns a list of games with path, id, and name
+        ''' Returns a list of PS2Game objects with id, name, and path
 
         Used if the user chooses to pull from Giant Bomb database
         The first result is used and only call for id and name, in json format, limited to 1 result
@@ -109,61 +56,56 @@ class BackendClient:
             
             with urllib.request.urlopen(url) as response:
                 search_results = json.loads(response.read())
-                self.results.append(
-                    [
-                        search_results["results"][0]["id"],
-                        search_results["results"][0]["name"]
-                    ]
+                self.games.append(
+                    PS2Game(
+                        str(search_results["results"][0]["id"]),
+                        str(search_results["results"][0]["name"]),
+                        str(self.roms.get(rom))
+                    )
                 )
 
-        for x,y in zip(self.paths, self.results):
-            x.extend(y)
-
-        return self.paths
+        return self.games
 
 
     def _get_games_read_iso(self) -> list:
-        ''' Returns a list of games with path, id, and name
+        ''' Returns a list of PS2Game objects with id, name, and path
 
         Use this to read serials from iso's and match them to a name from the db
         '''
-        database_records = self._parse_dbf_with_doubles()
-        directory = user_config.roms_path
+        database_records = self._parse_dbf(True)
         iso = pycdlib.PyCdlib()
-        serials = []
 
         # Get the serials by reading the iso's directly
-        for root, dirs, files in os.walk(directory):
+        for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
                 if file.lower().endswith(".iso"):
+                    path = os.path.join(root, file)
                     try:
-                        iso.open(os.path.join(root, file))
-                        self.paths.append([os.path.join(root, file)])
+                        iso.open(path)
                     except:
                         continue
 
                     for child in iso.list_children(iso_path='/'):
                         string = child.file_identifier().decode("utf-8")
                         if re.search(r"\w{4}_\d{3}\.\d{2}|$", string)[0]:
-                            serials.append(string.replace("_", "-").replace(".", "").replace(";1", ""))
+                            parsed_serial = string.replace("_", "-").replace(".", "").replace(";1", "")
+                            self.games.append(
+                                PS2Game(
+                                    str(parsed_serial),
+                                    "",
+                                    str(path)
+                                )
+                            )
                             break
                     iso.close()
 
         # Match the serials to names
-        for serial in serials:
-            for record in database_records:
-                if(serial == record[0]):
-                    self.results.append(
-                        [
-                            record[0],
-                            record[1]
-                        ]
-                    )
+        for game in self.games:
+            for key in database_records:
+                if(game.id == key):
+                    game.name = str(database_records.get(key))
 
-        for x,y in zip(self.paths, self.results):
-            x.extend(y)
-
-        return self.paths
+        return self.games
 
 
     def _get_rom_names(self) -> None:
@@ -174,8 +116,9 @@ class BackendClient:
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
                if file.lower().endswith((".bin", ".gz", ".iso")):
-                    self.paths.append([os.path.join(root, file)])
-                    self.roms.append(os.path.splitext(os.path.basename(file))[0]) # Split name of file from it's path/extension
+                    name = os.path.splitext(os.path.basename(file))[0] # Split name of file from it's path/extension
+                    path = os.path.join(root, file)
+                    self.roms[name] = path
 
 
     def _get_state_changes(self, old_list, new_list) -> list:
@@ -191,6 +134,30 @@ class BackendClient:
             LocalGame(id, new_dict[id]) for id in new_dict.keys() & old_dict.keys() if new_dict[id] != old_dict[id]
             )
         return result
+
+
+    def _parse_dbf(self, allow_dups) -> dict:
+        '''Returns a dictionary of records in the PCSX2 database
+
+        :param allow_dups: allow duplicate names or not
+
+        Use this to parse the PCSX2 database as a dictionary of records
+        '''
+        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
+        records = {}
+
+        with open(filename, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if line.startswith("Name"):
+                    split_line = line.split("= ") # Split the line into "Name" and the name of the game
+                    if(allow_dups or split_line[1] not in records.values()):
+                        serial = prev_line.split()[2]
+                        name = split_line[1]
+                        records[serial] = name
+                prev_line = line
+
+        return records
 
 
     def _set_session_start(self) -> None:
