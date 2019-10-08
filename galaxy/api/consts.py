@@ -90,6 +90,7 @@ class Platform(Enum):
     Playfire = "playfire"
     Oculus = "oculus"
     Test = "test"
+    Rockstar = "rockstar"
 
 
 class Feature(Enum):
@@ -110,6 +111,8 @@ class Feature(Enum):
     ImportFriends = "ImportFriends"
     ShutdownPlatformClient = "ShutdownPlatformClient"
     LaunchPlatformClient = "LaunchPlatformClient"
+    ImportGameLibrarySettings = "ImportGameLibrarySettings"
+    ImportOSCompatibility = "ImportOSCompatibility"
 
 
 class LicenseType(Enum):
@@ -128,3 +131,12 @@ class LocalGameState(Flag):
     None_ = 0
     Installed = 1
     Running = 2
+
+
+class OSCompatibility(Flag):
+    """Possible game OS compatibility.
+    Use "bitwise or" to express multiple OSs compatibility, e.g. ``os=OSCompatibility.Windows|OSCompatibility.MacOS``
+    """
+    Windows = 0b001
+    MacOS   = 0b010
+    Linux   = 0b100

@@ -10,10 +10,12 @@ import pycdlib
 import user_config
 from definitions import PS2Game
 
+QUERY_URL = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
 
 class BackendClient:
-    def __init__(self):
+    def __init__(self, plugin):
         self.games = []
+        self.plugin = plugin
         self.roms = {}
         self.start_time = 0
         self.end_time = 0
@@ -48,22 +50,27 @@ class BackendClient:
         Used if the user chooses to pull from Giant Bomb database
         The first result is used and only call for id and name, in json format, limited to 1 result
         '''
-        query_url = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
         self._get_rom_names()
 
         for rom in self.roms:
-            url = query_url.format(user_config.api_key, urllib.parse.quote(rom))
+            url = QUERY_URL.format(user_config.api_key, urllib.parse.quote(rom))
             
-            with urllib.request.urlopen(url) as response:
-                search_results = json.loads(response.read())
-                self.games.append(
-                    PS2Game(
-                        str(search_results["results"][0]["id"]),
-                        str(search_results["results"][0]["name"]),
-                        str(self.roms.get(rom))
-                    )
+            if rom in self.plugin.persistent_cache
+                search_results = self.plugin.persistent_cache.get(rom)
+            else:
+                with urllib.request.urlopen(url) as response:
+                    search_results = json.loads(response.read())
+                self.persistent_cache[rom] = search_results
+               
+            self.games.append(
+                PS2Game(
+                    str(search_results["results"][0]["id"]),
+                    str(search_results["results"][0]["name"]),
+                    str(self.roms.get(rom))
                 )
+            )
 
+        self.plugin.push_cache()
         return self.games
 
 

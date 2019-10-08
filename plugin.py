@@ -17,11 +17,12 @@ from version import __version__
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
-        self.backend_client = BackendClient()
+        self.backend_client = BackendClient(self)
         self.games = []
         self.local_games_cache = []
         self.proc = None
         self.running_game_id = ""
+        self.tick_count = 0
 
         self.create_task(self._update_local_games(), "Update local games")
 
@@ -95,7 +96,6 @@ class PlayStation2Plugin(Plugin):
         return game_time
 
 
-    # TODO: this function is a mess, needs to be condensed
     def _get_games_times_dict(self) -> dict:
         ''' Returns a dict of GameTime objects
         
@@ -109,31 +109,11 @@ class PlayStation2Plugin(Plugin):
         # Check if the file exists, otherwise create it with defaults
         if not os.path.exists(path):
             for game in self.games:
-                entry = {}
-                id = game.id
-                entry["name"] = game.name
-                entry["time_played"] = 0
-                entry["last_time_played"] = None
-                data[id] = entry
+                data[game.id] = { "name": game.name, "time_played": 0, "last_time_played": None }
 
             with open(path, "w", encoding="utf-8") as game_times_file:
                 json.dump(data, game_times_file, indent=4)
-        '''
-        else:
-            # Update file when new game is added TODO: should be moved to different function
-            with open(path, encoding="utf-8") as game_times_file:
-                parsed_game_times_file = json.load(game_times_file)
-            for game in self.games:
-                if game[1] not in parsed_game_times_file:
-                    entry = {}
-                    id = str(game[1])
-                    entry["name"] = game[2]
-                    entry["time_played"] = 0
-                    entry["last_time_played"] = None
-                    parsed_game_times_file[id] = entry
-            with open(path, "w", encoding="utf-8"):    
-                json.dump(parsed_game_times_file, game_times_file, indent=4)
-        '''
+        
         # Now read it and return the game times
         with open(path, encoding="utf-8") as game_times_file:
             parsed_game_times_file = json.load(game_times_file)
@@ -164,6 +144,16 @@ class PlayStation2Plugin(Plugin):
 
 
     def tick(self):
+        self._check_emu_status()
+        self.tick_count += 1
+
+        if self.tick_count % 2 == 0:
+            self.create_task(self._update_local_games(), "Update local games")
+        if self.tick_count % 9 == 0:
+            self.create_task(self._update_all_game_times(), "Update all game times")
+
+
+    def _check_emu_status(self) -> None:
         try:
             if(self.proc.poll() is not None):
                 self.backend_client._set_session_end()
@@ -173,9 +163,6 @@ class PlayStation2Plugin(Plugin):
                 self.proc = None
         except AttributeError:
             pass
-
-        self.create_task(self._update_all_game_times(), "Update all game times")
-        self.create_task(self._update_local_games(), "Update local games")
 
 
     async def _update_local_games(self) -> None:
