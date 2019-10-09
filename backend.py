@@ -55,12 +55,12 @@ class BackendClient:
         for rom in self.roms:
             url = QUERY_URL.format(user_config.api_key, urllib.parse.quote(rom))
             
-            if rom in self.plugin.persistent_cache
+            if rom in self.plugin.persistent_cache:
                 search_results = self.plugin.persistent_cache.get(rom)
             else:
                 with urllib.request.urlopen(url) as response:
                     search_results = json.loads(response.read())
-                self.persistent_cache[rom] = search_results
+                self.plugin.persistent_cache[rom] = search_results
                
             self.games.append(
                 PS2Game(
