@@ -93,6 +93,7 @@ class PlayStation2Plugin(Plugin):
     
     async def get_game_time(self, game_id, context):
         game_time = context.get(game_id)
+        self.update_game_time(game_time)
         return game_time
 
 
@@ -101,13 +102,13 @@ class PlayStation2Plugin(Plugin):
         
         Creates and reads the game_times.json file
         '''
-        base_dir = os.path.dirname(os.path.realpath(__file__))
         data = {}
         game_times = {}
-        path = "{}/game_times.json".format(base_dir)
+        path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\game_times.json")
         
         # Check if the file exists, otherwise create it with defaults
         if not os.path.exists(path):
+            os.makedirs(os.path.dirname(path))
             for game in self.games:
                 data[game.id] = { "name": game.name, "time_played": 0, "last_time_played": None }
 
@@ -145,11 +146,10 @@ class PlayStation2Plugin(Plugin):
 
     def tick(self):
         self._check_emu_status()
+        self.create_task(self._update_local_games(), "Update local games")
         self.tick_count += 1
 
-        if self.tick_count % 2 == 0:
-            self.create_task(self._update_local_games(), "Update local games")
-        if self.tick_count % 9 == 0:
+        if self.tick_count % 5 == 0:
             self.create_task(self._update_all_game_times(), "Update all game times")
 
 
@@ -187,16 +187,15 @@ class PlayStation2Plugin(Plugin):
         
         Update the game time of a single game
         '''
-        base_dir = os.path.dirname(os.path.realpath(__file__))
-        game_times_path = "{}/game_times.json".format(base_dir)
+        path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\game_times.json")
 
-        with open(game_times_path, encoding="utf-8") as game_times_file:
+        with open(path, encoding="utf-8") as game_times_file:
             data = json.load(game_times_file)
 
         data[game_id]["time_played"] = data.get(game_id).get("time_played") + session_duration
         data[game_id]["last_time_played"] = last_time_played
 
-        with open(game_times_path, "w", encoding="utf-8") as game_times_file:
+        with open(path, "w", encoding="utf-8") as game_times_file:
             json.dump(data, game_times_file, indent=4)
 
         self.update_game_time(GameTime(game_id, data.get(game_id).get("time_played"), last_time_played))
