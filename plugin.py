@@ -7,6 +7,7 @@ import time
 
 import user_config
 from backend import BackendClient
+from config import Config
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
 from galaxy.api.types import (Authentication, Game, GameTime, LicenseInfo,
@@ -18,6 +19,7 @@ class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
         self.backend_client = BackendClient(self)
+        self.config = Config()
         self.games = []
         self.local_games_cache = []
         self.proc = None
