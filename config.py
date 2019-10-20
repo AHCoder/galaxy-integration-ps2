@@ -61,6 +61,6 @@ class Config:
         self.cfg["Method"]["method"] = None
         self.cfg["Method"]["api_key"] = None
 
-        path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini")
-        with open(path, "w", encoding="utf-8") as configfile:
+        self.path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini")
+        with open(self.path, "w", encoding="utf-8") as configfile:
             self.cfg.write(configfile)
