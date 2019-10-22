@@ -2,6 +2,14 @@ import configparser
 import textwrap
 import os
 
+# ---=== User sets their rom path here ===--- #
+API_KEY = ""
+METHOD = ""
+ROMS_PATH = ""
+# ---=== User sets their rom path here ===--- #
+
+CONFIG_LOC = r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini"
+
 class Config:
     def __init__(self):
         self.cfg = configparser.ConfigParser(allow_no_value=True)
@@ -13,7 +21,7 @@ class Config:
         self.cfg["DEFAULT"]["emu_no_gui"] = False
         self.cfg["DEFAULT"]["emu_config"] = False
         self.cfg["DEFAULT"]["method"] = "default"
-        self.cfg["DEFAULT"]["api_key"] = ""
+        self.cfg["DEFAULT"]["api_key"] = None
         
         self.cfg.add_section("Paths")
         self.cfg.set("Paths", textwrap.dedent(
@@ -30,7 +38,7 @@ class Config:
                 """
             )
         )
-        self.cfg["Paths"]["roms_path"] = None
+        self.cfg["Paths"]["roms_path"] = ROMS_PATH
         self.cfg["Paths"]["emu_path"] = None
         self.cfg["Paths"]["config_path"] = None
         
@@ -58,9 +66,9 @@ class Config:
                 """
             )
         )
-        self.cfg["Method"]["method"] = None
-        self.cfg["Method"]["api_key"] = None
+        self.cfg["Method"]["method"] = METHOD
+        self.cfg["Method"]["api_key"] = API_KEY
 
-        self.path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini")
+        self.path = os.path.expandvars(CONFIG_LOC)
         with open(self.path, "w", encoding="utf-8") as configfile:
             self.cfg.write(configfile)

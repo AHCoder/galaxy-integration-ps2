@@ -5,9 +5,8 @@ import subprocess
 import sys
 import time
 
-import user_config
+import config
 from backend import BackendClient
-from config import Config
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
 from galaxy.api.types import (Authentication, Game, GameTime, LicenseInfo,
@@ -19,13 +18,15 @@ class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
         self.backend_client = BackendClient(self)
-        self.config = Config()
+        self.config = config.Config()
         self.games = []
         self.local_games_cache = []
         self.proc = None
         self.running_game_id = ""
         self.tick_count = 0
 
+
+    def handshake_complete(self):
         self.create_task(self._update_local_games(), "Update local games")
 
         
@@ -39,19 +40,20 @@ class PlayStation2Plugin(Plugin):
 
     def _do_auth(self) -> Authentication:
         user_data = {}
-        username = user_config.roms_path
-        user_data["username"] = username
+        self.config.cfg.read(config.CONFIG_LOC)
+        user_data["username"] = self.config.cfg.get("Paths", "roms_path")
         self.store_credentials(user_data)
         return Authentication("pcsx2_user", user_data["username"])
 
 
     async def launch_game(self, game_id):
         self.running_game_id = game_id
-        emu_path = user_config.emu_path
-        fullscreen = user_config.emu_fullscreen
-        no_gui = user_config.emu_no_gui
-        config = user_config.emu_config
-        config_folder = user_config.config_path
+        self.config.cfg.read(config.CONFIG_LOC)
+        emu_path = self.config.cfg.get("Paths", "emu_path")
+        config_folder = self.config.cfg.get("Paths", "config_path")
+        fullscreen = self.config.cfg.getboolean("EmuSettings", "emu_fullscreen")
+        no_gui = self.config.cfg.getboolean("EmuSettings", "emu_no_gui")
+        config = self.config.cfg.getboolean("EmuSettings", "emu_config")
 
         self._launch_game(game_id, emu_path, no_gui, fullscreen, config, config_folder)
         self.backend_client._set_session_start()
@@ -95,7 +97,7 @@ class PlayStation2Plugin(Plugin):
     
     async def get_game_time(self, game_id, context):
         game_time = context.get(game_id)
-        self.update_game_time(game_time)
+        #self.update_game_time(game_time)
         return game_time
 
 
@@ -137,10 +139,14 @@ class PlayStation2Plugin(Plugin):
         '''
         local_games = []        
         for game in self.games:
+            state = LocalGameState.Installed
+            if self.running_game_id == game.id:
+                state |= LocalGameState.Running
+
             local_games.append(
                 LocalGame(
                     game.id,
-                    LocalGameState.Installed
+                    state
                 )
             )
         return local_games
@@ -151,7 +157,7 @@ class PlayStation2Plugin(Plugin):
         self.create_task(self._update_local_games(), "Update local games")
         self.tick_count += 1
 
-        if self.tick_count % 5 == 0:
+        if self.tick_count % 10 == 0:
             self.create_task(self._update_all_game_times(), "Update all game times")
 
 
@@ -204,7 +210,8 @@ class PlayStation2Plugin(Plugin):
 
 
     async def get_owned_games(self):
-        method = user_config.method
+        self.config.cfg.read(config.CONFIG_LOC)
+        method = self.config.cfg.get("Method", "method")
         owned_games = []
         
         if(method == "default"):
