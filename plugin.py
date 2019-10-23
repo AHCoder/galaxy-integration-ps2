@@ -10,18 +10,21 @@ from backend import BackendClient
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
 from galaxy.api.types import (Authentication, Game, GameTime, LicenseInfo,
-                              LocalGame)
+                              LocalGame, NextStep)
+from PS2Client import PS2Client
 from version import __version__
 
 
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
-        self.backend_client = BackendClient(self)
         self.config = config.Config()
+        self.backend_client = BackendClient(self)
+        self.backend_client.auth_server.start()
         self.games = []
         self.local_games_cache = []
         self.proc = None
+        self.ps2_client = PS2Client(self)
         self.running_game_id = ""
         self.tick_count = 0
 
@@ -31,6 +34,15 @@ class PlayStation2Plugin(Plugin):
 
         
     async def authenticate(self, stored_credentials=None):
+        PARAMS = {
+            "window_title": "Configure PS2 Integration",
+            "window_width": 650,
+            "window_height": 110,
+            "start_uri": "http://localhost:" + str(self.backend_client.auth_server.port),
+            "end_uri_regex": ".*/end.*"
+        }
+        return NextStep("web_session", PARAMS)
+
         return self._do_auth()
 
         
@@ -56,7 +68,7 @@ class PlayStation2Plugin(Plugin):
         config = self.config.cfg.getboolean("EmuSettings", "emu_config")
 
         self._launch_game(game_id, emu_path, no_gui, fullscreen, config, config_folder)
-        self.backend_client._set_session_start()
+        self.ps2_client._set_session_start()
 
 
     def _launch_game(self, game_id, emu_path, no_gui, fullscreen, config, config_folder) -> None:
@@ -97,7 +109,6 @@ class PlayStation2Plugin(Plugin):
     
     async def get_game_time(self, game_id, context):
         game_time = context.get(game_id)
-        #self.update_game_time(game_time)
         return game_time
 
 
@@ -164,8 +175,8 @@ class PlayStation2Plugin(Plugin):
     def _check_emu_status(self) -> None:
         try:
             if(self.proc.poll() is not None):
-                self.backend_client._set_session_end()
-                session_duration = self.backend_client._get_session_duration()
+                self.ps2_client._set_session_end()
+                session_duration = self.ps2_client._get_session_duration()
                 last_time_played = int(time.time())
                 self._update_game_time(self.running_game_id, session_duration, last_time_played)
                 self.proc = None
@@ -176,7 +187,7 @@ class PlayStation2Plugin(Plugin):
     async def _update_local_games(self) -> None:
         loop = asyncio.get_running_loop()
         new_list = await loop.run_in_executor(None, self._local_games_list)
-        notify_list = self.backend_client._get_state_changes(self.local_games_cache, new_list)
+        notify_list = self.ps2_client._get_state_changes(self.local_games_cache, new_list)
         self.local_games_cache = new_list
         for local_game_notify in notify_list:
             self.update_local_game_status(local_game_notify)
@@ -215,11 +226,11 @@ class PlayStation2Plugin(Plugin):
         owned_games = []
         
         if(method == "default"):
-            self.games = self.backend_client._get_games_database()
+            self.games = self.ps2_client._get_games_database()
         elif(method == "giant"):
-            self.games = self.backend_client._get_games_giant_bomb()
+            self.games = self.ps2_client._get_games_giant_bomb()
         else:
-            self.games = self.backend_client._get_games_read_iso()
+            self.games = self.ps2_client._get_games_read_iso()
         
         for game in self.games:
             owned_games.append(
@@ -234,6 +245,9 @@ class PlayStation2Plugin(Plugin):
 
     async def get_local_games(self):
         return self.local_games_cache
+
+    async def shutdown(self):
+        await self.backend_client.auth_server.httpd.shutdown()
 
 
 def main():

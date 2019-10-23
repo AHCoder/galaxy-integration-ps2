@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PS2 Integration Configuration</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <style>
+            @charset "UTF-8";
+            html, body {
+                padding: 0;
+                margin: auto;
+                border: 0;
+                background: rgb(31, 31, 31) !important;
+                color: white
+            }
+                
+            html {
+                font-size: 14px;
+                line-height: 2;
+                font-family: 'Roboto', sans-serif;
+            }
+
+            html {
+                overflow: scroll;
+                overflow-x: hidden;
+            }
+
+            ::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
+                
+            .sub-container {
+                width: 90%;
+                min-width: 200px;
+            }
+
+            .imgbox {
+                display: grid;
+                height: 100%;
+            }
+
+            .center-fit {
+                max-width: 100%;
+                max-height: 100vh;
+                margin: auto;
+            }
+
+            ::placeholder {
+                color: gray;
+            }
+
+            input[type=text] {
+                width: 100%;
+                padding: 10px 10px;
+                margin: 10px;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="imgbox">
+            <img class="center-fit" src="images/header.jpg">
+        </div>
+            
+        <div class="sub-container container">
+            <form method="GET" action="/setpath">
+                <div class="field">
+                    <label>Roms location</label>
+                    <div class="control">
+                        <input class="input" name="romspath" type="text" placeholder="Enter roms path without quotes, and single forward slashes">
+                    </div>
+                
+                <label>Method</label>
+                <div class="options">
+                    <input type="radio" name="method" value="default" checked>Default<br>
+                    <input type="radio" name="method" value="giant">Giant Bomb<br>
+                    <input type="radio" name="method" value="iso">ISO
+                </div>
+
+                <div class="field">    
+                    <label>API Key</label>
+                    <div class="control">
+                        <input class="input" name="apikey" type="text" placeholder="Required only for Giant Bomb method">
+                    </div>
+                </div>
+                    
+                <div class="field">
+                    <div class="control">
+                        <input type="submit" class="button is-link" value="Submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
