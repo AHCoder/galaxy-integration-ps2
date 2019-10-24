@@ -1,4 +1,5 @@
 import asyncio
+import configparser
 import json
 import os
 import subprocess
@@ -6,7 +7,7 @@ import sys
 import time
 
 import config
-from backend import BackendClient
+from backend import AuthenticationServer
 from galaxy.api.consts import LicenseType, LocalGameState, Platform
 from galaxy.api.plugin import Plugin, create_and_run_plugin
 from galaxy.api.types import (Authentication, Game, GameTime, LicenseInfo,
@@ -18,9 +19,9 @@ from version import __version__
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
-        self.config = config.Config()
-        self.backend_client = BackendClient(self)
-        self.backend_client.auth_server.start()
+        config.Config().__init__()
+        self.auth_server = AuthenticationServer()
+        self.auth_server.start()
         self.games = []
         self.local_games_cache = []
         self.proc = None
@@ -36,9 +37,9 @@ class PlayStation2Plugin(Plugin):
     async def authenticate(self, stored_credentials=None):
         PARAMS = {
             "window_title": "Configure PS2 Integration",
-            "window_width": 650,
-            "window_height": 110,
-            "start_uri": "http://localhost:" + str(self.backend_client.auth_server.port),
+            "window_width": 575,
+            "window_height": 810,
+            "start_uri": "http://localhost:" + str(self.auth_server.port),
             "end_uri_regex": ".*/end.*"
         }
         return NextStep("web_session", PARAMS)
@@ -52,20 +53,22 @@ class PlayStation2Plugin(Plugin):
 
     def _do_auth(self) -> Authentication:
         user_data = {}
-        self.config.cfg.read(config.CONFIG_LOC)
-        user_data["username"] = self.config.cfg.get("Paths", "roms_path")
+        config_parse = config.Config()
+        config_parse.cfg.read(config.CONFIG_LOC)
+        user_data["username"] = config_parse.cfg.get("Paths", "roms_path")
         self.store_credentials(user_data)
         return Authentication("pcsx2_user", user_data["username"])
 
 
     async def launch_game(self, game_id):
         self.running_game_id = game_id
-        self.config.cfg.read(config.CONFIG_LOC)
-        emu_path = self.config.cfg.get("Paths", "emu_path")
-        config_folder = self.config.cfg.get("Paths", "config_path")
-        fullscreen = self.config.cfg.getboolean("EmuSettings", "emu_fullscreen")
-        no_gui = self.config.cfg.getboolean("EmuSettings", "emu_no_gui")
-        config = self.config.cfg.getboolean("EmuSettings", "emu_config")
+        config_parse = config.Config()
+        config_parse.cfg.read(config.CONFIG_LOC)
+        emu_path = config_parse.cfg.get("Paths", "emu_path")
+        config_folder = config_parse.cfg.get("Paths", "config_path")
+        fullscreen = config_parse.cfg.getboolean("EmuSettings", "emu_fullscreen")
+        no_gui = config_parse.cfg.getboolean("EmuSettings", "emu_no_gui")
+        config = config_parse.cfg.getboolean("EmuSettings", "emu_config")
 
         self._launch_game(game_id, emu_path, no_gui, fullscreen, config, config_folder)
         self.ps2_client._set_session_start()
@@ -221,8 +224,9 @@ class PlayStation2Plugin(Plugin):
 
 
     async def get_owned_games(self):
-        self.config.cfg.read(config.CONFIG_LOC)
-        method = self.config.cfg.get("Method", "method")
+        config_parse = config.Config()
+        config_parse.cfg.read(config.CONFIG_LOC)
+        method = config_parse.cfg.get("Method", "method")
         owned_games = []
         
         if(method == "default"):
@@ -247,7 +251,7 @@ class PlayStation2Plugin(Plugin):
         return self.local_games_cache
 
     async def shutdown(self):
-        await self.backend_client.auth_server.httpd.shutdown()
+        self.auth_server.httpd.shutdown()
 
 
 def main():

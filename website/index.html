@@ -2,21 +2,21 @@
 <html>
     <head>
         <title>PS2 Integration Configuration</title>
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         <style>
             @charset "UTF-8";
             html, body {
                 padding: 0;
                 margin: auto;
                 border: 0;
-                background: rgb(31, 31, 31) !important;
+                background: rgb(44, 43, 46) !important;
                 color: white
             }
                 
             html {
                 font-size: 14px;
                 line-height: 2;
-                font-family: 'Roboto', sans-serif;
+                font-family: 'Lato', sans-serif;
             }
 
             html {
@@ -55,6 +55,31 @@
                 margin: 10px;
                 box-sizing: border-box;
             }
+
+            input[type=submit] {
+                background: rgb(163,128,209);
+                border: none;
+                display: block;
+                padding: 10px 30px;
+                text-align: center;
+                margin: 0 auto;
+                border-radius: 6px;
+                color: white;
+                opacity: 0.9;
+                font-weight: bold;
+            }
+
+            input[type=submit]:hover {
+                opacity: 1;
+                cursor: pointer;
+            }
+
+            fieldset {
+                padding-right: 2em;
+                margin-bottom: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
         </style>
     </head>
     <body>
@@ -62,32 +87,48 @@
             <img class="center-fit" src="images/header.jpg">
         </div>
             
-        <div class="sub-container container">
-            <form method="GET" action="/setpath">
-                <div class="field">
-                    <label>Roms location</label>
-                    <div class="control">
-                        <input class="input" name="romspath" type="text" placeholder="Enter roms path without quotes, and single forward slashes">
+        <div class="center-fit">
+            <form method="GET" action="/setconfig">
+                <fieldset>
+                    <div>
+                        <label>Roms location</label>
+                        <input class="input" name="romspath" type="text" placeholder="Enter the path to your roms folder without quotes, and single forward slashes">
                     </div>
-                
-                <label>Method</label>
-                <div class="options">
-                    <input type="radio" name="method" value="default" checked>Default<br>
-                    <input type="radio" name="method" value="giant">Giant Bomb<br>
-                    <input type="radio" name="method" value="iso">ISO
-                </div>
 
-                <div class="field">    
+                    <div>
+                        <label>Emulator exe location</label>
+                        <input class="input" name="emupath" type="text" placeholder="Optional: enter the path to your PCSX2.exe">
+                    </div>
+
+                    <div>
+                        <label>Per-game config folder location</label>
+                        <input class="input" name="configpath" type="text" placeholder="Optional: enter the path to your per-game config folder">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <label>Method</label>
+                    <div>
+                        <input type="radio" name="method" value="default" checked>Default<br>
+                        <input type="radio" name="method" value="giant">Giant Bomb<br>
+                        <input type="radio" name="method" value="iso">ISO
+                    </div>
+                        
                     <label>API Key</label>
-                    <div class="control">
-                        <input class="input" name="apikey" type="text" placeholder="Required only for Giant Bomb method">
+                    <input class="input" name="apikey" type="text" placeholder="Optional: required only for Giant Bomb method">
+                </fieldset>
+
+                <fieldset>
+                    <label>Emulator Options</label>
+                    <div>
+                        <input type="checkbox" name="fullscreen" value="1">Fullscreen<br>
+                        <input type="checkbox" name="nogui" value="1">No gui<br>
+                        <input type="checkbox" name="config" value="1">Per-game config
                     </div>
-                </div>
+                </fieldset>
                     
-                <div class="field">
-                    <div class="control">
-                        <input type="submit" class="button is-link" value="Submit" />
-                    </div>
+                <div>
+                    <input type="submit" value="Submit" />
                 </div>
             </form>
         </div>

@@ -1,11 +1,6 @@
 import configparser
 import textwrap
 
-# ---=== User sets their rom path here ===--- #
-#API_KEY = ""
-#METHOD = ""
-#ROMS_PATH = ""
-# ---=== User sets their rom path here ===--- #
 
 CONFIG_LOC = r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini"
 
@@ -37,7 +32,6 @@ class Config:
                 """
             )
         )
-        #self.cfg["Paths"]["roms_path"] = ROMS_PATH
         self.cfg["Paths"]["emu_path"] = None
         self.cfg["Paths"]["config_path"] = None
         
@@ -50,9 +44,6 @@ class Config:
                 """
             )
         )
-        self.cfg["EmuSettings"]["emu_fullscreen"] = None
-        self.cfg["EmuSettings"]["emu_no_gui"] = None
-        self.cfg["EmuSettings"]["emu_config"] = None
         
         self.cfg.add_section("Method")
         self.cfg.set("Method", textwrap.dedent(
@@ -65,5 +56,3 @@ class Config:
                 """
             )
         )
-        #self.cfg["Method"]["method"] = METHOD
-        #self.cfg["Method"]["api_key"] = API_KEY

@@ -53,8 +53,9 @@ class PS2Client:
         self._get_rom_names()
 
         for rom in self.roms:
-            self.plugin.config.cfg.read(config.CONFIG_LOC)
-            url = QUERY_URL.format(self.plugin.config.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
+            config_parse = config.Config()
+            config_parse.cfg.read(config.CONFIG_LOC)
+            url = QUERY_URL.format(config_parse.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
             
             if rom in self.plugin.persistent_cache:
                 search_results = self.plugin.persistent_cache.get(rom)
@@ -84,8 +85,9 @@ class PS2Client:
         iso = pycdlib.PyCdlib()
 
         # Get the serials by reading the iso's directly
-        self.plugin.config.cfg.read(config.CONFIG_LOC)
-        for root, dirs, files in os.walk(self.plugin.config.cfg.get("Paths", "roms_path")):
+        config_parse = config.Config()
+        config_parse.cfg.read(config.CONFIG_LOC)
+        for root, dirs, files in os.walk(config_parse.cfg.get("Paths", "roms_path")):
             for file in files:
                 if file.lower().endswith(".iso"):
                     path = os.path.join(root, file)
@@ -122,8 +124,9 @@ class PS2Client:
         
         Appends the rom names and paths to their corresponding lists
         '''
-        self.plugin.config.cfg.read(config.CONFIG_LOC)        
-        for root, dirs, files in os.walk(self.plugin.config.cfg.get("Paths", "roms_path")):
+        config_parse = config.Config()
+        config_parse.cfg.read(config.CONFIG_LOC)        
+        for root, dirs, files in os.walk(config_parse.cfg.get("Paths", "roms_path")):
             for file in files:
                if file.lower().endswith((".bin", ".gz", ".iso")):
                     name = os.path.splitext(os.path.basename(file))[0] # Split name of file from it's path/extension
