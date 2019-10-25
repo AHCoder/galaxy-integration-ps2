@@ -1,5 +1,4 @@
 import asyncio
-import configparser
 import json
 import os
 import subprocess
@@ -19,7 +18,7 @@ from version import __version__
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
-        config.Config().__init__()
+        self.config = config.Config()
         self.auth_server = AuthenticationServer()
         self.auth_server.start()
         self.games = []
@@ -38,7 +37,7 @@ class PlayStation2Plugin(Plugin):
         PARAMS = {
             "window_title": "Configure PS2 Integration",
             "window_width": 575,
-            "window_height": 810,
+            "window_height": 850,
             "start_uri": "http://localhost:" + str(self.auth_server.port),
             "end_uri_regex": ".*/end.*"
         }
@@ -53,22 +52,20 @@ class PlayStation2Plugin(Plugin):
 
     def _do_auth(self) -> Authentication:
         user_data = {}
-        config_parse = config.Config()
-        config_parse.cfg.read(config.CONFIG_LOC)
-        user_data["username"] = config_parse.cfg.get("Paths", "roms_path")
+        self.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
+        user_data["username"] = self.config.cfg.get("Paths", "roms_path")
         self.store_credentials(user_data)
         return Authentication("pcsx2_user", user_data["username"])
 
 
     async def launch_game(self, game_id):
         self.running_game_id = game_id
-        config_parse = config.Config()
-        config_parse.cfg.read(config.CONFIG_LOC)
-        emu_path = config_parse.cfg.get("Paths", "emu_path")
-        config_folder = config_parse.cfg.get("Paths", "config_path")
-        fullscreen = config_parse.cfg.getboolean("EmuSettings", "emu_fullscreen")
-        no_gui = config_parse.cfg.getboolean("EmuSettings", "emu_no_gui")
-        config = config_parse.cfg.getboolean("EmuSettings", "emu_config")
+        self.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
+        emu_path = self.config.cfg.get("Paths", "emu_path")
+        config_folder = self.config.cfg.get("Paths", "config_path")
+        fullscreen = self.config.cfg.getboolean("EmuSettings", "emu_fullscreen")
+        no_gui = self.config.cfg.getboolean("EmuSettings", "emu_no_gui")
+        config = self.config.cfg.getboolean("EmuSettings", "emu_config")
 
         self._launch_game(game_id, emu_path, no_gui, fullscreen, config, config_folder)
         self.ps2_client._set_session_start()
@@ -224,9 +221,8 @@ class PlayStation2Plugin(Plugin):
 
 
     async def get_owned_games(self):
-        config_parse = config.Config()
-        config_parse.cfg.read(config.CONFIG_LOC)
-        method = config_parse.cfg.get("Method", "method")
+        self.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
+        method = self.config.cfg.get("Method", "method")
         owned_games = []
         
         if(method == "default"):

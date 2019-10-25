@@ -1,7 +1,6 @@
 import configparser
 import textwrap
 
-
 CONFIG_LOC = r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\config.ini"
 
 class Config:
