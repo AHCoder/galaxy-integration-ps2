@@ -32,7 +32,7 @@ class AuthenticationHandler(BaseHTTPRequestHandler):
             self._set_headers("text/html")
             parse_result = urlparse(self.path)
             params = parse_qs(parse_result.query)
-            logging.debug("Params are %s", params)
+            #logging.debug("Params are %s", params)
             parser = config.Config().cfg
             try:
                 parser["Paths"]["roms_path"] = params["romspath"][0]
