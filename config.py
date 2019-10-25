@@ -32,8 +32,6 @@ class Config:
                 """
             )
         )
-        self.cfg["Paths"]["emu_path"] = None
-        self.cfg["Paths"]["config_path"] = None
         
         self.cfg.add_section("EmuSettings")
         self.cfg.set("EmuSettings", textwrap.dedent(
