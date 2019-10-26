@@ -34,14 +34,15 @@ class PlayStation2Plugin(Plugin):
 
         
     async def authenticate(self, stored_credentials=None):
-        PARAMS = {
-            "window_title": "Configure PS2 Integration",
-            "window_width": 575,
-            "window_height": 850,
-            "start_uri": "http://localhost:" + str(self.auth_server.port),
-            "end_uri_regex": ".*/end.*"
-        }
-        return NextStep("web_session", PARAMS)
+        if not stored_credentials:
+            PARAMS = {
+                "window_title": "Configure PS2 Integration",
+                "window_width": 550,
+                "window_height": 730,
+                "start_uri": "http://localhost:" + str(self.auth_server.port),
+                "end_uri_regex": ".*/end.*"
+            }
+            return NextStep("web_session", PARAMS)
 
         return self._do_auth()
 
@@ -65,13 +66,13 @@ class PlayStation2Plugin(Plugin):
         config_folder = self.config.cfg.get("Paths", "config_path")
         fullscreen = self.config.cfg.getboolean("EmuSettings", "emu_fullscreen")
         no_gui = self.config.cfg.getboolean("EmuSettings", "emu_no_gui")
-        config = self.config.cfg.getboolean("EmuSettings", "emu_config")
+        emu_config = self.config.cfg.getboolean("EmuSettings", "emu_config")
 
-        self._launch_game(game_id, emu_path, no_gui, fullscreen, config, config_folder)
+        self._launch_game(game_id, emu_path, no_gui, fullscreen, emu_config, config_folder)
         self.ps2_client._set_session_start()
 
 
-    def _launch_game(self, game_id, emu_path, no_gui, fullscreen, config, config_folder) -> None:
+    def _launch_game(self, game_id, emu_path, no_gui, fullscreen, emu_config, config_folder) -> None:
         ''' Returns None
 
         Interprets user configurated options and launches PCSX2 with the chosen rom
@@ -81,7 +82,7 @@ class PlayStation2Plugin(Plugin):
                 rom_file = os.path.splitext(os.path.basename(game.path))[0]
                 config_folder_game = config_folder + "/" + rom_file
                 args = [emu_path]
-                if config and os.path.isdir(config_folder_game):
+                if emu_config and os.path.isdir(config_folder_game):
                     config_arg = "--cfgpath=" + config_folder_game
                     args.append(config_arg)
                 if fullscreen:
@@ -180,6 +181,7 @@ class PlayStation2Plugin(Plugin):
                 last_time_played = int(time.time())
                 self._update_game_time(self.running_game_id, session_duration, last_time_played)
                 self.proc = None
+                self.running_game_id = ""
         except AttributeError:
             pass
 
