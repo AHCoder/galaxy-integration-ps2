@@ -40,9 +40,9 @@ class AuthenticationHandler(BaseHTTPRequestHandler):
                 parser["Paths"]["config_path"] = params["configpath"][0] if "configpath" in params else None
                 parser["Method"]["method"] = params["method"][0]
                 parser["Method"]["api_key"] = params["apikey"][0] if "apikey" in params else None
-                parser["EmuSettings"]["emu_fullscreen"] = True if "fullscreen" in params else False
-                parser["EmuSettings"]["emu_no_gui"] = True if "nogui" in params else False
-                parser["EmuSettings"]["emu_config"] = True if "config" in params else False
+                parser["EmuSettings"]["emu_fullscreen"] = "True" if "fullscreen" in params else "False"
+                parser["EmuSettings"]["emu_no_gui"] = "True" if "nogui" in params else "False"
+                parser["EmuSettings"]["emu_config"] = "True" if "config" in params else "False"
             except Exception:
                 logging.exception("Failed to write config values")
             logging.debug("Config values have been set")

@@ -1,7 +1,7 @@
 import json
+import logging
 import os
 import re
-import sys
 import time
 import urllib.parse
 import urllib.request
@@ -53,26 +53,28 @@ class PS2Client:
         '''
         self._get_rom_names()
 
+        # Disabled caching until I find a fix
         for rom in self.roms:
+            #if rom not in self.plugin.persistent_cache:
             self.plugin.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
             url = QUERY_URL.format(self.plugin.config.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
-            
-            if rom in self.plugin.persistent_cache:
-                search_results = self.plugin.persistent_cache.get(rom)
-            else:
-                with urllib.request.urlopen(url) as response:
-                    search_results = json.loads(response.read())
-                self.plugin.persistent_cache[rom] = search_results
-               
+            with urllib.request.urlopen(url) as response:
+                search_results = json.loads(response.read())
+                logging.debug("search_results from url request are %s", search_results)
+                #self.plugin.persistent_cache[rom] = { "id" : search_results["results"][0]["id"], "name" : search_results["results"][0]["name"] }
+
+            #logging.debug("Cache value is %s", self.plugin.persistent_cache[rom])
+            id = search_results["results"][0]["id"] #self.plugin.persistent_cache[rom]["id"]
+            name = search_results["results"][0]["name"] #self.plugin.persistent_cache[rom]["name"]
             self.games.append(
                 PS2Game(
-                    str(search_results["results"][0]["id"]),
-                    str(search_results["results"][0]["name"]),
+                    str(id),
+                    str(name),
                     str(self.roms.get(rom))
                 )
             )
 
-        self.plugin.push_cache()
+        #self.plugin.push_cache()
         return self.games
 
 

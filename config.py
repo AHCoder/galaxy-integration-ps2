@@ -10,11 +10,11 @@ class Config:
         self.cfg["DEFAULT"]["roms_path"] = "C:/Games/PS2"
         self.cfg["DEFAULT"]["emu_path"] = "C:/Program Files (x86)/PCSX2 1.4.0/pcsx2.exe"
         self.cfg["DEFAULT"]["config_path"] = "C:/Documents/PCSX2/configs"
+        self.cfg["DEFAULT"]["method"] = "default"
+        self.cfg["DEFAULT"]["api_key"] = None
         self.cfg["DEFAULT"]["emu_fullscreen"] = False
         self.cfg["DEFAULT"]["emu_no_gui"] = False
         self.cfg["DEFAULT"]["emu_config"] = False
-        self.cfg["DEFAULT"]["method"] = "default"
-        self.cfg["DEFAULT"]["api_key"] = None
         
         self.cfg.add_section("Paths")
         self.cfg.set("Paths", textwrap.dedent(
@@ -31,6 +31,17 @@ class Config:
                 """
             )
         )
+
+        self.cfg.add_section("Method")
+        self.cfg.set("Method", textwrap.dedent(
+                """\
+                ; "default": your files have to be named exactly as they are in the PCSX2 database (if the name contains a ":", delete it)
+                ; "giant": use the Giant Bomb API to search for the name of your files in their database (requires a Giant Bomb account for an API key)
+                ; "iso": reads your iso files directly for the serial of the game and then matches the name to it (only adds all your games if they are all iso files)
+                ; Also set your API key here if you are using the Giant Bomb method\
+                """
+            )
+        )
         
         self.cfg.add_section("EmuSettings")
         self.cfg.set("EmuSettings", textwrap.dedent(
@@ -38,18 +49,6 @@ class Config:
                 ; emu_fullscreen: Set to True if you want to launch in fullscreen by default
                 ; emu_no_gui: Set to True if you want to suppress the gui when launching a game
                 ; emu_config: Set to True if you want to use game specific configurations\
-                """
-            )
-        )
-        
-        self.cfg.add_section("Method")
-        self.cfg.set("Method", textwrap.dedent(
-                """\
-                ; Decide which method you want to use when adding your games
-                ; "default": your files have to be named exactly as they are in the PCSX2 database (if the name contains a ":", delete it)
-                ; "giant": use the Giant Bomb API to search for the name of your files in their database (requires a Giant Bomb account for an API key)
-                ; "iso": reads your iso files directly for the serial of the game and then matches the name to it (only adds all your games if they are all iso files)
-                ; Also set your API key here if you are using the Giant Bomb method\
                 """
             )
         )

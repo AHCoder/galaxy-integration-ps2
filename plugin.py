@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import os
 import subprocess
 import sys
@@ -29,10 +30,6 @@ class PlayStation2Plugin(Plugin):
         self.tick_count = 0
 
 
-    def handshake_complete(self):
-        self.create_task(self._update_local_games(), "Update local games")
-
-        
     async def authenticate(self, stored_credentials=None):
         if not stored_credentials:
             PARAMS = {
@@ -169,7 +166,7 @@ class PlayStation2Plugin(Plugin):
         self.create_task(self._update_local_games(), "Update local games")
         self.tick_count += 1
 
-        if self.tick_count % 10 == 0:
+        if self.tick_count % 12 == 0:
             self.create_task(self._update_all_game_times(), "Update all game times")
 
 
@@ -191,6 +188,7 @@ class PlayStation2Plugin(Plugin):
         new_list = await loop.run_in_executor(None, self._local_games_list)
         notify_list = self.ps2_client._get_state_changes(self.local_games_cache, new_list)
         self.local_games_cache = new_list
+        logging.debug("Update local games: local games cache is now %s", self.local_games_cache)
         for local_game_notify in notify_list:
             self.update_local_game_status(local_game_notify)
 
