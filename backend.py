@@ -62,7 +62,7 @@ class AuthenticationServer(threading.Thread):
     def __init__(self):
         super().__init__()
         self.path = ""
-        server_address = ('localhost', 80)
+        server_address = ('localhost', 8080)
         self.httpd = HTTPServer(server_address, AuthenticationHandler)
         self.port = self.httpd.server_port
 
