@@ -76,8 +76,9 @@ class PlayStation2Plugin(Plugin):
         '''
         for game in self.games:
             if game.id == game_id:
-                rom_file = os.path.splitext(os.path.basename(game.path))[0]
-                config_folder_game = config_folder + "/" + rom_file
+                if config_folder not None:
+                    rom_file = os.path.splitext(os.path.basename(game.path))[0]
+                    config_folder_game = config_folder + "/" + rom_file
                 args = [emu_path]
                 if emu_config and os.path.isdir(config_folder_game):
                     config_arg = "--cfgpath=" + config_folder_game
