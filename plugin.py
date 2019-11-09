@@ -79,6 +79,8 @@ class PlayStation2Plugin(Plugin):
                 if config_folder is not None:
                     rom_file = os.path.splitext(os.path.basename(game.path))[0]
                     config_folder_game = config_folder + "/" + rom_file
+                    if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
+                        args.append("--fullboot")
                 args = [emu_path]
                 if emu_config and os.path.isdir(config_folder_game):
                     config_arg = "--cfgpath=" + config_folder_game
@@ -87,8 +89,6 @@ class PlayStation2Plugin(Plugin):
                     args.append("--fullscreen")
                 if no_gui:
                     args.append("--nogui")
-                if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
-                    args.append("--fullboot")
                 args.append(game.path)
                 self.proc = subprocess.Popen(args)
                 break

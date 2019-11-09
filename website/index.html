@@ -33,20 +33,29 @@
                     <label>Method</label>
                     <div>
                         <input type="radio" name="method" value="default" checked>Default<br>
-                        <input type="radio" name="method" value="giant">Giant Bomb<br>
+                        <input type="radio" name="method" value="giant">Giant Bomb*<br>
                         <input type="radio" name="method" value="iso">ISO
                     </div>
                         
                     <label>API Key</label>
                     <input class="input" name="apikey" type="text" placeholder="Optional: required only for Giant Bomb method">
+                    
+                    <div>
+                        * API key required
+                    </div>
                 </fieldset>
 
                 <fieldset>
                     <label>Emulator Options</label>
                     <div>
-                        <input type="checkbox" name="fullscreen" value="1">Fullscreen<br>
-                        <input type="checkbox" name="nogui" value="1">No gui<br>
-                        <input type="checkbox" name="config" value="1">Per-game config
+                        <input type="checkbox" name="fullscreen" value="1">Fullscreen*<br>
+                        <input type="checkbox" name="nogui" value="1">No gui*<br>
+                        <input type="checkbox" name="config" value="1">Per-game config**
+                    </div>
+
+                    <div>
+                        * Emulator path required<br>
+                        ** Config path required
                     </div>
                 </fieldset>
                     
