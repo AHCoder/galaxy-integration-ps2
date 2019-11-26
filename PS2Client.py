@@ -53,19 +53,23 @@ class PS2Client:
         '''
         self._get_rom_names()
 
-        # Disabled caching until I find a fix
         for rom in self.roms:
-            #if rom not in self.plugin.persistent_cache:
-            self.plugin.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
-            url = QUERY_URL.format(self.plugin.config.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
-            with urllib.request.urlopen(url) as response:
-                search_results = json.loads(response.read())
-                logging.debug("search_results from url request are %s", search_results)
-                #self.plugin.persistent_cache[rom] = { "id" : search_results["results"][0]["id"], "name" : search_results["results"][0]["name"] }
-
-            #logging.debug("Cache value is %s", self.plugin.persistent_cache[rom])
-            id = search_results["results"][0]["id"] #self.plugin.persistent_cache[rom]["id"]
-            name = search_results["results"][0]["name"] #self.plugin.persistent_cache[rom]["name"]
+            if rom in self.plugin.persistent_cache:
+                logging.debug("Value was in cache - %s", rom)
+                id = json.loads(self.plugin.persistent_cache.get(rom)).get("id")
+                name = json.loads(self.plugin.persistent_cache.get(rom)).get("name")
+            else:
+                self.plugin.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
+                url = QUERY_URL.format(self.plugin.config.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
+                with urllib.request.urlopen(url) as response:
+                    search_results = json.loads(response.read())
+                    logging.debug("Search results from url request are %s", search_results)
+                id = search_results["results"][0]["id"]
+                name = search_results["results"][0]["name"]
+                logging.debug("Id is %s", id)
+                logging.debug("Name is %s", name)
+                self.plugin.persistent_cache[rom] = { "id" : id, "name" : name }
+            
             self.games.append(
                 PS2Game(
                     str(id),
@@ -74,7 +78,7 @@ class PS2Client:
                 )
             )
 
-        #self.plugin.push_cache()
+        self.plugin.push_cache()
         return self.games
 
 
