@@ -185,7 +185,7 @@ class PlayStation2Plugin(Plugin):
                 self.proc = None
                 self.running_game_id = ""
         except AttributeError:
-            logging.exception("DEV: Emulator process is still running")
+            pass
 
 
     async def _update_local_games(self) -> None:
