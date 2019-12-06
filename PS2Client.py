@@ -55,19 +55,18 @@ class PS2Client:
 
         for rom in self.roms:
             if rom in self.plugin.persistent_cache:
-                logging.debug("Value was in cache - %s", rom)
-                id = json.loads(self.plugin.persistent_cache.get(rom)).get("id")
-                name = json.loads(self.plugin.persistent_cache.get(rom)).get("name")
+                logging.debug("DEV: Value was in cache - %s", rom)
+                cached_results = json.loads(self.plugin.persistent_cache.get(rom))
+                id = cached_results.get("id")
+                name = cached_results.get("name")
             else:
                 self.plugin.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
                 url = QUERY_URL.format(self.plugin.config.cfg.get("Method", "api_key"), urllib.parse.quote(rom))
                 with urllib.request.urlopen(url) as response:
                     search_results = json.loads(response.read())
-                    logging.debug("Search results from url request are %s", search_results)
+                    logging.debug("DEV: Search results from url request - %s", search_results)
                 id = search_results["results"][0]["id"]
                 name = search_results["results"][0]["name"]
-                logging.debug("Id is %s", id)
-                logging.debug("Name is %s", name)
                 self.plugin.persistent_cache[rom] = { "id" : id, "name" : name }
             
             self.games.append(
@@ -99,6 +98,7 @@ class PS2Client:
                     try:
                         iso.open(path)
                     except:
+                        logging.exception("DEV: ISO could not be opened - %s", path)
                         continue
 
                     for child in iso.list_children(iso_path='/'):

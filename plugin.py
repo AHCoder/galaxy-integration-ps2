@@ -58,6 +58,7 @@ class PlayStation2Plugin(Plugin):
 
     async def launch_game(self, game_id):
         self.running_game_id = game_id
+        logging.debug("DEV: Running game id is - %s", self.running_game_id)
         self.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
         emu_path = self.config.cfg.get("Paths", "emu_path")
         config_folder = self.config.cfg.get("Paths", "config_path")
@@ -66,6 +67,7 @@ class PlayStation2Plugin(Plugin):
         emu_config = self.config.cfg.getboolean("EmuSettings", "emu_config")
 
         self._launch_game(game_id, emu_path, no_gui, fullscreen, emu_config, config_folder)
+        logging.debug("DEV: Launch game has been called")
         self.ps2_client._set_session_start()
 
 
@@ -91,6 +93,7 @@ class PlayStation2Plugin(Plugin):
                     args.append("--nogui")
                 args.append(game.path)
                 self.proc = subprocess.Popen(args)
+                logging.debug("DEV: Game has been launched with args - %s", args)
                 break
 
 
@@ -173,7 +176,8 @@ class PlayStation2Plugin(Plugin):
 
     def _check_emu_status(self) -> None:
         try:
-            if(self.proc.poll() is not None):
+            if self.proc.poll() is not None:
+                logging.debug("DEV: Emulator process has been closed")
                 self.ps2_client._set_session_end()
                 session_duration = self.ps2_client._get_session_duration()
                 last_time_played = int(time.time())
@@ -181,7 +185,7 @@ class PlayStation2Plugin(Plugin):
                 self.proc = None
                 self.running_game_id = ""
         except AttributeError:
-            pass
+            logging.exception("DEV: Emulator process is still running")
 
 
     async def _update_local_games(self) -> None:
@@ -189,7 +193,7 @@ class PlayStation2Plugin(Plugin):
         new_list = await loop.run_in_executor(None, self._local_games_list)
         notify_list = self.ps2_client._get_state_changes(self.local_games_cache, new_list)
         self.local_games_cache = new_list
-        logging.debug("Update local games: local games cache is now %s", self.local_games_cache)
+        logging.debug("DEV: Local games cache is - %s", self.local_games_cache)
         for local_game_notify in notify_list:
             self.update_local_game_status(local_game_notify)
 
@@ -227,10 +231,13 @@ class PlayStation2Plugin(Plugin):
         owned_games = []
         
         if(method == "default"):
+            logging.debug("DEV: Default method has been chosen")
             self.games = self.ps2_client._get_games_database()
         elif(method == "giant"):
+            logging.debug("DEV: Giant bomb method has been chosen")
             self.games = self.ps2_client._get_games_giant_bomb()
         else:
+            logging.debug("DEV: ISO method has been chosen")
             self.games = self.ps2_client._get_games_read_iso()
         
         for game in self.games:
