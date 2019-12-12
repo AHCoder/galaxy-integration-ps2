@@ -24,6 +24,7 @@ class PlayStation2Plugin(Plugin):
         self.auth_server.start()
         self.games = []
         self.local_games_cache = []
+        self.owned_games_cache = []
         self.proc = None
         self.ps2_client = PS2Client(self)
         self.running_game_id = ""
@@ -228,7 +229,6 @@ class PlayStation2Plugin(Plugin):
     async def get_owned_games(self):
         self.config.cfg.read(os.path.expandvars(config.CONFIG_LOC))
         method = self.config.cfg.get("Method", "method")
-        owned_games = []
         
         if(method == "default"):
             logging.debug("DEV: Default method has been chosen")
@@ -240,8 +240,10 @@ class PlayStation2Plugin(Plugin):
             logging.debug("DEV: ISO method has been chosen")
             self.games = self.ps2_client._get_games_read_iso()
         
+        self._get_cache_changes(self.owned_games_cache, self.games)
+
         for game in self.games:
-            owned_games.append(
+            self.owned_games_cache.append(
                 Game(
                     game.id,
                     game.name,
@@ -249,7 +251,17 @@ class PlayStation2Plugin(Plugin):
                     LicenseInfo(LicenseType.SinglePurchase, None)
                 )
             )   
-        return owned_games
+        return self.owned_games_cache
+
+
+    def _get_cache_changes(self, old_list, new_list) -> list:
+        old_dict = {x.game_id: x.local_game_state for x in old_list}
+        new_dict = {x.game_id: x.local_game_state for x in new_list}
+        # removed games
+        result.extend(LocalGame(id, LocalGameState.None_) for id in old_dict.keys() - new_dict.keys())
+        # added games
+        result.extend(local_game for local_game in new_list if local_game.game_id in new_dict.keys() - old_dict.keys())
+
 
     async def get_local_games(self):
         return self.local_games_cache
