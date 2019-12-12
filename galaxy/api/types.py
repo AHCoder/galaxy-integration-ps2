@@ -61,9 +61,11 @@ class NextStep:
             if not stored_credentials:
                 return NextStep("web_session", PARAMS, cookies=COOKIES, js=JS)
 
-    :param auth_params: configuration options: {"window_title": :class:`str`, "window_width": :class:`str`, "window_height": :class:`int`, "start_uri": :class:`int`, "end_uri_regex": :class:`str`}
+    :param auth_params: configuration options: {"window_title": :class:`str`, "window_width": :class:`str`,
+     "window_height": :class:`int`, "start_uri": :class:`int`, "end_uri_regex": :class:`str`}
     :param cookies: browser initial set of cookies
-    :param js: a map of the url regex patterns into the list of *js* scripts that should be executed on every document at given step of internal browser authentication.
+    :param js: a map of the url regex patterns into the list of *js* scripts that should be executed
+     on every document at given step of internal browser authentication.
     """
     next_step: str
     auth_params: Dict[str, str]
@@ -140,7 +142,11 @@ class LocalGame:
 
 @dataclass
 class FriendInfo:
-    """Information about a friend of the currently authenticated user.
+    """
+    .. deprecated:: 0.56
+      Use :class:`UserInfo`.
+
+    Information about a friend of the currently authenticated user.
 
     :param user_id: id of the user
     :param user_name: username of the user
@@ -150,13 +156,28 @@ class FriendInfo:
 
 
 @dataclass
+class UserInfo:
+    """Information about a user of related user.
+
+    :param user_id: id of the user
+    :param user_name: username of the user
+    :param avatar_url: the URL of the user avatar
+    :param profile_url: the URL of the user profile
+    """
+    user_id: str
+    user_name: str
+    avatar_url: Optional[str]
+    profile_url: Optional[str]
+
+
+@dataclass
 class GameTime:
     """Game time of a game, defines the total time spent in the game
     and the last time the game was played.
 
     :param game_id: id of the related game
     :param time_played: the total time spent in the game in **minutes**
-    :param last_time_played: last time the game was played (**unix timestamp**)
+    :param last_played_time: last time the game was played (**unix timestamp**)
     """
     game_id: str
     time_played: Optional[int]
@@ -169,7 +190,7 @@ class GameLibrarySettings:
 
     :param game_id: id of the related game
     :param tags: collection of tags assigned to the game
-    :param hidden: indicates if the game should be hidden in GOG Galaxy application
+    :param hidden: indicates if the game should be hidden in GOG Galaxy client
     """
     game_id: str
     tags: Optional[List[str]]
@@ -180,12 +201,18 @@ class GameLibrarySettings:
 class UserPresence:
     """Presence information of a user.
 
+    The GOG Galaxy client will prefer to generate user status basing on `game_id` (or `game_title`)
+    and `in_game_status` fields but if plugin is not capable of delivering it then the `full_status` will be used if
+    available
+
     :param presence_state: the state of the user
     :param game_id: id of the game a user is currently in
     :param game_title: name of the game a user is currently in
-    :param presence_status: detailed user's presence description
+    :param in_game_status: status set by the game itself e.x. "In Main Menu"
+    :param full_status: full user status e.x. "Playing <title_name>: <in_game_status>"
     """
     presence_state: PresenceState
     game_id: Optional[str] = None
     game_title: Optional[str] = None
-    presence_status: Optional[str] = None
+    in_game_status: Optional[str] = None
+    full_status: Optional[str] = None
