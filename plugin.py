@@ -78,12 +78,12 @@ class PlayStation2Plugin(Plugin):
         '''
         for game in self.games:
             if game.id == game_id:
+                args = [emu_path]
                 if config_folder is not None:
                     rom_file = os.path.splitext(os.path.basename(game.path))[0]
                     config_folder_game = config_folder + "/" + rom_file
                     if os.path.exists(os.path.join(config_folder_game, "fullboot.ini")):
                         args.append("--fullboot")
-                args = [emu_path]
                 if emu_config and os.path.isdir(config_folder_game):
                     config_arg = "--cfgpath=" + config_folder_game
                     args.append(config_arg)
