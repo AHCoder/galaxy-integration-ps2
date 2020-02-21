@@ -119,29 +119,30 @@ class PlayStation2Plugin(Plugin):
         
         Creates and reads the game_times.json file
         '''
-        data = {}
         game_times = {}
         path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\game_times.json")
-        
-        # Check if the file exists, otherwise create it with defaults
+
         if not os.path.exists(path):
             os.makedirs(os.path.dirname(path))
-            for game in self.games:
-                data[game.id] = { "name": game.name, "time_played": 0, "last_time_played": None }
-
-            with open(path, "w", encoding="utf-8") as game_times_file:
-                json.dump(data, game_times_file, indent=4)
         
-        # Now read it and return the game times
+        # Read the games times json
         with open(path, encoding="utf-8") as game_times_file:
-            parsed_game_times_file = json.load(game_times_file)
+            data = json.load(game_times_file)
 
-        for entry in parsed_game_times_file:
-            game_id = entry
-            time_played = parsed_game_times_file.get(entry).get("time_played")
-            last_time_played = parsed_game_times_file.get(entry).get("last_time_played")
-            game_times[game_id] = GameTime(game_id, time_played, last_time_played)
+        for game in self.games:
+            if game.id in data:
+                time_played = data.get(game.id).get("time_played")
+                last_time_played = data.get(game.id).get("last_time_played")
+            else:
+                time_played = 0
+                last_time_played = None
+                data[game.id] = { "name": game.name, "time_played": 0, "last_time_played": None }
+            
+            game_times[game.id] = GameTime(game.id, time_played, last_time_played)
 
+        with open(path, "w", encoding="utf-8") as game_times_file:
+            json.dump(data, game_times_file, indent=4)
+        
         return game_times
 
 
@@ -199,7 +200,6 @@ class PlayStation2Plugin(Plugin):
 
 
     async def _update_all_game_times(self) -> None:
-        await asyncio.sleep(60) # Leave time for Galaxy to fetch games before updating times
         loop = asyncio.get_running_loop()
         new_game_times = await loop.run_in_executor(None, self._get_games_times_dict)
         for game_time in new_game_times:
