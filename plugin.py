@@ -121,13 +121,20 @@ class PlayStation2Plugin(Plugin):
         '''
         game_times = {}
         path = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\Configuration\plugins\ps2\game_times.json")
+        update_file = False
 
-        if not os.path.exists(path):
-            os.makedirs(os.path.dirname(path))
-        
         # Read the games times json
-        with open(path, encoding="utf-8") as game_times_file:
-            data = json.load(game_times_file)
+        try:
+            with open(path, encoding="utf-8") as game_times_file:
+                data = json.load(game_times_file)
+        except FileNotFoundError:
+            data = {}
+
+            if not os.path.isdir(os.path.dirname(path)):
+                os.makedirs(os.path.dirname(path))
+                
+            with open(path, "w", encoding="utf-8") as game_times_file:
+                json.dump(data, game_times_file, indent=4)
 
         for game in self.games:
             if game.id in data:
@@ -137,11 +144,13 @@ class PlayStation2Plugin(Plugin):
                 time_played = 0
                 last_time_played = None
                 data[game.id] = { "name": game.name, "time_played": 0, "last_time_played": None }
+                update_file = True
             
             game_times[game.id] = GameTime(game.id, time_played, last_time_played)
 
-        with open(path, "w", encoding="utf-8") as game_times_file:
-            json.dump(data, game_times_file, indent=4)
+        if update_file == True:
+            with open(path, "w", encoding="utf-8") as game_times_file:
+                json.dump(data, game_times_file, indent=4)
         
         return game_times
 
