@@ -746,7 +746,7 @@ class EltoritoBootCatalog(object):
         self.initial_entry.new(sector_count, load_seg, media_name, system_type,
                                bootable)
         self.initial_entry.set_inode(ino)
-        ino.linked_records.append(self.initial_entry)
+        ino.linked_records.append((self.initial_entry, False))
 
         self.br = br
 
@@ -790,7 +790,7 @@ class EltoritoBootCatalog(object):
         secentry = EltoritoEntry()
         secentry.new(sector_count, load_seg, media_name, system_type, bootable)
         secentry.set_inode(ino)
-        ino.linked_records.append(secentry)
+        ino.linked_records.append((secentry, False))
 
         sec.add_new_entry(secentry)
 
@@ -877,7 +877,15 @@ class EltoritoBootCatalog(object):
         if not self._initialized:
             raise pycdlibexception.PyCdlibInternalError('El Torito Boot Catalog not yet initialized')
 
-        self.br.update_boot_system_use(struct.pack('<L', current_extent))
+        packed = struct.pack('<L', current_extent)
+
+        ba = bytearray(self.br.boot_system_use)
+        ba[0] = packed[0]
+        ba[1] = packed[1]
+        ba[2] = packed[2]
+        ba[3] = packed[3]
+
+        self.br.update_boot_system_use(bytes(ba))
 
 
 def hdmbrcheck(disk_mbr, sector_count, bootable):

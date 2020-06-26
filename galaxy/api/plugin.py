@@ -4,15 +4,16 @@ import json
 import logging
 import sys
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any, Dict, List, Optional, Set, Union, AsyncGenerator
 
 from galaxy.api.consts import Feature, OSCompatibility
-from galaxy.api.errors import ImportInProgress, UnknownError
 from galaxy.api.jsonrpc import ApplicationError, Connection
 from galaxy.api.types import (
-    Achievement, Authentication, Game, GameLibrarySettings, GameTime, LocalGame, NextStep, UserInfo, UserPresence
+    Achievement, Authentication, Game, GameLibrarySettings, GameTime, LocalGame, NextStep, UserInfo, UserPresence,
+    Subscription, SubscriptionGame
 )
 from galaxy.task_manager import TaskManager
+from galaxy.api.importer import Importer, CollectionImporter
 
 
 logger = logging.getLogger(__name__)
@@ -29,69 +30,6 @@ class JSONEncoder(json.JSONEncoder):
         if isinstance(o, Enum):
             return o.value
         return super().default(o)
-
-
-class Importer:
-    def __init__(
-        self,
-        task_manger,
-        name,
-        get,
-        prepare_context,
-        notification_success,
-        notification_failure,
-        notification_finished,
-        complete
-    ):
-        self._task_manager = task_manger
-        self._name = name
-        self._get = get
-        self._prepare_context = prepare_context
-        self._notification_success = notification_success
-        self._notification_failure = notification_failure
-        self._notification_finished = notification_finished
-        self._complete = complete
-
-        self._import_in_progress = False
-
-    async def start(self, ids):
-        if self._import_in_progress:
-            raise ImportInProgress()
-
-        async def import_element(id_, context_):
-            try:
-                element = await self._get(id_, context_)
-                self._notification_success(id_, element)
-            except ApplicationError as error:
-                self._notification_failure(id_, error)
-            except asyncio.CancelledError:
-                pass
-            except Exception:
-                logger.exception("Unexpected exception raised in %s importer", self._name)
-                self._notification_failure(id_, UnknownError())
-
-        async def import_elements(ids_, context_):
-            try:
-                imports = [import_element(id_, context_) for id_ in ids_]
-                await asyncio.gather(*imports)
-                self._notification_finished()
-                self._complete()
-            except asyncio.CancelledError:
-                logger.debug("Importing %s cancelled", self._name)
-            finally:
-                self._import_in_progress = False
-
-        self._import_in_progress = True
-        try:
-            context = await self._prepare_context(ids)
-            self._task_manager.create_task(
-                import_elements(ids, context),
-                "{} import".format(self._name),
-                handle_exceptions=False
-            )
-        except:
-            self._import_in_progress = False
-            raise
 
 
 class Plugin:
@@ -166,6 +104,27 @@ class Plugin:
             self._user_presence_import_finished,
             self.user_presence_import_complete
         )
+        self._local_size_importer = Importer(
+            self._external_task_manager,
+            "local size",
+            self.get_local_size,
+            self.prepare_local_size_context,
+            self._local_size_import_success,
+            self._local_size_import_failure,
+            self._local_size_import_finished,
+            self.local_size_import_complete
+        )
+        self._subscription_games_importer = CollectionImporter(
+            self._subscriptions_games_partial_import_finished,
+            self._external_task_manager,
+            "subscription games",
+            self.get_subscription_games,
+            self.prepare_subscription_games_context,
+            self._subscription_games_import_success,
+            self._subscription_games_import_failure,
+            self._subscription_games_import_finished,
+            self.subscription_games_import_complete
+        )
 
         # internal
         self._register_method("shutdown", self._shutdown, internal=True)
@@ -233,6 +192,15 @@ class Plugin:
         self._register_method("start_user_presence_import", self._start_user_presence_import)
         self._detect_feature(Feature.ImportUserPresence, ["get_user_presence"])
 
+        self._register_method("start_local_size_import", self._start_local_size_import)
+        self._detect_feature(Feature.ImportLocalSize, ["get_local_size"])
+
+        self._register_method("import_subscriptions", self.get_subscriptions, result_name="subscriptions")
+        self._detect_feature(Feature.ImportSubscriptions, ["get_subscriptions"])
+
+        self._register_method("start_subscription_games_import", self._start_subscription_games_import)
+        self._detect_feature(Feature.ImportSubscriptionGames, ["get_subscription_games"])
+
     async def __aenter__(self):
         return self
 
@@ -260,7 +228,8 @@ class Plugin:
         if self._implements(methods):
             self._features.add(feature)
 
-    def _register_method(self, name, handler, result_name=None, internal=False, immediate=False, sensitive_params=False):
+    def _register_method(self, name, handler, result_name=None, internal=False, immediate=False,
+                         sensitive_params=False):
         def wrap_result(result):
             if result_name:
                 result = {
@@ -613,6 +582,57 @@ class Plugin:
     def _user_presence_import_finished(self) -> None:
         self._connection.send_notification("user_presence_import_finished", None)
 
+    def _local_size_import_success(self, game_id: str, size: Optional[int]) -> None:
+        self._connection.send_notification(
+            "local_size_import_success",
+            {
+                "game_id": game_id,
+                "local_size": size
+            }
+        )
+
+    def _local_size_import_failure(self, game_id: str, error: ApplicationError) -> None:
+        self._connection.send_notification(
+            "local_size_import_failure",
+            {
+                "game_id": game_id,
+                "error": error.json()
+            }
+        )
+
+    def _local_size_import_finished(self) -> None:
+        self._connection.send_notification("local_size_import_finished", None)
+
+    def _subscription_games_import_success(self, subscription_name: str,
+                                           subscription_games: Optional[List[SubscriptionGame]]) -> None:
+        self._connection.send_notification(
+            "subscription_games_import_success",
+            {
+                "subscription_name": subscription_name,
+                "subscription_games": subscription_games
+            }
+        )
+
+    def _subscription_games_import_failure(self, subscription_name: str, error: ApplicationError) -> None:
+        self._connection.send_notification(
+            "subscription_games_import_failure",
+            {
+                "subscription_name": subscription_name,
+                "error": error.json()
+            }
+        )
+
+    def _subscriptions_games_partial_import_finished(self, subscription_name: str) -> None:
+        self._connection.send_notification(
+            "subscription_games_partial_import_finished",
+            {
+               "subscription_name": subscription_name
+            }
+        )
+
+    def _subscription_games_import_finished(self) -> None:
+        self._connection.send_notification("subscription_games_import_finished", None)
+
     def lost_authentication(self) -> None:
         """Notify the client that integration has lost authentication for the
          current user and is unable to perform actions which would require it.
@@ -672,7 +692,7 @@ class Plugin:
         This method is called by the GOG Galaxy Client.
 
         :param stored_credentials: If the client received any credentials to store locally
-         in the previous session they will be passed here as a parameter.
+            in the previous session they will be passed here as a parameter.
 
 
         Example of possible override of the method:
@@ -694,7 +714,7 @@ class Plugin:
         raise NotImplementedError()
 
     async def pass_login_credentials(self, step: str, credentials: Dict[str, str], cookies: List[Dict[str, str]]) \
-        -> Union[NextStep, Authentication]:
+            -> Union[NextStep, Authentication]:
         """This method is called if we return :class:`~galaxy.api.types.NextStep` from :meth:`.authenticate`
         or :meth:`.pass_login_credentials`.
         This method's parameters provide the data extracted from the web page navigation that previous NextStep finished on.
@@ -966,7 +986,7 @@ class Plugin:
         await self._user_presence_importer.start(user_id_list)
 
     async def prepare_user_presence_context(self, user_id_list: List[str]) -> Any:
-        """Override this method to prepare context for get_user_presence.
+        """Override this method to prepare context for :meth:`get_user_presence`.
         This allows for optimizations like batch requests to platform API.
         Default implementation returns None.
 
@@ -987,6 +1007,81 @@ class Plugin:
 
     def user_presence_import_complete(self) -> None:
         """Override this method to handle operations after presence import is finished (like updating cache)."""
+
+    async def _start_local_size_import(self, game_ids: List[str]) -> None:
+        await self._local_size_importer.start(game_ids)
+
+    async def prepare_local_size_context(self, game_ids: List[str]) -> Any:
+        """Override this method to prepare context for :meth:`get_local_size`
+        Default implementation returns None.
+
+        :param game_ids: the ids of the games for which information about size is imported
+        :return: context
+        """
+        return None
+
+    async def get_local_size(self, game_id: str, context: Any) -> Optional[int]:
+        """Override this method to return installed game size.
+
+        .. note::
+          It is preferable to avoid iterating over local game files when overriding this method.
+          If possible, please use a more efficient way of game size retrieval.
+
+        :param game_id: the id of the installed game
+        :param context: the value returned from :meth:`prepare_local_size_context`
+        :return: the size of the game on a user-owned storage device (in bytes) or `None` if the size cannot be determined
+        """
+        raise NotImplementedError()
+
+    def local_size_import_complete(self) -> None:
+        """Override this method to handle operations after local game size import is finished (like updating cache)."""
+
+    async def get_subscriptions(self) -> List[Subscription]:
+        """Override this method to return a list of
+        Subscriptions available on platform.
+        This method is called by the GOG Galaxy Client.
+        """
+        raise NotImplementedError()
+
+    async def _start_subscription_games_import(self, subscription_names: List[str]) -> None:
+        await self._subscription_games_importer.start(subscription_names)
+
+    async def prepare_subscription_games_context(self, subscription_names: List[str]) -> Any:
+        """Override this method to prepare context for :meth:`get_subscription_games`
+        Default implementation returns None.
+
+        :param subscription_names: the names of the subscriptions' for which subscriptions games are imported
+        :return: context
+        """
+        return None
+
+    async def get_subscription_games(self, subscription_name: str, context: Any) -> AsyncGenerator[
+        List[SubscriptionGame], None]:
+        """Override this method to provide SubscriptionGames for a given subscription.
+        This method should `yield` a list of SubscriptionGames -> yield [sub_games]
+
+        This method will only be used if :meth:`get_subscriptions` has been implemented.
+
+        :param context: the value returned from :meth:`prepare_subscription_games_context`
+        :return a generator object that yields SubscriptionGames
+
+        .. code-block:: python
+            :linenos:
+
+            async def get_subscription_games(subscription_name: str, context: Any):
+                while True:
+                    games_page = await self._get_subscriptions_from_backend(subscription_name, i)
+                    if not games_pages:
+                        yield None
+                    yield [SubGame(game['game_id'], game['game_title']) for game in games_page]
+
+        """
+        raise NotImplementedError()
+
+    def subscription_games_import_complete(self) -> None:
+        """Override this method to handle operations after
+        subscription games import is finished (like updating cache).
+        """
 
 
 def create_and_run_plugin(plugin_class, argv):
@@ -1036,7 +1131,6 @@ def create_and_run_plugin(plugin_class, argv):
         finally:
             writer.close()
             await writer.wait_closed()
-
 
     try:
         if sys.platform == "win32":

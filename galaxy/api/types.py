@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-from galaxy.api.consts import LicenseType, LocalGameState, PresenceState
+from galaxy.api.consts import LicenseType, LocalGameState, PresenceState, SubscriptionDiscovery
 
 
 @dataclass
@@ -62,10 +62,10 @@ class NextStep:
                 return NextStep("web_session", PARAMS, cookies=COOKIES, js=JS)
 
     :param auth_params: configuration options: {"window_title": :class:`str`, "window_width": :class:`str`,
-     "window_height": :class:`int`, "start_uri": :class:`int`, "end_uri_regex": :class:`str`}
+        "window_height": :class:`int`, "start_uri": :class:`int`, "end_uri_regex": :class:`str`}
     :param cookies: browser initial set of cookies
     :param js: a map of the url regex patterns into the list of *js* scripts that should be executed
-     on every document at given step of internal browser authentication.
+        on every document at given step of internal browser authentication.
     """
     next_step: str
     auth_params: Dict[str, str]
@@ -216,3 +216,42 @@ class UserPresence:
     game_title: Optional[str] = None
     in_game_status: Optional[str] = None
     full_status: Optional[str] = None
+
+
+@dataclass
+class Subscription:
+    """Information about a subscription.
+
+    :param subscription_name: name of the subscription, will also be used as its identifier.
+    :param owned: whether the subscription is owned or not, None if unknown.
+    :param end_time: unix timestamp of when the subscription ends, None if unknown.
+    :param subscription_discovery: combination of settings that can be manually
+        chosen by user to determine subscription handling behaviour. For example, if the integration cannot retrieve games
+        for subscription when user doesn't own it, then USER_ENABLED should not be used.
+        If the integration cannot determine subscription ownership for a user then AUTOMATIC should not be used.
+
+    """
+    subscription_name: str
+    owned: Optional[bool] = None
+    end_time: Optional[int] = None
+    subscription_discovery: SubscriptionDiscovery = SubscriptionDiscovery.AUTOMATIC | \
+                                                                 SubscriptionDiscovery.USER_ENABLED
+
+    def __post_init__(self):
+        assert self.subscription_discovery in [SubscriptionDiscovery.AUTOMATIC, SubscriptionDiscovery.USER_ENABLED,
+                                               SubscriptionDiscovery.AUTOMATIC | SubscriptionDiscovery.USER_ENABLED]
+
+
+@dataclass
+class SubscriptionGame:
+    """Information about a game from a subscription.
+
+    :param game_title: title of the game
+    :param game_id: id of the game
+    :param start_time: unix timestamp of when the game has been added to subscription
+    :param end_time: unix timestamp of when the game will be removed from subscription.
+    """
+    game_title: str
+    game_id: str
+    start_time: Optional[int] = None
+    end_time: Optional[int] = None

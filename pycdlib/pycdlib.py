@@ -1,4 +1,4 @@
-# Copyright (C) 2015-2019  Chris Lalancette <clalancette@gmail.com>
+# Copyright (C) 2015-2020  Chris Lalancette <clalancette@gmail.com>
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -478,6 +478,10 @@ def _assign_udf_desc_extents(descs, start_extent):
         pvd.set_extent_location(current_extent)
         current_extent += 1
 
+    if descs.desc_pointer.initialized:
+        descs.desc_pointer.set_extent_location(current_extent)
+        current_extent += 1
+
     for impl_use in descs.impl_use:
         impl_use.set_extent_location(current_extent)
         current_extent += 1
@@ -494,8 +498,9 @@ def _assign_udf_desc_extents(descs, start_extent):
         unallocated_space.set_extent_location(current_extent)
         current_extent += 1
 
-    descs.terminator.set_extent_location(current_extent)
-    current_extent += 1
+    if descs.terminator.initialized:
+        descs.terminator.set_extent_location(current_extent)
+        current_extent += 1
 
 
 def _find_dr_record_by_name(vd, path, encoding):
@@ -590,7 +595,7 @@ class PyCdlib(object):
         A class to represent a UDF Descriptor Sequence.
         '''
         __slots__ = ('pvds', 'impl_use', 'partitions', 'logical_volumes',
-                     'unallocated_space', 'terminator')
+                     'unallocated_space', 'terminator', 'desc_pointer')
 
         def __init__(self):
             # type: () -> None
@@ -600,6 +605,7 @@ class PyCdlib(object):
             self.logical_volumes = []  # type: List[udfmod.UDFLogicalVolumeDescriptor]
             self.unallocated_space = []  # type: List[udfmod.UDFUnallocatedSpaceDescriptor]
             self.terminator = udfmod.UDFTerminatingDescriptor()
+            self.desc_pointer = udfmod.UDFVolumeDescriptorPointer()
 
         def append_to_list(self, which, desc):
             # type: (str, Union[udfmod.UDFPrimaryVolumeDescriptor, udfmod.UDFImplementationUseVolumeDescriptor, udfmod.UDFPartitionVolumeDescriptor, udfmod.UDFLogicalVolumeDescriptor, udfmod.UDFUnallocatedSpaceDescriptor]) -> None
@@ -623,6 +629,60 @@ class PyCdlib(object):
                         raise pycdlibexception.PyCdlibInvalidISO('Descriptors with same sequence number do not have the same contents')
 
             vols.append(desc)
+
+    def _initialize(self):
+        # type: () -> None
+        '''
+        An internal method to re-initialize the object.  Called from
+        both __init__ and close.
+
+        Parameters:
+         None.
+        Returns:
+         Nothing.
+        '''
+        self._cdfp = BytesIO()
+        self.svds = []  # type: List[headervd.PrimaryOrSupplementaryVD]
+        self.brs = []  # type: List[headervd.BootRecord]
+        self.vdsts = []  # type: List[headervd.VolumeDescriptorSetTerminator]
+        self.eltorito_boot_catalog = None  # type: Optional[eltorito.EltoritoBootCatalog]
+        self._initialized = False
+        self.rock_ridge = ''
+        self.isohybrid_mbr = None  # type: Optional[isohybrid.IsoHybrid]
+        self.xa = False
+        self._managing_fp = False
+        self.pvds = []  # type: List[headervd.PrimaryOrSupplementaryVD]
+        self._has_udf = False
+        self.udf_beas = []  # type: List[udfmod.BEAVolumeStructure]
+        self.udf_boots = []  # type: List[udfmod.UDFBootDescriptor]
+        self.udf_nsr = udfmod.NSRVolumeStructure()
+        self.udf_teas = []  # type: List[udfmod.TEAVolumeStructure]
+        self.udf_anchors = []  # type: List[udfmod.UDFAnchorVolumeStructure]
+        self.udf_main_descs = self._UDFDescriptorSequence()
+        self.udf_reserve_descs = self._UDFDescriptorSequence()
+        self.udf_logical_volume_integrity = None  # type: Optional[udfmod.UDFLogicalVolumeIntegrityDescriptor]
+        self.udf_logical_volume_integrity_terminator = None  # type: Optional[udfmod.UDFTerminatingDescriptor]
+        self.udf_root = None  # type: Optional[udfmod.UDFFileEntry]
+        self.udf_file_set = udfmod.UDFFileSetDescriptor()
+        self.udf_file_set_terminator = None  # type: Optional[udfmod.UDFTerminatingDescriptor]
+        self._needs_reshuffle = False
+        self._rr_moved_record = dr.DirectoryRecord()
+        self._rr_moved_name = None  # type: Optional[bytes]
+        self._rr_moved_rr_name = None  # type: Optional[bytes]
+        self.enhanced_vd = None  # type: Optional[headervd.PrimaryOrSupplementaryVD]
+        self.joliet_vd = None  # type: Optional[headervd.PrimaryOrSupplementaryVD]
+        self._find_iso_record.cache_clear()  # pylint: disable=no-member
+        self._find_rr_record.cache_clear()  # pylint: disable=no-member
+        self._find_joliet_record.cache_clear()  # pylint: disable=no-member
+        self._find_udf_record.cache_clear()  # pylint: disable=no-member
+        self._write_check_list = []  # type: List[PyCdlib._WriteRange]
+        self.version_vd = None  # type: Optional[headervd.VersionVolumeDescriptor]
+        self.inodes = []  # type: List[inode.Inode]
+        # We default to a logical block size of 2048; this will be overridden
+        # by the block size from the PVD or the detected block size during an
+        # open.
+        self.logical_block_size = 2048
+        self.interchange_level = 1  # type: int
 
     def _parse_volume_descriptors(self):
         # type: () -> None
@@ -962,7 +1022,7 @@ class PyCdlib(object):
         # seen a particular version, we only allow records of that version or
         # None (to account for dotdot records which have no Rock Ridge).
         if not self.rock_ridge:
-            self.rock_ridge = rr  # type: str
+            self.rock_ridge = rr
         else:
             for ver in ('1.09', '1.10', '1.12'):
                 if self.rock_ridge == ver:
@@ -1079,7 +1139,7 @@ class PyCdlib(object):
                             extent_to_inode[extent_to_use] = ino
                             self.inodes.append(ino)
 
-                        ino.linked_records.append(new_record)
+                        ino.linked_records.append((new_record, vd == self.pvd))
                         new_record.inode = ino
 
                     new_end = extent_to_use * self.logical_block_size + len_to_use
@@ -1088,7 +1148,7 @@ class PyCdlib(object):
                         # Since this can't be true, truncate the file size.
                         if new_record.inode is not None:
                             new_record.inode.data_length = iso_file_length - extent_to_use * self.logical_block_size
-                            for rec in new_record.inode.linked_records:
+                            for rec, is_pvd in new_record.inode.linked_records:
                                 rec.set_data_length(new_end)
                     else:
                         # The new end is still within the file size, but the PVD
@@ -1168,60 +1228,6 @@ class PyCdlib(object):
                     cl.rock_ridge.cl_to_moved_dr.rock_ridge.moved_to_cl_dr = cl
 
         return interchange_level, lastbyte
-
-    def _initialize(self):
-        # type: () -> None
-        '''
-        An internal method to re-initialize the object.  Called from
-        both __init__ and close.
-
-        Parameters:
-         None.
-        Returns:
-         Nothing.
-        '''
-        self._cdfp = BytesIO()
-        self.svds = []  # type: List[headervd.PrimaryOrSupplementaryVD]
-        self.brs = []  # type: List[headervd.BootRecord]
-        self.vdsts = []  # type: List[headervd.VolumeDescriptorSetTerminator]
-        self.eltorito_boot_catalog = None  # type: Optional[eltorito.EltoritoBootCatalog]
-        self._initialized = False
-        self.rock_ridge = ''
-        self.isohybrid_mbr = None  # type: Optional[isohybrid.IsoHybrid]
-        self.xa = False
-        self._managing_fp = False
-        self.pvds = []  # type: List[headervd.PrimaryOrSupplementaryVD]
-        self._has_udf = False
-        self.udf_beas = []  # type: List[udfmod.BEAVolumeStructure]
-        self.udf_boots = []  # type: List[udfmod.UDFBootDescriptor]
-        self.udf_nsr = udfmod.NSRVolumeStructure()  # type: udfmod.NSRVolumeStructure
-        self.udf_teas = []  # type: List[udfmod.TEAVolumeStructure]
-        self.udf_anchors = []  # type: List[udfmod.UDFAnchorVolumeStructure]
-        self.udf_main_descs = self._UDFDescriptorSequence()
-        self.udf_reserve_descs = self._UDFDescriptorSequence()
-        self.udf_logical_volume_integrity = None  # type: Optional[udfmod.UDFLogicalVolumeIntegrityDescriptor]
-        self.udf_logical_volume_integrity_terminator = None  # type: Optional[udfmod.UDFTerminatingDescriptor]
-        self.udf_root = None  # type: Optional[udfmod.UDFFileEntry]
-        self.udf_file_set = udfmod.UDFFileSetDescriptor()
-        self.udf_file_set_terminator = None  # type: Optional[udfmod.UDFTerminatingDescriptor]
-        self._needs_reshuffle = False
-        self._rr_moved_record = None  # type: ignore
-        self._rr_moved_name = None  # type: Optional[bytes]
-        self._rr_moved_rr_name = None  # type: Optional[bytes]
-        self.enhanced_vd = None  # type: Optional[headervd.PrimaryOrSupplementaryVD]
-        self.joliet_vd = None  # type: Optional[headervd.PrimaryOrSupplementaryVD]
-        self._find_iso_record.cache_clear()  # pylint: disable=no-member
-        self._find_rr_record.cache_clear()  # pylint: disable=no-member
-        self._find_joliet_record.cache_clear()  # pylint: disable=no-member
-        self._find_udf_record.cache_clear()  # pylint: disable=no-member
-        self._write_check_list = []  # type: List[PyCdlib._WriteRange]
-        self.version_vd = None  # type: Optional[headervd.VersionVolumeDescriptor]
-        self.inodes = []  # type: List[inode.Inode]
-        # We default to a logical block size of 2048; this will be overridden
-        # by the block size from the PVD or the detected block size during an
-        # open.
-        self.logical_block_size = 2048  # type: int
-        self.interchange_level = 1  # type: int
 
     def _parse_path_table(self, ptr_size, extent):
         # type: (int, int) -> Tuple[List[path_table_record.PathTableRecord], Dict[int, path_table_record.PathTableRecord]]
@@ -1489,7 +1495,7 @@ class PyCdlib(object):
             # Now assign files (this includes symlinks).
             udf_file_entry_inodes_assigned = {}  # type: Dict[int, bool]
             for udf_file_assign_entry, fi_desc in udf_file_assign_list:
-                if udf_file_assign_entry is None:
+                if udf_file_assign_entry is None or fi_desc is None:
                     continue
 
                 if udf_file_assign_entry.inode is not None and id(udf_file_assign_entry.inode) in udf_file_entry_inodes_assigned:
@@ -1503,7 +1509,7 @@ class PyCdlib(object):
                     # The data location for files will be set later.
                     if udf_file_assign_entry.inode.get_data_length() > 0:
                         udf_files.append(udf_file_assign_entry.inode)
-                    for rec in udf_file_assign_entry.inode.linked_records:
+                    for rec, pvd_unused in udf_file_assign_entry.inode.linked_records:
                         if isinstance(rec, udfmod.UDFFileEntry):
                             rec.set_extent_location(current_extent,
                                                     current_extent - part_start)
@@ -1575,7 +1581,7 @@ class PyCdlib(object):
                 current_extent += 1
 
             ino.set_extent_location(current_extent)
-            for rec in ino.linked_records:
+            for rec, pvd_unused in ino.linked_records:
                 rec.set_data_location(current_extent,
                                       current_extent - part_start)
 
@@ -1587,26 +1593,77 @@ class PyCdlib(object):
             self.eltorito_boot_catalog.update_catalog_extent(current_extent)
             for rec in self.eltorito_boot_catalog.dirrecords:
                 rec.set_data_location(current_extent, current_extent - part_start)
+
             current_extent += utils.ceiling_div(self.eltorito_boot_catalog.dirrecords[0].get_data_length(),
                                                 self.logical_block_size)
 
-            entries_to_update = [self.eltorito_boot_catalog.initial_entry]
+            class _EltoritoEncapsulation(object):
+                '''
+                Internal class to encapsulate an El Torito Entry object with
+                additional necessary metadata for sorting.
+                '''
+                def __init__(self, entry, platform_id, name):
+                    self.entry = entry
+                    self.platform_id = platform_id
+                    self.name = name
+
+                def __lt__(self, other):
+                    return self.name < other.name
+
+            def _add_entry_to_enc_list(enc_to_update, entry, platform_id):
+                # type: (List[_EltoritoEncapsulation], eltorito.EltoritoEntry, int) -> None
+                added_enc = False
+                for rec, is_pvd in entry.inode.linked_records:
+                    if not is_pvd:
+                        continue
+
+                    if not isinstance(rec, udfmod.UDFFileEntry) and not isinstance(rec, dr.DirectoryRecord):
+                        continue
+
+                    enc = _EltoritoEncapsulation(entry, platform_id, rec.file_identifier())
+                    bisect.insort_right(enc_to_update, enc)
+                    added_enc = True
+
+                if not added_enc:
+                    # In this case, the entry wasn't linked into the PVD
+                    # filesystem at all.  Just add an entry with a dummy name
+                    # that is guaranteed to sort first.
+                    enc = _EltoritoEncapsulation(entry, platform_id, b'AAAAAAAA.;1')
+                    bisect.insort_right(enc_to_update, enc)
+
+            enc_to_update = []  # type: List[_EltoritoEncapsulation]
+            _add_entry_to_enc_list(enc_to_update, self.eltorito_boot_catalog.initial_entry, self.eltorito_boot_catalog.validation_entry.platform_id)
+
             for sec in self.eltorito_boot_catalog.sections:
                 for entry in sec.section_entries:
-                    entries_to_update.append(entry)
+                    _add_entry_to_enc_list(enc_to_update, entry, sec.platform_id)
 
-            for entry in entries_to_update:
-                if id(entry.inode) in linked_inodes:
+            for entry in self.eltorito_boot_catalog.standalone_entries:
+                _add_entry_to_enc_list(enc_to_update, entry, self.eltorito_boot_catalog.validation_entry.platform_id)
+
+            num_seen_efi = 0
+            for enc in enc_to_update:
+                if id(enc.entry.inode) in linked_inodes:
                     continue
 
-                entry.set_data_location(current_extent,
-                                        current_extent - part_start)
-                if self.isohybrid_mbr is not None:
-                    self.isohybrid_mbr.update_rba(current_extent)
+                enc.entry.set_data_location(current_extent,
+                                            current_extent - part_start)
 
-                current_extent = _set_inode(entry.inode, current_extent,
+                if self.isohybrid_mbr is not None:
+                    if enc.platform_id == 0xef:
+                        if num_seen_efi == 0:
+                            self.isohybrid_mbr.update_efi(current_extent, entry.sector_count, self.pvd.space_size * self.logical_block_size)
+                        elif num_seen_efi == 1:
+                            self.isohybrid_mbr.update_mac(current_extent, entry.sector_count)
+                        else:
+                            raise pycdlibexception.PyCdlibInternalError('Only expected two EFI sections')
+                        num_seen_efi += 1
+                    elif enc.platform_id == 0:
+                        self.isohybrid_mbr.update_rba(current_extent)
+
+                current_extent = _set_inode(enc.entry.inode, current_extent,
                                             part_start)
-                linked_inodes[id(entry.inode)] = True
+                linked_inodes[id(enc.entry.inode)] = True
 
         for ino in pvd_files + joliet_files + udf_files:
             if id(ino) in linked_inodes:
@@ -1754,7 +1811,7 @@ class PyCdlib(object):
          may be zero).
         '''
 
-        if self._rr_moved_record is not None:
+        if self._rr_moved_record.initialized:
             return 0
 
         if self._rr_moved_name is None:
@@ -1926,7 +1983,7 @@ class PyCdlib(object):
                 extent_to_inode[entry_extent] = ino
                 self.inodes.append(ino)
 
-            ino.linked_records.append(entry)
+            ino.linked_records.append((entry, False))
             entry.set_inode(ino)
 
     def _parse_udf_vol_descs(self, extent, length, descs):
@@ -1961,6 +2018,10 @@ class PyCdlib(object):
                 pvd = udfmod.UDFPrimaryVolumeDescriptor()
                 pvd.parse(vd_data[offset:offset + 512], current_extent, desc_tag)
                 descs.append_to_list('pvds', pvd)
+            elif desc_tag.tag_ident == 3:
+                descs.desc_pointer.parse(vd_data[offset:offset + 512],
+                                         current_extent, desc_tag)
+                done = True
             elif desc_tag.tag_ident == 4:
                 impl_use = udfmod.UDFImplementationUseVolumeDescriptor()
                 impl_use.parse(vd_data[offset:offset + 512],
@@ -1983,6 +2044,9 @@ class PyCdlib(object):
                 descs.append_to_list('unallocated_space', unallocated_space)
             elif desc_tag.tag_ident == 8:
                 descs.terminator.parse(current_extent, desc_tag)
+                done = True
+            elif desc_tag.tag_ident == 0:
+                # This would be an unrecorded sector, so we are done.
                 done = True
             else:
                 raise pycdlibexception.PyCdlibInvalidISO('UDF Tag identifier not %d' % (desc_tag.tag_ident))
@@ -2233,7 +2297,7 @@ class PyCdlib(object):
                                 extent_to_inode[abs_file_data_extent] = ino
                                 self.inodes.append(ino)
 
-                            ino.linked_records.append(next_entry)
+                            ino.linked_records.append((next_entry, False))
                             next_entry.inode = ino
                 udf_file_entry.finish_directory_parse()
 
@@ -2265,10 +2329,22 @@ class PyCdlib(object):
 
         old = self._cdfp.tell()
         self._cdfp.seek(0)
-        tmp_mbr = isohybrid.IsoHybrid()
-        if tmp_mbr.parse(self._cdfp.read(512)):
+        tmp_isohybrid = isohybrid.IsoHybrid()
+        if tmp_isohybrid.parse(self._cdfp.read(16 * 2048)):
+            if tmp_isohybrid.efi:
+                # If we have an EFI partition, we now need to go find the backup
+                # LBA and parse that.  The backup_lba attribute tells us the
+                # location of the GPT Header, which is *after* the backup
+                # partition information, so we first parse that, then go find
+                # out how many more partitions we need to parse.
+                self._cdfp.seek(tmp_isohybrid.primary_gpt.header.backup_lba * 512)
+                tmp_isohybrid.parse_secondary_gpt_header(self._cdfp.read(512))
+
+                self._cdfp.seek((tmp_isohybrid.secondary_gpt.header.current_lba * 512) - (tmp_isohybrid.secondary_gpt.header.num_parts * 128))
+                tmp_isohybrid.parse_secondary_gpt_partitions(self._cdfp.read(tmp_isohybrid.secondary_gpt.header.num_parts * 128))
+
             # We only save the object if it turns out to be a valid IsoHybrid.
-            self.isohybrid_mbr = tmp_mbr
+            self.isohybrid_mbr = tmp_isohybrid
         self._cdfp.seek(old)
 
         if self.pvd.application_use[141:149] == b'CD-XA001':
@@ -2304,6 +2380,20 @@ class PyCdlib(object):
         # Parse all of the files starting from the PVD root directory record.
         ic_level, lastbyte = self._walk_directories(self.pvd, extent_to_ptr,
                                                     extent_to_inode, le_ptrs)
+
+        if self.eltorito_boot_catalog is not None:
+            if not self.eltorito_boot_catalog.dirrecords:
+                # We expect the boot catalog to have at *least* one directory
+                # record attached.  If we run across an ISO that doesn't have
+                # that, we attach a "fake" one so that later steps do the right
+                # thing.  Note that this will never be written out since we
+                # don't add it to the main PVD directory structure.
+                new_record = dr.DirectoryRecord()
+                new_record.new_file(self.pvd, self.logical_block_size,
+                                    b'FAKEELT.;1',
+                                    self.pvd.root_directory_record(), 0, '',
+                                    b'', False, 0)
+                self.eltorito_boot_catalog.add_dirrecord(new_record)
 
         self.interchange_level = max(self.interchange_level, ic_level)
 
@@ -2755,6 +2845,12 @@ class PyCdlib(object):
             self._outfp_write_with_check(outfp, rec)
             progress.call(len(rec))
 
+        if descs.desc_pointer.initialized:
+            outfp.seek(descs.desc_pointer.extent_location() * self.logical_block_size)
+            rec = descs.desc_pointer.record()
+            self._outfp_write_with_check(outfp, rec)
+            progress.call(len(rec))
+
         for impl_use in descs.impl_use:
             outfp.seek(impl_use.extent_location() * self.logical_block_size)
             rec = impl_use.record()
@@ -2779,10 +2875,11 @@ class PyCdlib(object):
             self._outfp_write_with_check(outfp, rec)
             progress.call(len(rec))
 
-        outfp.seek(descs.terminator.extent_location() * self.logical_block_size)
-        rec = descs.terminator.record()
-        self._outfp_write_with_check(outfp, rec)
-        progress.call(len(rec))
+        if descs.terminator.initialized:
+            outfp.seek(descs.terminator.extent_location() * self.logical_block_size)
+            rec = descs.terminator.record()
+            self._outfp_write_with_check(outfp, rec)
+            progress.call(len(rec))
 
     def _write_fp(self, outfp, blocksize, progress_cb, progress_opaque):
         # type: (BinaryIO, int, Optional[Callable[[int, int, Any], None]], Optional[Any]) -> None
@@ -2981,11 +3078,11 @@ class PyCdlib(object):
             outfp.write(b'\x00')
 
         if self.isohybrid_mbr is not None:
-            outfp.seek(0, os.SEEK_END)
-            # Note that we very specifically do not call
-            # self._outfp_write_with_check here because this writes outside
-            # the PVD boundaries.
+            outfp.seek(0, 2)
             outfp.write(self.isohybrid_mbr.record_padding(self.pvd.space_size * self.logical_block_size))
+            if self.isohybrid_mbr.efi:
+                outfp.seek((self.isohybrid_mbr.secondary_gpt.header.current_lba * 512) - (self.isohybrid_mbr.secondary_gpt.header.num_parts * 128))
+                outfp.write(self.isohybrid_mbr.secondary_gpt.record())
 
         progress.finish()
 
@@ -3194,7 +3291,7 @@ class PyCdlib(object):
                 self.udf_logical_volume_integrity.logical_volume_impl_use.num_files += 1
 
         if data_ino is not None and new_rec is not None:
-            data_ino.linked_records.append(new_rec)
+            data_ino.linked_records.append((new_rec, iso_new_path is not None))
             new_rec.inode = data_ino
 
         if boot_catalog_old and new_rec is not None:
@@ -3331,7 +3428,8 @@ class PyCdlib(object):
 
             if rec.inode is not None:
                 found_index = None
-                for index, link in enumerate(rec.inode.linked_records):
+                for index, reclink in enumerate(rec.inode.linked_records):
+                    link = reclink[0]
                     if id(link) == id(rec):
                         found_index = index
                         break
@@ -3409,7 +3507,8 @@ class PyCdlib(object):
         if rec.inode is not None:
             # Step 1.
             found_index = None
-            for index, link in enumerate(rec.inode.linked_records):
+            for index, reclink in enumerate(rec.inode.linked_records):
+                link = reclink[0]
                 if id(link) == id(rec):
                     found_index = index
                     break
@@ -3610,7 +3709,7 @@ class PyCdlib(object):
         else:
             self._check_inode_against_eltorito(child.inode)
             while child.inode.linked_records:
-                rec = child.inode.linked_records[0]
+                rec = child.inode.linked_records[0][0]
 
                 if isinstance(rec, dr.DirectoryRecord):
                     num_bytes_to_remove += self._rm_dr_link(rec)
@@ -3696,7 +3795,7 @@ class PyCdlib(object):
                 self._check_inode_against_eltorito(udf_file_entry.inode)
 
                 while udf_file_entry.inode.linked_records:
-                    rec = udf_file_entry.inode.linked_records[0]
+                    rec = udf_file_entry.inode.linked_records[0][0]
 
                     if isinstance(rec, dr.DirectoryRecord):
                         num_bytes_to_remove += self._rm_dr_link(rec)
@@ -3825,7 +3924,7 @@ class PyCdlib(object):
             raise pycdlibexception.PyCdlibInvalidInput('UDF value must be empty (no UDF), or 2.60')
 
         if not app_ident_str:
-            app_ident_str = 'PyCdlib (C) 2015-2018 Chris Lalancette'
+            app_ident_str = 'PyCdlib (C) 2015-2020 Chris Lalancette'
 
         self.interchange_level = interchange_level
 
@@ -4493,7 +4592,7 @@ class PyCdlib(object):
         # Then we can multiply the extent location by the logical block size,
         # add on the offset, and get to the absolute location in the file.
         first_joliet = True
-        for record in child.inode.linked_records:
+        for record, is_pvd in child.inode.linked_records:
             if isinstance(record, dr.DirectoryRecord):
                 if self.joliet_vd is not None and id(record.vd) == id(self.joliet_vd) and first_joliet:
                     first_joliet = False
@@ -4782,9 +4881,9 @@ class PyCdlib(object):
                         self.xa, file_mode)
             num_bytes_to_add += self._add_child_to_dr(rec)
             if rec.rock_ridge is not None:
-                if relocated:
-                    fake_dir_rec.rock_ridge.cl_to_moved_dr = rec  # type: ignore
-                    rec.rock_ridge.moved_to_cl_dr = fake_dir_rec  # type: ignore
+                if relocated and fake_dir_rec is not None and fake_dir_rec.rock_ridge is not None:
+                    fake_dir_rec.rock_ridge.cl_to_moved_dr = rec
+                    rec.rock_ridge.moved_to_cl_dr = fake_dir_rec
                 num_bytes_to_add += self._update_rr_ce_entry(rec)
 
             self._create_dot(self.pvd, rec, self.rock_ridge, self.xa, file_mode)
@@ -5214,9 +5313,9 @@ class PyCdlib(object):
         for entry in entries_to_remove:
             if entry.inode is not None:
                 new_list = []
-                for linkrec in entry.inode.linked_records:
+                for linkrec, is_pvd in entry.inode.linked_records:
                     if id(linkrec) != id(entry):
-                        new_list.append(linkrec)
+                        new_list.append((linkrec, is_pvd))
                 entry.inode.linked_records = new_list
 
         num_bytes_to_remove += len(self.eltorito_boot_catalog.record())
@@ -5368,7 +5467,7 @@ class PyCdlib(object):
             # The inode for the symlink array.
             ino = inode.Inode()
             ino.new(len(symlink_bytearray), BytesIO(symlink_bytearray), False, 0)
-            ino.linked_records.append(file_entry)
+            ino.linked_records.append((file_entry, False))
             ino.num_udf += 1
             file_entry.inode = ino
             self.inodes.append(ino)
@@ -5543,9 +5642,9 @@ class PyCdlib(object):
         return self._get_entry(utils.normpath(kwargs['iso_path']), None, None)
 
     def add_isohybrid(self, part_entry=1, mbr_id=None, part_offset=0,
-                      geometry_sectors=32, geometry_heads=64, part_type=0x17,
-                      mac=False):
-        # type: (int, Optional[int], int, int, int, int, bool) -> None
+                      geometry_sectors=32, geometry_heads=64, part_type=None,
+                      mac=False, efi=None):
+        # type: (int, Optional[int], int, int, int, Optional[int], bool, Optional[bool]) -> None
         '''
         Make an ISO a 'hybrid', which means that it can be booted either from a
         CD or from more traditional media (like a USB stick).  This requires
@@ -5559,10 +5658,14 @@ class PyCdlib(object):
          mbr_id - The mbr_id to use.  If set to None (the default), a random one
                   will be generated.
          part_offset - The partition offset to use; zero by default.
-         geometry_sectors - The number of sectors to assign; thirty-two by default.
+         geometry_sectors - The number of sectors to assign; thirty-two by
+                            default.
          geometry_heads - The number of heads to assign; sixty-four by default.
-         part_type - The partition type to assign; twenty-three by default.
+         part_type - The partition type to assign; twenty-three by default, but
+                     will automatically be set to 0 if mac or efi are True.
          mac - Add support for Mac; False by default.
+         efi - Add support for EFI; False by default, but will automatically
+               be set to True if mac is True.
         Returns:
          Nothing.
         '''
@@ -5575,6 +5678,19 @@ class PyCdlib(object):
         if self.eltorito_boot_catalog.initial_entry.sector_count != 4:
             raise pycdlibexception.PyCdlibInvalidInput('El Torito Boot Catalog sector count must be 4 (was actually 0x%x)' % (self.eltorito_boot_catalog.initial_entry.sector_count))
 
+        if efi is not None:
+            if not efi and mac:
+                raise pycdlibexception.PyCdlibInvalidInput('If mac is True, efi must also be True')
+        else:
+            efi = False
+            if mac:
+                efi = True
+
+        if part_type is None:
+            part_type = 0x17
+            if mac or efi:
+                part_type = 0
+
         # Check that the eltorito boot file contains the appropriate
         # signature (offset 0x40, '\xFB\xC0\x78\x70').
         with inode.InodeOpenData(self.eltorito_boot_catalog.initial_entry.inode, self.logical_block_size) as (data_fp, data_len_unused):
@@ -5585,7 +5701,7 @@ class PyCdlib(object):
             raise pycdlibexception.PyCdlibInvalidInput('Invalid signature on boot file for iso hybrid')
 
         self.isohybrid_mbr = isohybrid.IsoHybrid()
-        self.isohybrid_mbr.new(mac, part_entry, mbr_id, part_offset,
+        self.isohybrid_mbr.new(efi, mac, part_entry, mbr_id, part_offset,
                                geometry_sectors, geometry_heads, part_type)
 
     def rm_isohybrid(self):
@@ -6066,6 +6182,8 @@ class PyCdlib(object):
     def file_mode(self, **kwargs):
         # type: (str) -> Optional[int]
         '''
+        Get the POSIX file mode of the file if is a Rock Ridge file.
+
         Parameters:
          iso_path - The absolute ISO path to the file on the ISO.
          rr_path - The absolute Rock Ridge path to the file on the ISO.

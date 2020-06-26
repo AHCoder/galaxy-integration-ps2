@@ -951,11 +951,15 @@ class FileOrTextIdentifier(object):
             raise pycdlibexception.PyCdlibInternalError('This File or Text identifier is not yet initialized')
         return self.text
 
-    def __ne__(self, other):
-        return self.text != other.text
-
     def __eq__(self, other):
-        return not self.__ne__(other)
+        # type: (object) -> bool
+        if not isinstance(other, FileOrTextIdentifier):
+            return NotImplemented
+        return self.text == other.text
+
+    def __ne__(self, other):
+        # type: (object) -> bool
+        return not self.__eq__(other)
 
 
 class VolumeDescriptorSetTerminator(object):
@@ -1146,7 +1150,7 @@ class BootRecord(object):
 
         self.boot_system_identifier = boot_system_id.ljust(32, b'\x00')
         self.boot_identifier = b'\x00' * 32
-        self.boot_system_use = b'\x00' * 197  # This will be set later
+        self.boot_system_use = b'\x00' * 1977  # This will be set later
 
         self._initialized = True
 
@@ -1180,7 +1184,10 @@ class BootRecord(object):
         if not self._initialized:
             raise pycdlibexception.PyCdlibInternalError('Boot Record not yet initialized')
 
-        self.boot_system_use = boot_sys_use.ljust(197, b'\x00')
+        if len(boot_sys_use) != 1977:
+            raise pycdlibexception.PyCdlibInternalError('Boot system use field must be 1977 bytes')
+
+        self.boot_system_use = boot_sys_use
 
     def extent_location(self):
         # type: () -> int

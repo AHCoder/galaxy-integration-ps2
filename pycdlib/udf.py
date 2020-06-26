@@ -911,7 +911,7 @@ class UDFVolumeDescriptorPointer(object):
     A class representing a UDF Volume Descriptor Pointer (ECMA-167, Part 3,
     10.3).
     '''
-    __slots__ = ('_initialized', 'orig_extent_loc', 'new_extent_loc',
+    __slots__ = ('initialized', 'orig_extent_loc', 'new_extent_loc',
                  'vol_seqnum', 'next_vol_desc_seq_extent', 'desc_tag')
 
     FMT = '<16sL8s484s'
@@ -919,7 +919,7 @@ class UDFVolumeDescriptorPointer(object):
     def __init__(self):
         # type: () -> None
         self.new_extent_loc = -1
-        self._initialized = False
+        self.initialized = False
 
     def parse(self, data, extent, desc_tag):
         # type: (bytes, int, UDFTag) -> None
@@ -933,7 +933,7 @@ class UDFVolumeDescriptorPointer(object):
         Returns:
          Nothing.
         '''
-        if self._initialized:
+        if self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer already initialized')
 
         (tag_unused, self.vol_seqnum, next_vol_extent,
@@ -946,7 +946,7 @@ class UDFVolumeDescriptorPointer(object):
 
         self.orig_extent_loc = extent
 
-        self._initialized = True
+        self.initialized = True
 
     def record(self):
         # type: () -> bytes
@@ -958,7 +958,7 @@ class UDFVolumeDescriptorPointer(object):
         Returns:
          A string representing this UDF Volume Descriptor Pointer.
         '''
-        if not self._initialized:
+        if not self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer not initialized')
 
         rec = struct.pack(self.FMT, b'\x00' * 16, self.vol_seqnum,
@@ -976,7 +976,7 @@ class UDFVolumeDescriptorPointer(object):
         Returns:
          Integer extent location of this UDF Volume Descriptor Pointer.
         '''
-        if not self._initialized:
+        if not self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer not yet initialized')
 
         if self.new_extent_loc < 0:
@@ -993,7 +993,7 @@ class UDFVolumeDescriptorPointer(object):
         Returns:
          Nothing.
         '''
-        if self._initialized:
+        if self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer already initialized')
 
         self.desc_tag = UDFTag()
@@ -1004,7 +1004,23 @@ class UDFVolumeDescriptorPointer(object):
         self.next_vol_desc_seq_extent = UDFExtentAD()
         self.next_vol_desc_seq_extent.new(0, 0)  # FIXME: let the user set this
 
-        self._initialized = True
+        self.initialized = True
+
+    def set_extent_location(self, new_location):
+        # type: (int) -> None
+        '''
+        Set the new location for this UDF Volume Descriptor Pointer.
+
+        Parameters:
+         new_location - The new extent this UDF Volume Descriptor Pointer should be located at.
+        Returns:
+         Nothing.
+        '''
+        if not self.initialized:
+            raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer not initialized')
+
+        self.new_extent_loc = new_location
+        self.desc_tag.tag_location = new_location
 
 
 class UDFTimestamp(object):
@@ -2507,6 +2523,9 @@ class UDFShortAD(object):
         return 8
 
     def __eq__(self, other):
+        # type: (object) -> bool
+        if not isinstance(other, UDFShortAD):
+            return NotImplemented
         return self.extent_length == other.extent_length and self.log_block_num == other.log_block_num
 
 
@@ -3095,7 +3114,7 @@ class UDFTerminatingDescriptor(object):
     '''
     A class representing a UDF Terminating Descriptor (ECMA-167, Part 3, 10.9).
     '''
-    __slots__ = ('_initialized', 'orig_extent_loc', 'new_extent_loc',
+    __slots__ = ('initialized', 'orig_extent_loc', 'new_extent_loc',
                  'desc_tag')
 
     FMT = '=16s496s'
@@ -3103,7 +3122,7 @@ class UDFTerminatingDescriptor(object):
     def __init__(self):
         # type: () -> None
         self.new_extent_loc = -1
-        self._initialized = False
+        self.initialized = False
 
     def parse(self, extent, desc_tag):
         # type: (int, UDFTag) -> None
@@ -3116,14 +3135,14 @@ class UDFTerminatingDescriptor(object):
         Returns:
          Nothing.
         '''
-        if self._initialized:
+        if self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminating Descriptor already initialized')
 
         self.desc_tag = desc_tag
 
         self.orig_extent_loc = extent
 
-        self._initialized = True
+        self.initialized = True
 
     def record(self):
         # type: () -> bytes
@@ -3135,7 +3154,7 @@ class UDFTerminatingDescriptor(object):
         Returns:
          A string representing this UDF Terminating Descriptor.
         '''
-        if not self._initialized:
+        if not self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminating Descriptor not initialized')
 
         rec = struct.pack(self.FMT, b'\x00' * 16, b'\x00' * 496)[16:]
@@ -3151,7 +3170,7 @@ class UDFTerminatingDescriptor(object):
         Returns:
          Integer extent location of this UDF Terminating Descriptor.
         '''
-        if not self._initialized:
+        if not self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminating Descriptor not initialized')
 
         if self.new_extent_loc < 0:
@@ -3168,13 +3187,13 @@ class UDFTerminatingDescriptor(object):
         Returns:
          Nothing.
         '''
-        if self._initialized:
+        if self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminating Descriptor already initialized')
 
         self.desc_tag = UDFTag()
         self.desc_tag.new(8)  # FIXME: let the user set serial_number
 
-        self._initialized = True
+        self.initialized = True
 
     def set_extent_location(self, new_location, tag_location=None):
         # type: (int, int) -> None
@@ -3187,7 +3206,7 @@ class UDFTerminatingDescriptor(object):
         Returns:
          Nothing.
         '''
-        if not self._initialized:
+        if not self.initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminating Descriptor not initialized')
 
         self.new_extent_loc = new_location
@@ -3525,9 +3544,10 @@ class UDFFileSetDescriptor(object):
                  'file_set_num', 'log_vol_char_set', 'log_vol_ident',
                  'file_set_char_set', 'file_set_ident', 'copyright_file_ident',
                  'abstract_file_ident', 'desc_tag', 'recording_date',
-                 'domain_ident', 'root_dir_icb')
+                 'domain_ident', 'root_dir_icb', 'next_extent',
+                 'system_stream_dir_icb')
 
-    FMT = '<16s12sHHLLLL64s128s64s32s32s32s16s32s16s48s'
+    FMT = '<16s12sHHLLLL64s128s64s32s32s32s16s32s16s16s32s'
 
     def __init__(self):
         # type: () -> None
@@ -3554,7 +3574,7 @@ class UDFFileSetDescriptor(object):
          log_vol_char_set, self.log_vol_ident, file_set_char_set,
          self.file_set_ident, self.copyright_file_ident,
          self.abstract_file_ident, root_dir_icb, domain_ident, next_extent,
-         reserved_unused) = struct.unpack_from(self.FMT, data, 0)
+         system_stream_dir_icb, reserved_unused) = struct.unpack_from(self.FMT, data, 0)
 
         self.desc_tag = desc_tag
 
@@ -3586,8 +3606,11 @@ class UDFFileSetDescriptor(object):
         self.root_dir_icb = UDFLongAD()
         self.root_dir_icb.parse(root_dir_icb)
 
-        if next_extent != b'\x00' * 16:
-            raise pycdlibexception.PyCdlibInvalidISO('Only DVD Read-Only disks are supported')
+        self.next_extent = UDFLongAD()
+        self.next_extent.parse(next_extent)
+
+        self.system_stream_dir_icb = UDFLongAD()
+        self.system_stream_dir_icb.parse(system_stream_dir_icb)
 
         self.orig_extent_loc = extent
 
@@ -3612,8 +3635,8 @@ class UDFFileSetDescriptor(object):
                           self.log_vol_ident, self.file_set_char_set.record(),
                           self.file_set_ident, self.copyright_file_ident,
                           self.abstract_file_ident, self.root_dir_icb.record(),
-                          self.domain_ident.record(), b'\x00' * 16,
-                          b'\x00' * 48)[16:]
+                          self.domain_ident.record(), self.next_extent.record(),
+                          self.system_stream_dir_icb.record(), b'\x00' * 32)[16:]
         return self.desc_tag.record(rec) + rec
 
     def extent_location(self):
@@ -3667,6 +3690,12 @@ class UDFFileSetDescriptor(object):
         self.file_set_ident = _ostaunicode_zero_pad('CDROM', 32)
         self.copyright_file_ident = b'\x00' * 32  # FIXME: let the user set this
         self.abstract_file_ident = b'\x00' * 32  # FIXME: let the user set this
+
+        self.next_extent = UDFLongAD()
+        self.next_extent.new(0, 0)
+
+        self.system_stream_dir_icb = UDFLongAD()
+        self.system_stream_dir_icb.new(0, 0)
 
         self._initialized = True
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2019  Chris Lalancette <clalancette@gmail.com>
+# Copyright (C) 2019-2020  Chris Lalancette <clalancette@gmail.com>
 
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ PyCdlibIO class.
 
 from __future__ import absolute_import
 
+import array
 import io
 import sys
 
@@ -129,7 +130,6 @@ class PyCdlibIO(io.RawIOBase):
                 try:
                     b[:n] = data
                 except TypeError as err:
-                    import array
                     if not isinstance(b, array.array):
                         raise err
                     b[:n] = array.array(b'b', data)
