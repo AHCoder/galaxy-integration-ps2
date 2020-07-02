@@ -105,6 +105,26 @@ class PlayStation2Plugin(Plugin):
         pass
 
 
+    async def prepare_local_size_context(self, game_ids):
+        return self._get_local_size_dict()
+
+
+    async def get_local_size(self, game_id, context):
+        local_size = context.get(game_id)
+        return local_size
+
+
+    def _get_local_size_dict(self) -> dict:
+        ''' Returns a dict of game sizes
+        '''
+        local_sizes = {}
+        for game in self.games:
+            local_size = os.path.getsize(game.path)
+            local_sizes[game.id] = local_size
+
+        return local_sizes
+        
+    
     async def prepare_game_times_context(self, game_ids):
         return self._get_games_times_dict()
 
