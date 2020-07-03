@@ -35,7 +35,7 @@ class PlayStation2Plugin(Plugin):
             PARAMS = {
                 "window_title": "Configure PS2 Integration",
                 "window_width": 550,
-                "window_height": 770,
+                "window_height": 800,
                 "start_uri": "http://localhost:" + str(self.auth_server.port),
                 "end_uri_regex": ".*/end.*"
             }
