@@ -234,7 +234,7 @@ class BEAVolumeStructure(object):
          Integer extent location of this UDF BEA Volume Structure.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF BEA Volume Structure not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF BEA Volume Structure not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -251,7 +251,7 @@ class BEAVolumeStructure(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not initialized')
         self.new_extent_loc = extent
 
 
@@ -347,7 +347,7 @@ class NSRVolumeStructure(object):
          Integer extent location of this UDF NSR Volume Structure.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF NSR Volume Structure not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF NSR Volume Structure not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -364,7 +364,7 @@ class NSRVolumeStructure(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not initialized')
         self.new_extent_loc = extent
 
 
@@ -452,7 +452,7 @@ class TEAVolumeStructure(object):
          Integer extent location of this UDF TEA Volume Structure.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF TEA Volume Structure not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF TEA Volume Structure not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -469,7 +469,7 @@ class TEAVolumeStructure(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('This Volume Descriptor is not initialized')
         self.new_extent_loc = extent
 
 
@@ -606,7 +606,7 @@ class UDFBootDescriptor(object):
          Integer extent location of this UDF Boot Descriptor.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Boot Descriptor not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Boot Descriptor not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -623,7 +623,7 @@ class UDFBootDescriptor(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This UDF Boot Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('This UDF Boot Descriptor is not initialized')
         self.new_extent_loc = extent
 
 
@@ -702,7 +702,7 @@ class UDFTag(object):
             raise pycdlibexception.PyCdlibInvalidISO('Tag version not 2 or 3')
 
         if (len(data) - 16) < self.desc_crc_length:
-            raise pycdlibexception.PyCdlibInternalError('Not enough CRC bytes to compute (expected at least %d, got %d)' % (self.desc_crc_length, len(data) - 16))
+            raise pycdlibexception.PyCdlibInternalError('Not enough bytes to compute CRC')
 
         if desc_crc != crc_ccitt(data[16:16 + self.desc_crc_length]):
             raise pycdlibexception.PyCdlibInvalidISO('Tag CRC does not match!')
@@ -845,7 +845,7 @@ class UDFAnchorVolumeStructure(object):
          Integer extent location of this UDF Anchor Volume Structure.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Anchor Volume Structure not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Anchor Volume Structure not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -888,7 +888,7 @@ class UDFAnchorVolumeStructure(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Anchor Volume Structure not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Anchor Volume Structure not initialized')
 
         self.new_extent_loc = new_location
         self.desc_tag.tag_location = new_location
@@ -977,7 +977,7 @@ class UDFVolumeDescriptorPointer(object):
          Integer extent location of this UDF Volume Descriptor Pointer.
         '''
         if not self.initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Volume Descriptor Pointer not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -1003,6 +1003,8 @@ class UDFVolumeDescriptorPointer(object):
 
         self.next_vol_desc_seq_extent = UDFExtentAD()
         self.next_vol_desc_seq_extent.new(0, 0)  # FIXME: let the user set this
+
+        self.new_extent_loc = 0  # This will be set later
 
         self.initialized = True
 
@@ -1214,10 +1216,10 @@ class UDFEntityID(object):
             raise pycdlibexception.PyCdlibInternalError('UDF Entity ID already initialized')
 
         if flags > 3:
-            raise pycdlibexception.PyCdlibInternalError('UDF Entity ID flags must be between 0 and 3')
+            raise pycdlibexception.PyCdlibInvalidInput('UDF Entity ID flags must be between 0 and 3')
 
         if len(identifier) > 23:
-            raise pycdlibexception.PyCdlibInvalidInput('UDF Entity ID identifer must be less than 23 characters')
+            raise pycdlibexception.PyCdlibInvalidInput('UDF Entity ID identifier must be less than 23 characters')
 
         if len(suffix) > 8:
             raise pycdlibexception.PyCdlibInvalidInput('UDF Entity ID suffix must be less than 8 characters')
@@ -1284,10 +1286,10 @@ class UDFCharspec(object):
             raise pycdlibexception.PyCdlibInternalError('UDF Charspec already initialized')
 
         if set_type > 8:
-            raise pycdlibexception.PyCdlibInternalError('Invalid charset specified; only 0-8 supported')
+            raise pycdlibexception.PyCdlibInvalidInput('Invalid charset specified; only 0-8 supported')
 
         if len(set_information) > 63:
-            raise pycdlibexception.PyCdlibInternalError('Invalid charset information; exceeds maximum size of 63')
+            raise pycdlibexception.PyCdlibInvalidInput('Invalid charset information; exceeds maximum size of 63')
 
         self.set_type = set_type
 
@@ -1306,7 +1308,7 @@ class UDFCharspec(object):
          A string representing this UDF Charspec.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Charspec not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Charspec not initialized')
 
         return struct.pack(self.FMT, self.set_type, self.set_information)
 
@@ -1518,7 +1520,7 @@ class UDFPrimaryVolumeDescriptor(object):
          Integer extent location of this UDF Primary Volume Descriptor.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Primary Volume Descriptor not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Primary Volume Descriptor not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -1583,7 +1585,7 @@ class UDFPrimaryVolumeDescriptor(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Primary Volume Descriptor not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Primary Volume Descriptor not initialized')
 
         self.new_extent_loc = new_location
         self.desc_tag.tag_location = new_location
@@ -1928,19 +1930,19 @@ class UDFPartitionHeaderDescriptor(object):
             raise pycdlibexception.PyCdlibInternalError('UDF Partition Header Descriptor already initialized')
 
         self.unalloc_space_table = UDFShortAD()
-        self.unalloc_space_table.new(0, 0)
+        self.unalloc_space_table.new(0)
 
         self.unalloc_space_bitmap = UDFShortAD()
-        self.unalloc_space_bitmap.new(0, 0)
+        self.unalloc_space_bitmap.new(0)
 
         self.partition_integrity_table = UDFShortAD()
-        self.partition_integrity_table.new(0, 0)
+        self.partition_integrity_table.new(0)
 
         self.freed_space_table = UDFShortAD()
-        self.freed_space_table.new(0, 0)
+        self.freed_space_table.new(0)
 
         self.freed_space_bitmap = UDFShortAD()
-        self.freed_space_bitmap.new(0, 0)
+        self.freed_space_bitmap.new(0)
 
         self._initialized = True
 
@@ -2168,7 +2170,7 @@ class UDFType0PartitionMap(object):
         if map_type != 0:
             raise pycdlibexception.PyCdlibInvalidISO('UDF Type 0 Partition Map type is not 0')
 
-        if map_length != len(data[2:]):
+        if map_length != len(data):
             raise pycdlibexception.PyCdlibInvalidISO('UDF Type 0 Partition Map length does not equal data length')
 
         self.data = data[2:]
@@ -2188,7 +2190,7 @@ class UDFType0PartitionMap(object):
         if not self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Type 0 Partition Map not initialized')
 
-        return struct.pack(self.FMT, 0, len(self.data)) + self.data
+        return struct.pack(self.FMT, 0, 2 + len(self.data)) + self.data
 
     def new(self):
         # type: () -> None
@@ -2471,8 +2473,8 @@ class UDFShortAD(object):
         length = self.extent_length | (self.extent_type << 30)
         return struct.pack(self.FMT, length, self.log_block_num)
 
-    def new(self, length, blocknum):
-        # type: (int, int) -> None
+    def new(self, length):
+        # type: (int) -> None
         '''
         Create a new UDF Short AD.
 
@@ -2490,7 +2492,7 @@ class UDFShortAD(object):
 
         self.extent_length = length
         self.extent_type = 0  # FIXME: let the user set this
-        self.log_block_num = blocknum
+        self.log_block_num = 0  # this will get set later
 
         self._initialized = True
 
@@ -2678,7 +2680,7 @@ class UDFInlineAD(object):
          A string representing this UDF Inline AD.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Long AD not initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Inline AD not initialized')
 
         return b''
 
@@ -2695,7 +2697,7 @@ class UDFInlineAD(object):
          Nothing.
         '''
         if self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Long AD already initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Inline AD already initialized')
 
         self.extent_length = extent_length
         self.log_block_num = log_block_num
@@ -2706,29 +2708,31 @@ class UDFInlineAD(object):
     def set_extent_location(self, new_location, tag_location):  # pylint: disable=unused-argument
         # type: (int, int) -> None
         '''
-        Set the location fields of this UDF Long AD.
+        Set the location fields of this UDF Inline AD.
 
         Parameters:
-         new_location - The new relative extent that this UDF Long AD references.
-         tag_location - The new absolute extent that this UDF Long AD references.
+         new_location - The new relative extent that this UDF Inline AD references.
+         tag_location - The new absolute extent that this UDF Inline AD references.
         Returns:
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Long AD not initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Inline AD not initialized')
 
         self.log_block_num = tag_location
 
     def length(self):
         # type: () -> int
         '''
-        Method to return the length of the UDF Long Allocation Descriptor.
+        Method to return the length of the UDF Inline Allocation Descriptor.
 
         Parameters:
          None.
         Returns:
          The length of this descriptor in bytes.
         '''
+        if not self._initialized:
+            raise pycdlibexception.PyCdlibInternalError('UDF Inline AD not initialized')
         return self.extent_length
 
 
@@ -2847,9 +2851,6 @@ class UDFLogicalVolumeDescriptor(object):
         for part in self.partition_maps:
             all_partmaps += part.record()
 
-        if len(all_partmaps) > 72:
-            raise pycdlibexception.PyCdlibInternalError('Too many UDF partition maps')
-
         partmap_pad = BytesIO()
         utils.zero_pad(partmap_pad, len(all_partmaps), 72)
 
@@ -2918,11 +2919,41 @@ class UDFLogicalVolumeDescriptor(object):
         self.integrity_sequence = UDFExtentAD()
         self.integrity_sequence.new(4096, 0)  # The location will get set later.
 
-        partmap = UDFType1PartitionMap()
-        partmap.new()
-        self.partition_maps.append(partmap)
-
         self._initialized = True
+
+    def add_partition_map(self, partmaptype):
+        # type: (int) -> None
+        '''
+        Add a new partition map to this UDF Logical Volume Descriptor.
+
+        Parameters:
+         partmaptype - Must be 0, 1, or 2.
+        Returns:
+         Nothing.
+        '''
+        if not self._initialized:
+            raise pycdlibexception.PyCdlibInternalError('UDF Logical Volume Descriptor not initialized')
+
+        partmap = None  # type: Optional[Union[UDFType0PartitionMap, UDFType1PartitionMap, UDFType2PartitionMap]]
+
+        if partmaptype == 0:
+            partmap = UDFType0PartitionMap()
+        elif partmaptype == 1:
+            partmap = UDFType1PartitionMap()
+        elif partmaptype == 2:
+            partmap = UDFType2PartitionMap()
+        else:
+            raise pycdlibexception.PyCdlibInternalError('UDF Partition map type must be 0, 1, or 2')
+        partmap.new()
+
+        all_partmaps = b''
+        for part in self.partition_maps:
+            all_partmaps += part.record()
+
+        if len(all_partmaps) > 72:
+            raise pycdlibexception.PyCdlibInternalError('Too many UDF partition maps')
+
+        self.partition_maps.append(partmap)
 
     def set_extent_location(self, new_location):
         # type: (int) -> None
@@ -3756,7 +3787,7 @@ class UDFLBAddr(object):
          A string representing this UDF LBAddr.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF LBAddr is not initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF LBAddr not initialized')
         return struct.pack(self.FMT, self.logical_block_num, self.part_ref_num)
 
     def new(self, logical_block_num):
@@ -4050,7 +4081,7 @@ class UDFFileEntry(object):
             # The position is bogus, but will get set
             # properly once reshuffle_extents is called.
             short_ad = UDFShortAD()
-            short_ad.new(length, 0)
+            short_ad.new(length)
             self.alloc_descs.append(short_ad)
         else:
             self.perms = 4228
@@ -4071,7 +4102,7 @@ class UDFFileEntry(object):
                 # The position is bogus, but will get set
                 # properly once reshuffle_extents is called.
                 short_ad = UDFShortAD()
-                short_ad.new(alloc_len, 0)
+                short_ad.new(alloc_len)
                 self.alloc_descs.append(short_ad)
                 len_left -= alloc_len
 
@@ -4244,7 +4275,7 @@ class UDFFileEntry(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('Directory Record not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF File Entry not initialized')
 
         len_diff = length - self.info_len
         if len_diff > 0:
@@ -4391,23 +4422,6 @@ class UDFFileEntry(object):
             raise pycdlibexception.PyCdlibInternalError('UDF File Entry not initialized')
 
         self.fi_descs.append(file_ident)
-
-    def finish_directory_parse(self):
-        # type: () -> None
-        '''
-        Finish up the parsing of this UDF File Entry directory.  In particular,
-        this method checks to see if it is in sorted order for future use.
-
-        Parameters:
-         None.
-        Returns:
-         Nothing.
-        '''
-        if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF File Entry not initialized')
-
-        if self.icb_tag.file_type != 4:
-            raise pycdlibexception.PyCdlibInternalError('Can only finish_directory for a directory')
 
     def is_dot(self):
         # type: () -> bool
@@ -4837,7 +4851,7 @@ class UDFSpaceBitmapDescriptor(object):
          Integer extent location of this UDF Space Bitmap Descriptor.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Space Bitmap Descriptor not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Space Bitmap Descriptor not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -4854,7 +4868,7 @@ class UDFSpaceBitmapDescriptor(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This UDF Space Bitmap Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Space Bitmap Descriptor not initialized')
         self.new_extent_loc = extent
 
 
@@ -4870,10 +4884,11 @@ class UDFAllocationExtentDescriptor(object):
 
     def __init__(self):
         # type: () -> None
+        self.new_extent_loc = -1
         self._initialized = False
 
-    def parse(self, data, extent_loc):
-        # type: (bytes, int) -> None
+    def parse(self, data, extent_loc, desc_tag):
+        # type: (bytes, int, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Allocation Extent Descriptor.
 
@@ -4881,13 +4896,15 @@ class UDFAllocationExtentDescriptor(object):
          data - The data to parse.
          extent_loc - The extent location that this UDF Allocation Extent
                       Descriptor lives at.
+         desc_tag - The UDF Tag associated with this UDF Allocation Extent
+                    Descriptor.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Allocation Extent Descriptor already initialized')
 
-        (desc_tag, self.prev_allocation_extent_loc,
+        (tag_unused, self.prev_allocation_extent_loc,
          self.len_allocation_descs) = struct.unpack_from(self.FMT, data, 0)
 
         self.orig_extent_loc = extent_loc
@@ -4947,7 +4964,7 @@ class UDFAllocationExtentDescriptor(object):
          Integer extent location of this UDF Allocation Extent Descriptor.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Allocation Extent Descriptor not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Allocation Extent Descriptor not initialized')
 
         if self.new_extent_loc < 0:
             return self.orig_extent_loc
@@ -4964,7 +4981,7 @@ class UDFAllocationExtentDescriptor(object):
          Nothing.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('This UDF Allocation Extent Descriptor is not yet initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Allocation Extent Descriptor not initialized')
         self.new_extent_loc = extent
 
 
@@ -4980,20 +4997,22 @@ class UDFIndirectEntry(object):
         # type: () -> None
         self._initialized = False
 
-    def parse(self, data):
-        # type: (bytes) -> None
+    def parse(self, data, desc_tag):
+        # type: (bytes, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Indirect Entry.
 
         Parameters:
          data - The data to parse.
+         desc_tag - The UDF Tag associated with this UDF Allocation Extent
+                    Descriptor.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Indirect Entry already initialized')
 
-        (desc_tag, icb_tag, indirect_icb) = struct.unpack_from(self.FMT, data, 0)
+        (tag_unused, icb_tag, indirect_icb) = struct.unpack_from(self.FMT, data, 0)
 
         self.desc_tag = desc_tag
 
@@ -5061,20 +5080,23 @@ class UDFTerminalEntry(object):
         # type: () -> None
         self._initialized = False
 
-    def parse(self, data):
-        # type: (bytes) -> None
+    def parse(self, data, tag):
+        # type: (bytes, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Terminal Entry.
 
         Parameters:
          data - The data to parse.
+         desc_tag - The UDF Tag associated with this UDF Terminal Entry.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Terminal Entry already initialized')
 
-        (self.desc_tag, icb_tag) = struct.unpack_from(self.FMT, data, 0)
+        (tag_unused, icb_tag) = struct.unpack_from(self.FMT, data, 0)
+
+        self.desc_tag = tag
 
         self.icb_tag = UDFICBTag()
         self.icb_tag.parse(icb_tag)
@@ -5136,21 +5158,25 @@ class UDFExtendedAttributeHeaderDescriptor(object):
         # type: () -> None
         self._initialized = False
 
-    def parse(self, data):
-        # type: (bytes) -> None
+    def parse(self, data, desc_tag):
+        # type: (bytes, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Extended Attribute Header Descriptor.
 
         Parameters:
          data - The data to parse.
+         desc_tag - The UDF Tag associated with this UDF Extended Attribute
+                    Header Descriptor.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Extended Attribute Header Descriptor already initialized')
 
-        (self.desc_tag, self.impl_attr_loc,
+        (tag_unused, self.impl_attr_loc,
          self.app_attr_loc) = struct.unpack_from(self.FMT, data, 0)
+
+        self.desc_tag = desc_tag
 
         self._initialized = True
 
@@ -5209,21 +5235,26 @@ class UDFUnallocatedSpaceEntry(object):
         self.alloc_descs = []  # type: List[Union[UDFShortAD, UDFLongAD, UDFInlineAD]]
         self._initialized = False
 
-    def parse(self, data, extent):
-        # type: (bytes, int) -> None
+    def parse(self, data, extent, desc_tag):
+        # type: (bytes, int, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Unallocated Space Entry.
 
         Parameters:
          data - The data to parse.
+         extent - The extent associated with this UDF Unallocated Space Entry.
+         desc_tag - The UDF Tag associated with this UDF Unallocated Space
+                    Entry.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Unallocated Space Entry already initialized')
 
-        (self.desc_tag, icb_tag,
+        (tag_unused, icb_tag,
          len_alloc_descs) = struct.unpack_from(self.FMT, data, 0)
+
+        self.desc_tag = desc_tag
 
         self.icb_tag = UDFICBTag()
         self.icb_tag.parse(icb_tag)
@@ -5299,22 +5330,26 @@ class UDFPartitionIntegrityEntry(object):
         # type: () -> None
         self._initialized = False
 
-    def parse(self, data):
-        # type: (bytes) -> None
+    def parse(self, data, desc_tag):
+        # type: (bytes, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Partition Integrity Entry.
 
         Parameters:
          data - The data to parse.
+         desc_tag - The UDF Tag associated with this UDF Partition Integrity
+                    Entry.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Partition Integrity Entry already initialized')
 
-        (self.desc_tag, icb_tag, record_date, self.integrity_type,
+        (tag_unused, icb_tag, record_date, self.integrity_type,
          reserved_unused, impl_ident,
          self.impl_use) = struct.unpack_from(self.FMT, data, 0)
+
+        self.desc_tag = desc_tag
 
         self.icb_tag = UDFICBTag()
         self.icb_tag.parse(icb_tag)
@@ -5397,29 +5432,33 @@ class UDFExtendedFileEntry(object):
 
     def __init__(self):
         # type: () -> None
+        self.alloc_descs = []  # type: List[Union[UDFShortAD, UDFLongAD, UDFInlineAD]]
         self._initialized = False
 
-    def parse(self, data, extent):
-        # type: (bytes, int) -> None
+    def parse(self, data, extent, desc_tag):
+        # type: (bytes, int, UDFTag) -> None
         '''
         Parse the passed in data into a UDF Extended File Entry.
 
         Parameters:
          data - The data to parse.
          extent - The extent this Extended File Entry lives at.
+         desc_tag - The UDF Tag associated with this UDF Extended File Entry.
         Returns:
          Nothing.
         '''
         if self._initialized:
             raise pycdlibexception.PyCdlibInternalError('UDF Extended File Entry already initialized')
 
-        (self.desc_tag, icb_tag, self.uid, self.gid, self.permissions,
+        (tag_unused, icb_tag, self.uid, self.gid, self.permissions,
          self.file_link_count, self.record_format, self.record_display_attrs,
          self.record_len, self.info_len, self.obj_size, self.log_blocks_recorded,
          access_time, mod_time, creation_time, attr_time,
          self.checkpoint, reserved_unused, extended_attr_icb, stream_icb,
          impl_ident, self.unique_id, self.len_extended_attrs,
          len_alloc_descs) = struct.unpack_from(self.FMT, data, 0)
+
+        self.desc_tag = desc_tag
 
         self.icb_tag = UDFICBTag()
         self.icb_tag.parse(icb_tag)
@@ -5460,15 +5499,15 @@ class UDFExtendedFileEntry(object):
     def record(self):
         # type: () -> bytes
         '''
-        Generate the string representing this UDF Partition Integrity Entry.
+        Generate the string representing this UDF Extended File Entry.
 
         Parameters:
          None.
         Returns:
-         A string representing this UDF Partition Integrity Entry.
+         A string representing this UDF Extended File Entry.
         '''
         if not self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Partition Integrity Entry not initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Extended File Entry not initialized')
 
         len_alloc_descs = 0
         for desc in self.alloc_descs:
@@ -5495,7 +5534,7 @@ class UDFExtendedFileEntry(object):
     def new(self, file_type, length, log_block_size):
         # type: (str, int, int) -> None
         '''
-        Create a new UDF Partition Integrity Entry.
+        Create a new UDF Extended File Entry.
 
         Parameters:
          file_type - The type that this UDF Space Entry represents; one of
@@ -5507,7 +5546,7 @@ class UDFExtendedFileEntry(object):
          Nothing.
         '''
         if self._initialized:
-            raise pycdlibexception.PyCdlibInternalError('UDF Partition Integrity Entry already initialized')
+            raise pycdlibexception.PyCdlibInternalError('UDF Extended File Entry already initialized')
 
         self.desc_tag = UDFTag()
         self.desc_tag.new(266)  # FIXME: let the user set serial_number
@@ -5525,7 +5564,7 @@ class UDFExtendedFileEntry(object):
             # The position is bogus, but will get set
             # properly once reshuffle_extents is called.
             short_ad = UDFShortAD()
-            short_ad.new(length, 0)
+            short_ad.new(length)
             self.alloc_descs.append(short_ad)
         else:
             self.permissions = 4228
@@ -5546,7 +5585,7 @@ class UDFExtendedFileEntry(object):
                 # The position is bogus, but will get set
                 # properly once reshuffle_extents is called.
                 short_ad = UDFShortAD()
-                short_ad.new(alloc_len, 0)
+                short_ad.new(alloc_len)
                 self.alloc_descs.append(short_ad)
                 len_left -= alloc_len
 
