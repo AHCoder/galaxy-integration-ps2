@@ -8,6 +8,7 @@ import urllib.request
 
 import config
 import pycdlib
+import yaml
 from definitions import PS2Game
 from galaxy.api.types import LocalGame, LocalGameState
 
@@ -28,7 +29,7 @@ class PS2Client:
         Used if the user chooses to pull from the PCSX2 games database
         by matching their files' names with the db
         '''
-        database_records = self._parse_dbf(False)
+        database_records = self._parse_yaml()
         self._get_rom_names()
 
         for rom in self.roms:
@@ -86,7 +87,7 @@ class PS2Client:
 
         Use this to read serials from iso's and match them to a name from the db
         '''
-        database_records = self._parse_dbf(True)
+        database_records = self._parse_yaml()
         iso = pycdlib.PyCdlib()
 
         # Get the serials by reading the iso's directly
@@ -153,6 +154,17 @@ class PS2Client:
         return result
 
 
+    def _parse_yaml(self) -> dict:
+        '''Returns a dictionary of records in the PCSX2 database
+
+        Call this to parse the yaml database as a dictionary of records
+        '''
+        filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.yaml")
+        return yaml.load(open(filename))
+
+
+    # Deprecated, eventually remove
+    '''
     def _parse_dbf(self, allow_dups) -> dict:
         '''Returns a dictionary of records in the PCSX2 database
 
@@ -175,6 +187,7 @@ class PS2Client:
                 prev_line = line
 
         return records
+    '''
 
 
     def _set_session_start(self) -> None:
