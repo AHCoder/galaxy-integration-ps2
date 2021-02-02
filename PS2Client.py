@@ -34,11 +34,11 @@ class PS2Client:
 
         for rom in self.roms:
             for key in database_records:
-                if(rom == database_records.get(key).replace(":", "")):
+                if(rom == database_records.get(key).get("name")):
                     self.games.append(
                         PS2Game(
                             str(key),
-                            str(database_records.get(key)),
+                            str(database_records.get(key).get("name")),
                             str(self.roms.get(rom))
                         )
                     )
@@ -120,7 +120,7 @@ class PS2Client:
         for game in self.games:
             for key in database_records:
                 if(game.id == key):
-                    game.name = str(database_records.get(key))
+                    game.name = str(database_records.get(key).get("name"))
 
         return self.games
 
@@ -166,12 +166,12 @@ class PS2Client:
     # Deprecated, eventually remove
     '''
     def _parse_dbf(self, allow_dups) -> dict:
-        '''Returns a dictionary of records in the PCSX2 database
+        Returns a dictionary of records in the PCSX2 database
 
         :param allow_dups: allow duplicate names or not
 
         Use this to parse the PCSX2 database as a dictionary of records
-        '''
+        
         filename = os.path.expandvars(r"%LOCALAPPDATA%\GOG.com\Galaxy\plugins\installed\ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e\GameIndex.txt")
         records = {}
 
