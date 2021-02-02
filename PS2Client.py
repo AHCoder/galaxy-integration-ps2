@@ -149,8 +149,7 @@ class PS2Client:
         result.extend(local_game for local_game in new_list if local_game.game_id in new_dict.keys() - old_dict.keys())
         # state changed
         result.extend(
-            LocalGame(id, new_dict[id]) for id in new_dict.keys() & old_dict.keys() if new_dict[id] != old_dict[id]
-            )
+            LocalGame(id, new_dict[id]) for id in new_dict.keys() & old_dict.keys() if new_dict[id] != old_dict[id])
         return result
 
 

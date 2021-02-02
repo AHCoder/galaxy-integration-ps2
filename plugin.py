@@ -23,7 +23,7 @@ class PlayStation2Plugin(Plugin):
         self.auth_server = AuthenticationServer()
         self.auth_server.start()
         self.games = []
-        self.local_games_cache = []
+        self.local_games_cache = None
         self.proc = None
         self.ps2_client = PS2Client(self)
         self.running_game_id = ""
@@ -197,9 +197,11 @@ class PlayStation2Plugin(Plugin):
 
     def tick(self):
         self._check_emu_status()
-        self.create_task(self._update_local_games(), "Update local games")
-        self.tick_count += 1
 
+        if self.local_games_cache is not None:
+            self.create_task(self._update_local_games(), "Update local games")
+        
+        self.tick_count += 1
         if self.tick_count % 12 == 0:
             self.create_task(self._update_all_game_times(), "Update all game times")
 
@@ -224,8 +226,9 @@ class PlayStation2Plugin(Plugin):
         notify_list = self.ps2_client._get_state_changes(self.local_games_cache, new_list)
         self.local_games_cache = new_list
         logging.debug("DEV: Local games cache is - %s", self.local_games_cache)
-        for local_game_notify in notify_list:
-            self.update_local_game_status(local_game_notify)
+        for game in notify_list:
+            self.update_local_game_status(game)
+        await asyncio.sleep(5)
 
 
     async def _update_all_game_times(self) -> None:
