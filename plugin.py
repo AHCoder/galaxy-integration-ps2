@@ -19,6 +19,8 @@ from version import __version__
 class PlayStation2Plugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.PlayStation2, __version__, reader, writer, token)
+
+        ### Variables ###
         self.config = config.Config()
         self.auth_server = AuthenticationServer()
         self.auth_server.start()
@@ -28,6 +30,9 @@ class PlayStation2Plugin(Plugin):
         self.ps2_client = PS2Client(self)
         self.running_game_id = ""
         self.tick_count = 0
+
+        ### Tasks ###
+        self.update_local_games_task = self.create_task(asyncio.sleep(0), "Update local games")
 
 
     async def authenticate(self, stored_credentials=None):
@@ -198,8 +203,8 @@ class PlayStation2Plugin(Plugin):
     def tick(self):
         self._check_emu_status()
 
-        if self.local_games_cache is not None:
-            self.create_task(self._update_local_games(), "Update local games")
+        if self.local_games_cache is not None and self.update_local_games_task.done():
+            self.update_local_games_task = self.create_task(self._update_local_games(), "Update local games")
         
         self.tick_count += 1
         if self.tick_count % 12 == 0:
@@ -284,6 +289,8 @@ class PlayStation2Plugin(Plugin):
         return owned_games
 
     async def get_local_games(self):
+        loop = asyncio.get_running_loop()
+        self.local_games_cache = await loop.run_in_executor(None, self._local_games_list)
         return self.local_games_cache
 
     async def shutdown(self):
