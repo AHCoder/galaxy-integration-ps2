@@ -2534,7 +2534,7 @@ class UDFShortAD(object):
 class UDFLongAD(object):
     '''
     A class representing a UDF Long Allocation Descriptor (ECMA-167, Part 4,
-    14.14.2.
+    14.14.2).
     '''
     __slots__ = ('_initialized', 'extent_length', 'log_block_num',
                  'part_ref_num', 'impl_use', 'offset')
@@ -4053,7 +4053,8 @@ class UDFFileEntry(object):
         Parameters:
          length - The (starting) length of this UDF File Entry; this is ignored
                   if this is a symlink.
-         file_type - The type that this UDF File entry represents; one of 'dir', 'file', or 'symlink'.
+         file_type - The type that this UDF File entry represents; one of 'dir',
+                     'file', or 'symlink'.
          parent - The parent UDF File Entry for this UDF File Entry.
          log_block_size - The logical block size for extents.
         Returns:
@@ -4099,8 +4100,6 @@ class UDFFileEntry(object):
                 # Windows uses 0x3ff00000.  To be more compatible with cdrkit,
                 # we'll choose their number of 0x3ffff800.
                 alloc_len = min(len_left, 0x3ffff800)
-                # The position is bogus, but will get set
-                # properly once reshuffle_extents is called.
                 short_ad = UDFShortAD()
                 short_ad.new(alloc_len)
                 self.alloc_descs.append(short_ad)
@@ -4554,8 +4553,8 @@ class UDFFileIdentifierDescriptor(object):
         end = start + self.len_fi
         # The very first byte of the File Identifier describes whether this is
         # an 8-bit or 16-bit encoded string; this corresponds to whether we
-        # encode with 'latin-1' or with 'utf-16_be'.  We save that off because we have
-        # to write the correct thing out when we record.
+        # encode with 'latin-1' or with 'utf-16_be'.  We save that off because
+        # we have to write the correct thing out when we record.
         if not self.isparent:
             encoding = bytes(bytearray([data[start]]))
             if encoding == b'\x08':
@@ -5692,3 +5691,85 @@ def _parse_allocation_descriptors(flags, data, length, start_offset, extent):
         raise pycdlibexception.PyCdlibInvalidISO('UDF Allocation Descriptor type invalid')
 
     return alloc_descs
+
+
+class UDFDescriptorSequence(object):
+    '''
+    A class to represent a UDF Descriptor Sequence.
+    '''
+    __slots__ = ('pvds', 'impl_use', 'partitions', 'logical_volumes',
+                 'unallocated_space', 'terminator', 'desc_pointer')
+
+    def __init__(self):
+        # type: () -> None
+        self.pvds = []  # type: List[UDFPrimaryVolumeDescriptor]
+        self.impl_use = []  # type: List[UDFImplementationUseVolumeDescriptor]
+        self.partitions = []  # type: List[UDFPartitionVolumeDescriptor]
+        self.logical_volumes = []  # type: List[UDFLogicalVolumeDescriptor]
+        self.unallocated_space = []  # type: List[UDFUnallocatedSpaceDescriptor]
+        self.terminator = UDFTerminatingDescriptor()
+        self.desc_pointer = UDFVolumeDescriptorPointer()
+
+    def append_to_list(self, which, desc):
+        # type: (str, Union[UDFPrimaryVolumeDescriptor, UDFImplementationUseVolumeDescriptor, UDFPartitionVolumeDescriptor, UDFLogicalVolumeDescriptor, UDFUnallocatedSpaceDescriptor]) -> None
+        '''
+        Append a descriptor to the list of descriptors, checking that
+        there are no duplicates.
+
+        Parameters:
+         which - Which list to append to.
+         desc - The descriptor to check and append.
+        Returns:
+         Nothing.
+        '''
+        # ECMA-167, Part 3, 8.4.2 says that all Volume Descriptors
+        # with the same sequence numbers should have the same contents.
+        # Check that here.
+        vols = getattr(self, which)
+        for vol in vols:
+            if vol.vol_desc_seqnum == desc.vol_desc_seqnum:
+                if vol != desc:
+                    raise pycdlibexception.PyCdlibInvalidISO('Descriptors with same sequence number do not have the same contents')
+
+        vols.append(desc)
+
+    def assign_desc_extents(self, start_extent):
+        # type: (int) -> None
+        '''
+        A method to assign a consecutive sequence of extents for the UDF
+        Descriptors, starting at the given extent.
+
+        Parameters:
+         start_extent - The starting extent to assign from.
+        Returns:
+         Nothing.
+        '''
+        current_extent = start_extent
+
+        for pvd in self.pvds:
+            pvd.set_extent_location(current_extent)
+            current_extent += 1
+
+        if self.desc_pointer.initialized:
+            self.desc_pointer.set_extent_location(current_extent)
+            current_extent += 1
+
+        for impl_use in self.impl_use:
+            impl_use.set_extent_location(current_extent)
+            current_extent += 1
+
+        for partition in self.partitions:
+            partition.set_extent_location(current_extent)
+            current_extent += 1
+
+        for logical_volume in self.logical_volumes:
+            logical_volume.set_extent_location(current_extent)
+            current_extent += 1
+
+        for unallocated_space in self.unallocated_space:
+            unallocated_space.set_extent_location(current_extent)
+            current_extent += 1
+
+        if self.terminator.initialized:
+            self.terminator.set_extent_location(current_extent)
+            current_extent += 1

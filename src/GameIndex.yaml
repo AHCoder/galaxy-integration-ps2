@@ -31,8 +31,6 @@ GUST-00009:
   region: "NTSC-J"
   roundModes:
     eeRoundMode: 0  # Fixes jump issue.
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 PAPX-90203:
   name: "Gran Turismo 2000 [Trial]"
   region: "NTSC-J"
@@ -40,12 +38,12 @@ PAPX-90222:
   name: "Jak x Daxter: Kyuusekai no Isan [Demo, Taikenba]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 PAPX-90223:
   name: "Jak x Daxter: Kyuusekai no Isan [Demo, Taikenba]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 PAPX-90231:
   name: "Kaitou Sly Cooper [Demo, Taikenba]"
   region: "NTSC-J"
@@ -60,7 +58,7 @@ PAPX-90516:
   name: "Jak and Daxter II [Trial]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 PBPX-95201:
   name: "Dead or Alive 2"
   region: "NTSC-J"
@@ -99,7 +97,7 @@ PBPX-95514:
   name: "Playstation 2 - Demo Disc 2002"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS in Ratchet and Clank.
+    - VUKickstartHack # Fixes Character SPS in Ratchet and Clank.
 PBPX-95517:
   name: "Network Adapter Start-Up Disc"
   region: "NTSC-U"
@@ -113,6 +111,9 @@ PBPX-95524:
   # Comments from old GameIndex.dbf for this Game
   # eeClampMode = 3  Text in races works.
   # vuClampMode = 2  Text in GT mode works.
+PCPX-96311:
+  name: "Gran Turismo 3 Trial Disk Volume 1"
+  region: "NTSC-J"
 PCPX-96616:
   name: "PurePure 2 Volume 2"
   region: "NTSC-J"
@@ -124,6 +125,9 @@ PCPX-96649:
     vuClampMode: 2  # Text in GT mode works.
   # Comments from old GameIndex.dbf for this Game
   # eeClampMode = 3  Text in races works.
+PCPX-96660:
+  name: "Tourist Trophy [Demo]"
+  region: "NTSC-J"
 SCAJ-10001:
   name: "Makai Senki Disgaea"
   region: "NTSC-Unk"
@@ -168,7 +172,8 @@ SCAJ-20001:
   name: "Ratchet & Clank"
   region: "NTSC-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCAJ-20002:
   name: "Gallop Racer 6 - Revolution"
   region: "NTSC-Unk"
@@ -176,7 +181,7 @@ SCAJ-20003:
   name: "Warrior in Argus"
   region: "NTSC-J"
 SCAJ-20004:
-  name: "dot Hack Vol.3"
+  name: ".hack//Outbreak Part 3"
   region: "NTSC-Unk"
   memcardFilters:
     - "SCPS-55029"
@@ -225,7 +230,7 @@ SCAJ-20012:
   name: "Venus & Braves"
   region: "NTSC-Unk"
 SCAJ-20013:
-  name: "Moto GP 3"
+  name: "MotoGP 3"
   region: "NTSC-Unk"
 SCAJ-20014:
   name: "Time Splitter"
@@ -262,7 +267,7 @@ SCAJ-20023:
   clampModes:
     vuClampMode: 2  # Respawn issues, SPS.
 SCAJ-20024:
-  name: "dot Hack Vol.4"
+  name: ".hack//Quarantine Part 4"
   region: "NTSC-Unk"
   memcardFilters:
     - "SCPS-55029"
@@ -341,7 +346,7 @@ SCAJ-20048:
   name: "R - Racing Evolution"
   region: "NTSC-Unk"
 SCAJ-20050:
-  name: "Fatal Frame 2 - Crimson Butterfly"
+  name: "Fatal Frame II - Crimson Butterfly"
   region: "NTSC-Unk"
 SCAJ-20055:
   name: "Battle Gear 3"
@@ -409,7 +414,7 @@ SCAJ-20070:
   region: "NTSC-Unk"
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCAJ-20072:
   name: "Ghost in the Shell - Stand Alone Complex"
   region: "NTSC-Unk"
@@ -417,7 +422,7 @@ SCAJ-20073:
   name: "Jak and Daxter II"
   region: "NTSC-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCAJ-20074:
   name: "King of Fighters 2002, The"
   region: "NTSC-Unk"
@@ -447,6 +452,8 @@ SCAJ-20077:
 SCAJ-20078:
   name: "Kuon"
   region: "NTSC-Unk"
+  roundModes:
+    eeRoundMode: 0  # Fixes Sugoroku mini-game.
 SCAJ-20079:
   name: "Katamari Damacy"
   region: "NTSC-Unk"
@@ -554,7 +561,8 @@ SCAJ-20109:
   name: "Ratchet & Clank 3 - Up your Arsenal"
   region: "NTSC-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCAJ-20110:
   name: "Dragon Quest VIII - Sora to Daichi to Norowareshi Himegimi"
   region: "NTSC-Unk"
@@ -563,7 +571,7 @@ SCAJ-20111:
   region: "NTSC-Unk"
   gameFixes:
     - XGKickHack # Fixes bad Geometry.
-    - VU0KickstartHack # Fixes loading hang.
+    - VUKickstartHack # Fixes loading hang.
 SCAJ-20112:
   name: "Tales of Rebirth"
   region: "NTSC-Unk"
@@ -587,7 +595,7 @@ SCAJ-20118:
   region: "NTSC-J"
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCAJ-20119:
   name: "Gladiator - Road to Freedom"
   region: "NTSC-Unk"
@@ -758,7 +766,8 @@ SCAJ-20157:
   name: "Ratchet & Clank 4th - GiriGiri Gingano Giga-battle"
   region: "NTSC-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCAJ-20158:
   name: "Ikusa Gami"
   region: "NTSC-Unk"
@@ -837,7 +846,7 @@ SCAJ-20177:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCAJ-20178:
   name: "Ape Escape - Million Monkeys"
   region: "NTSC-Unk"
@@ -905,7 +914,7 @@ SCAJ-20197:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCAJ-20198:
   name: "Everybody's Tennis [PlayStation 2 The Best]"
   region: "NTSC-Unk"
@@ -941,6 +950,8 @@ SCAJ-25045:
 SCAJ-25047:
   name: "Dororo"
   region: "NTSC-Unk"
+  gameFixes:
+    - VUKickstartHack # Fixes main character model SPS.
 SCAJ-30001:
   name: "Xenosaga Episode I [PlayStation 2 The Best]"
   region: "NTSC-Unk"
@@ -1007,9 +1018,114 @@ SCAJ-30010:
 SCAJ-30011:
   name: "God of War II"
   region: "NTSC-E"
+SCCS-40002:
+  name: "Devil May Cry 2 - Disc 1"
+  region: "NTSC-C"
+SCCS-40003:
+  name: "Devil May Cry 2 - Disc 2"
+  region: "NTSC-C"
+SCCS-40005:
+  name: "ICO"
+  region: "NTSC-C"
+  clampModes:
+    eeClampMode: 2  # Otherwise freezes in various spots, check full intro.
+    vuClampMode: 1  # Otherwise camera gets stuck off the player in various spots.
+SCCS-40006:
+  name: "Shin Sangoku Musou 2"
+  region: "NTSC-C"
+SCCS-40007:
+  name: "Arc the Lad: Seirei no Tasogare"
+  region: "NTSC-C"
+SCCS-40009:
+  name: "Dragon Ball Z 2"
+  region: "NTSC-C"
+SCCS-40010:
+  name: "Super Puzzle Bobble 2"
+  region: "NTSC-C"
+SCCS-40011:
+  name: "Armored Core 2: Another Age"
+  region: "NTSC-C"
+SCCS-40014:
+  name: "World Soccer Winning Eleven 7: International"
+  region: "NTSC-C"
+SCCS-40015:
+  name: "Viorate no Atelier: Gramnad no Renkinjutsushi 2"
+  region: "NTSC-C"
+SCCS-40016:
+  name: "Ape Escape: Pumped & Primed"
+  region: "NTSC-C"
+SCCS-40017:
+  name: "EyeToy: Play"
+  region: "NTSC-C"
+SCCS-40018:
+  name: "Saru EyeToy: Oosawagi! Ukkiuki Game Tenkomori!!"
+  region: "NTSC-C"
+SCCS-40019:
+  name: "Formula One 04"
+  region: "NTSC-C"
+SCCS-40022:
+  name: "World Soccer Winning Eleven 8: Asia Championship"
+  region: "NTSC-C"
 SCED-50041:
   name: "Tekken Tag Tournament [Demo]"
   region: "PAL-E"
+SCED-50065:
+  name: "Official PlayStation 2 Magazine Demo 1"
+  region: "PAL-M5"
+SCED-50066:
+  name: "Official PlayStation 2 Magazine Demo 2"
+  region: "PAL-M5"
+SCED-50067:
+  name: "Official PlayStation 2 Magazine Demo 3"
+  region: "PAL-M5"
+SCED-50140:
+  name: "Official PlayStation 2 Magazine Demo 5"
+  region: "PAL-M5"
+SCED-50141:
+  name: "Official PlayStation 2 Magazine Demo 6"
+  region: "PAL-M5"
+SCED-50142:
+  name: "Official PlayStation 2 Magazine Demo 7"
+  region: "PAL-M5"
+SCED-50143:
+  name: "Official PlayStation 2 Magazine Demo 8"
+  region: "PAL-M5"
+SCED-50144:
+  name: "Official PlayStation 2 Magazine Demo 9"
+  region: "PAL-M5"
+SCED-50145:
+  name: "Official PlayStation 2 Magazine Demo 10"
+  region: "PAL-M5"
+SCED-50146:
+  name: "Official PlayStation 2 Magazine Demo 11"
+  region: "PAL-M5"
+SCED-50147:
+  name: "Official PlayStation 2 Magazine Demo 12"
+  region: "PAL-M5"
+SCED-50148:
+  name: "Official PlayStation 2 Magazine Demo 13"
+  region: "PAL-M5"
+SCED-50149:
+  name: "Official PlayStation 2 Magazine Demo 14"
+  region: "PAL-M5"
+SCED-50150:
+  name: "Official PlayStation 2 Magazine Demo 15"
+  region: "PAL-M5"
+SCED-50151:
+  name: "Official PlayStation 2 Magazine Demo 16"
+  region: "PAL-M5"
+SCED-50152:
+  name: "Official PlayStation 2 Magazine Demo 17"
+  region: "PAL-M5"
+SCED-50153:
+  name: "Official PlayStation 2 Magazine Demo 18" # Australian
+  region: "PAL-M5"
+SCED-50154:
+  name: "Official PlayStation 2 Magazine Demo 19"
+  region: "PAL-M5"
+SCED-50162:
+  name: "Official PS2 Magazine UK Greatest Hits Vol 2: Special Ed: A-Z of PS2"
+  region: "PAL-M5"
 SCED-50163:
   name: "PlayStation 2 Greatest Hits Vol.3 [Demo]"
   region: "PAL-M5"
@@ -1019,33 +1135,182 @@ SCED-50254:
 SCED-50286:
   name: "Red Faction [Demo]"
   region: "PAL-Unk"
+SCED-50381:
+  name: "Official PlayStation 2 Magazine Demo 8"
+  region: "PAL-M5"
+SCED-50404:
+  name: "Official PlayStation 2 Magazine Demo 10" # German
+  region: "PAL-E-G"
+SCED-50460:
+  name: "Official PlayStation 2 Magazine Demo 11" # German
+  region: "PAL-E-G"
+SCED-50463:
+  name: "Official PlayStation 2 Magazine Demo 11" # French
+  region: "PAL-M5"
+SCED-50506:
+  name: "Official PlayStation 2 Magazine Demo 12" # German
+  region: "PAL-M5"
+SCED-50543:
+  name: "Official PlayStation 2 Magazine Demo 12" # French
+  region: "PAL-M5"
+SCED-50593:
+  name: "Official PlayStation 2 Magazine Demo 13" # French
+  region: "PAL-M5"
+SCED-50594:
+  name: "Official PlayStation 2 Magazine Demo 13" # German
+  region: "PAL-G"
+SCED-50610:
+  name: "Official PlayStation 2 Magazine Demo 14" # Australian
+  region: "PAL-M5"
 SCED-50614:
   name: "Jak and Daxter: The Precursor Legacy [Demo]"
   region: "PAL-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+SCED-50622:
+  name: "Official PlayStation 2 Magazine Demo 14" # German
+  region: "PAL-E-G"
 SCED-50642:
   name: "Final Fantasy X [Demo] [Final Fantasy VI PS1 - Bonus Disc]"
   region: "PAL-E"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
+SCED-50675:
+  name: "Official PlayStation 2 Magazine Demo 16"
+  region: "PAL-M5"
+SCED-50685:
+  name: "Official PlayStation 2 Magazine Demo 15"
+  region: "PAL-E-G"
+SCED-50697:
+  name: "Official PlayStation 2 Magazine Demo 17" # German
+  region: "PAL-E-G"
+SCED-50698:
+  name: "Official PlayStation 2 Magazine Demo 18" # German
+  region: "PAL-E-G"
+SCED-50699:
+  name: "Official PlayStation 2 Magazine Demo 20" # German
+  region: "PAL-E-G"
+SCED-50700:
+  name: "Official PlayStation 2 Magazine Demo 21" # German
+  region: "PAL-E-G"
+SCED-50701:
+  name: "Official PlayStation 2 Magazine Demo 22" # German
+  region: "PAL-E-G"
+SCED-50736:
+  name: "Official PlayStation 2 Magazine Demo 16" # German
+  region: "PAL-E-G"
+SCED-50742:
+  name: "Official PlayStation 2 Magazine Demo 21"
+  region: "PAL-M5"
+SCED-50743:
+  name: "Official PlayStation 2 Magazine Demo 20"
+  region: "PAL-M5"
+SCED-50744:
+  name: "Official PlayStation 2 Magazine Demo 22"
+  region: "PAL-M5"
+SCED-50745:
+  name: "Official PlayStation 2 Magazine Demo 23"
+  region: "PAL-M5"
+SCED-50746:
+  name: "Official PlayStation 2 Magazine Demo 24"
+  region: "PAL-M5"
+SCED-50747:
+  name: "Official PlayStation 2 Magazine Demo 25"
+  region: "PAL-M5"
 SCED-50748:
   name: "Official PlayStation 2 Magazine Demo 26"
   region: "PAL-M5"
+SCED-50749:
+  name: "Official PlayStation 2 Magazine Demo 27"
+  region: "PAL-M5"
+SCED-50750:
+  name: "Official PlayStation 2 Magazine Demo 28"
+  region: "PAL-M5"
 SCED-50781:
   name: "Destruction Derby Arenas [Beta]"
+  region: "PAL-M5"
+SCED-50825:
+  name: "Official PlayStation 2 Magazine Demo 18"
   region: "PAL-M5"
 SCED-50907:
   name: "Final Fantasy X [Bonus Disc - Beyond Final Fantasy]"
   region: "PAL-Unk"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
+SCED-50945:
+  name: "Official PlayStation 2 Magazine Demo 20"
+  region: "PAL-M5"
+SCED-50989:
+  name: "Official PlayStation 2 Magazine Demo 21"
+  region: "PAL-M5"
+SCED-51016:
+  name: "Official PlayStation 2 Magazine Demo 22/23"
+  region: "PAL-M5"
+SCED-51147:
+  name: "Official PlayStation 2 Magazine Demo 24"
+  region: "PAL-M5"
+SCED-51185:
+  name: "Official PlayStation 2 Magazine Demo 24" # German
+  region: "PAL-E-G"
+SCED-51262:
+  name: "Official PlayStation 2 Magazine Demo 25" # German
+  region: "PAL-E-G"
+SCED-51279:
+  name: "Official PlayStation 2 Magazine Demo 25"
+  region: "PAL-M5"
+SCED-51319:
+  name: "Official PlayStation 2 Magazine Demo 27" # German
+  region: "PAL-E-G"
+SCED-51359:
+  name: "Official PlayStation 2 Magazine Demo 27"
+  region: "PAL-M5"
+SCED-51376:
+  name: "Official PlayStation 2 Magazine Demo 28" # German
+  region: "PAL-E-G"
+SCED-51384:
+  name: "Official PlayStation 2 Magazine Demo 29"
+  region: "PAL-M5"
+SCED-51432:
+  name: "Official PlayStation 2 Magazine Demo 29" # German
+  region: "PAL-E-G"
+SCED-51440:
+  name: "Official PlayStation 2 Magazine Demo 29"
+  region: "PAL-M5"
+SCED-51457:
+  name: "Official PlayStation 2 Magazine Demo 30"
+  region: "PAL-M5"
+SCED-51483:
+  name: "Official PlayStation 2 Magazine Demo 30" # German
+  region: "PAL-E-G"
+SCED-51485:
+  name: "Official PlayStation 2 Magazine Demo 30" # Australian
+  region: "PAL-E"
+SCED-51489:
+  name: "Official PlayStation 2 Magazine Demo 30"
+  region: "PAL-M5"
+SCED-51529:
+  name: "Official PlayStation 2 Magazine Demo 31"
+  region: "PAL-M5"
+SCED-51530:
+  name: "Official PlayStation 2 Magazine Demo 32"
+  region: "PAL-M5"
 SCED-51531:
   name: "Official PlayStation 2 Magazine Demo 33"
+  region: "PAL-M5"
+SCED-51532:
+  name: "Official PlayStation 2 Magazine Demo 34"
+  region: "PAL-M5"
+SCED-51533:
+  name: "Official PlayStation 2 Magazine Demo 35"
+  region: "PAL-M5"
+SCED-51534:
+  name: "Official PlayStation 2 Magazine Demo 36"
+  region: "PAL-M5"
+SCED-51535:
+  name: "Official PlayStation 2 Magazine Demo 40"
+  region: "PAL-M5"
+SCED-51536:
+  name: "Official PlayStation 2 Magazine Demo 41"
   region: "PAL-M5"
 SCED-51537:
   name: "Official PlayStation 2 Magazine Demo 37"
@@ -1053,18 +1318,66 @@ SCED-51537:
 SCED-51538:
   name: "Official PlayStation 2 Magazine Demo 38"
   region: "PAL-M5"
+SCED-51539:
+  name: "Official PlayStation 2 Magazine Demo 42"
+  region: "PAL-M5"
 SCED-51540:
   name: "Official PlayStation 2 Magazine Demo 39"
   region: "PAL-M5"
-SCED-51568:
+SCED-51556:
+  name: "Official PlayStation 2 Magazine Demo 31"
+  region: "PAL-M5"
+SCED-51558:
+  name: "Official PlayStation 2 Magazine Demo 32"
+  region: "PAL-M5"
+SCED-51559:
   name: "Official PlayStation 2 Magazine Demo 33"
+  region: "PAL-M5"
+SCED-51560:
+  name: "Official PlayStation 2 Magazine Demo 34" # French
+  region: "PAL-F"
+SCED-51561:
+  name: "Official PlayStation 2 Magazine Demo 35"
+  region: "PAL-M5"
+SCED-51563:
+  name: "Official PlayStation 2 Magazine Demo 37"
+  region: "PAL-M5"
+SCED-51565:
+  name: "Official PlayStation 2 Magazine Demo 40"
+  region: "PAL-M5"
+SCED-51566:
+  name: "Official PlayStation 2 Magazine Demo 31" # German
+  region: "PAL-E-G"
+SCED-51567:
+  name: "Official PlayStation 2 Magazine Demo 32" # German
+  region: "PAL-E-G"
+SCED-51568:
+  name: "Official PlayStation 2 Magazine Demo 33" # German
   region: "PAL-E-G"
   roundModes:
     vuRoundMode: 0  # Fixes SPS (Primal).
   clampModes:
     vuClampMode: 2  # Fixes other SPS (Primal).
+SCED-51569:
+  name: "Official PlayStation 2 Magazine Demo 34" # German
+  region: "PAL-E-G"
+SCED-51570:
+  name: "Official PlayStation 2 Magazine Demo 35" # German
+  region: "PAL-E-G"
+SCED-51571:
+  name: "Official PlayStation 2 Magazine Demo 36" # German
+  region: "PAL-E-G"
+SCED-51572:
+  name: "Official PlayStation 2 Magazine Demo 37" # German
+  region: "PAL-E-G"
+SCED-51573:
+  name: "Official PlayStation 2 Magazine Demo 38" # German
+  region: "PAL-E-G"
+SCED-51575:
+  name: "Official PlayStation 2 Magazine Demo 40" # German
+  region: "PAL-E-G"
 SCED-51657:
-  name: "Official Playstation Magazine - Demo Disc 33"
+  name: "Official Playstation Magazine Demo 33"
   region: "PAL-Unk"
   compat: 5
   patches:
@@ -1075,33 +1388,210 @@ SCED-51700:
   name: "Jak II: Renegade [Demo]"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+SCED-51935:
+  name: "Official PlayStation 2 Magazine Demo 38" # German
+  region: "PAL-E-G"
+SCED-52037:
+  name: "Official PlayStation 2 Magazine Demo 39" # German
+  region: "PAL-E-G"
 SCED-52049:
   name: "Dog's Life [Demo]"
   region: "PAL-M11"
   compat: 5
   clampModes:
     vuClampMode: 3  # Fixes minor SPS on characters.
+SCED-52051:
+  name: "Official PlayStation 2 Magazine Demo 43"
+  region: "PAL-M5"
+SCED-52052:
+  name: "Official PlayStation 2 Magazine Demo 44"
+  region: "PAL-M5"
+SCED-52053:
+  name: "Official Playstation 2 Magazine Demo 40"
+  region: "PAL-PT"
+SCED-52054:
+  name: "Official PlayStation 2 Magazine Demo 40"
+  region: "PAL-M5"
+SCED-52057:
+  name: "Official Playstation Magazine Demo Disc 40"
+  region: "PAL-IT"
+SCED-52260:
+  name: "Forbidden Siren [Demo]"
+  region: "PAL-M5"
+SCED-52068:
+  name: "Official PlayStation 2 Magazine Demo 41" # German
+  region: "PAL-E-G"
+SCED-52069:
+  name: "Official PlayStation 2 Magazine Demo 42" # German
+  region: "PAL-E-G"
+SCED-52076:
+  name: "Official PlayStation 2 Magazine Demo 49" # German
+  region: "PAL-G"
+SCED-52080:
+  name: "Official PlayStation 2 Magazine Demo 53" # German
+  region: "PAL-E-G"
+SCED-52081:
+  name: "Official PlayStation 2 Magazine Demo 41"
+  region: "PAL-M5"
+SCED-52083:
+  name: "Official PlayStation 2 Magazine Demo 43"
+  region: "PAL-M5"
+SCED-52085:
+  name: "Official PlayStation 2 Magazine Demo 45"
+  region: "PAL-M5"
+SCED-52087:
+  name: "Official PlayStation 2 Magazine Demo 47" # German
+  region: "PAL-E-G"
+SCED-52088:
+  name: "Official PlayStation 2 Magazine Demo 48"
+  region: "PAL-M5"
+SCED-52090:
+  name: "Official PlayStation 2 Magazine Demo 50" # German
+  region: "PAL-E-G"
+SCED-52091:
+  name: "Official PlayStation 2 Magazine Demo 51"
+  region: "PAL-M5"
+SCED-52092:
+  name: "Official PlayStation 2 Magazine Demo 52" # German
+  region: "PAL-E-G"
+SCED-52120:
+  name: "Official PlayStation 2 Magazine Demo 55" # German
+  region: "PAL-E-G"
+SCED-52160:
+  name: "Official PlayStation 2 Magazine Demo 45"
+  region: "PAL-M5"
+SCED-52161:
+  name: "Official PlayStation 2 Magazine Demo 46"
+  region: "PAL-M5"
+SCED-52162:
+  name: "Official PlayStation 2 Magazine Demo 47"
+  region: "PAL-M5"
+SCED-52163:
+  name: "Official PlayStation 2 Magazine Demo 48"
+  region: "PAL-M5"
+SCED-52164:
+  name: "Official PlayStation 2 Magazine Demo 49"
+  region: "PAL-M5"
+SCED-52165:
+  name: "Official PlayStation 2 Magazine Demo 50" # United Kingdom
+  region: "PAL-E"
+SCED-52166:
+  name: "Official PlayStation 2 Magazine Demo 51" # United Kingdom
+  region: "PAL-E"
+SCED-52167:
+  name: "Official PlayStation 2 Magazine Demo 52" # United Kingdom
+  region: "PAL-E"
+SCED-52168:
+  name: "Official PlayStation 2 Magazine Demo 53" # United Kingdom
+  region: "PAL-E"
+SCED-52169:
+  name: "Official PlayStation 2 Magazine Demo 54"
+  region: "PAL-M5"
+SCED-52170:
+  name: "Official PlayStation 2 Magazine Demo 55" # United Kingdom
+  region: "PAL-E"
+SCED-52177:
+  name: "Official PlayStation 2 Magazine Demo 41"
+  region: "PAL-M5"
+SCED-52185:
+  name: "Official PlayStation 2 Magazine Demo 41"
+  region: "PAL-M5"
+SCED-52196:
+  name: "Official PS2 Magazine Demo 22 Special Ed: It's Here" # United Kingdom
+  region: "PAL-E"
+SCED-52270:
+  name: "Official PlayStation 2 Magazine Demo 42"
+  region: "PAL-M5"
+SCED-52271:
+  name: "Official PlayStation 2 Magazine Demo 42"
+  region: "PAL-M5"
+SCED-52273:
+  name: "Official PlayStation 2 Magazine Demo 42"
+  region: "PAL-M5"
+SCED-52354:
+  name: "Official PlayStation 2 Magazine Demo 43"
+  region: "PAL-M5"
 SCED-52355:
   name: "Military Multi Demo"
+  region: "PAL-M5"
+SCED-52377:
+  name: "Official PlayStation 2 Magazine Demo 44"
   region: "PAL-M5"
 SCED-52436:
   name: "Playstation2 UK Demo 7-2004"
   region: "PAL-M5"
   compat: 5
+SCED-52442:
+  name: "Official PlayStation 2 Magazine Demo 45"
+  region: "PAL-M5"
+SCED-52452:
+  name: "Official PlayStation 2 Magazine Demo 45"
+  region: "PAL-M5"
+SCED-52549:
+  name: "Official PlayStation 2 Magazine Demo 47"
+  region: "PAL-M5"
+SCED-52619:
+  name: "Official PlayStation 2 Magazine Demo 48"
+  region: "PAL-M5"
 SCED-52681:
   name: "Gran Turismo 4 BMW 1 Series [Demo]"
   region: "PAL-M11"
+SCED-52728:
+  name: "Official PlayStation 2 Magazine Demo 49"
+  region: "PAL-M5"
+SCED-52785:
+  name: "Official PlayStation 2 Magazine Demo 50"
+  region: "PAL-M5"
+SCED-52786:
+  name: "Official PlayStation 2 Magazine Demo 51"
+  region: "PAL-M5"
+SCED-52796:
+  name: "Official PlayStation 2 Magazine Demo 50"
+  region: "PAL-M5"
 SCED-52818:
   name: "EyeToy - Chat [Light]"
   region: "PAL-M11"
+SCED-52932:
+  name: "Bonus Demo 8 (old)"
+  region: "PAL-M5"
+SCED-52938:
+  name: "Official PlayStation 2 Magazine Demo 52"
+  region: "PAL-M5"
 SCED-52952:
   name: "Jak 3 [Demo]"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCED-52970:
   name: "SCEE Hits Demo"
+  region: "PAL-M5"
+SCED-52990:
+  name: "Official PlayStation 2 Magazine Demo 53"
+  region: "PAL-M5"
+SCED-52991:
+  name: "Official PlayStation 2 Magazine Demo 53" # French
+  region: "PAL-M5"
+SCED-53056:
+  name: "Official PlayStation 2 Magazine Demo 54" # German
+  region: "PAL-E-G"
+SCED-53068:
+  name: "Official PlayStation 2 Magazine Demo 54" # French
+  region: "PAL-M5"
+SCED-53122:
+  name: "Official PlayStation 2 Magazine Demo 56"
+  region: "PAL-M5"
+SCED-53123:
+  name: "Official PlayStation 2 Magazine Demo 55"
+  region: "PAL-M5"
+SCED-53132:
+  name: "Official PlayStation 2 Magazine Demo 56"
+  region: "PAL-M5"
+SCED-53159:
+  name: "Official PlayStation 2 Magazine Demo 57" # German
+  region: "PAL-E-G"
+SCED-53160:
+  name: "Official PlayStation 2 Magazine Demo 57"
   region: "PAL-M5"
 SCED-53161:
   name: "Official PlayStation 2 Magazine Demo 58"
@@ -1116,12 +1606,300 @@ SCED-53161:
         patch=1,EE,0047df70,word,4A7503BC
         patch=1,EE,0047df74,word,4A0002FF
         patch=1,EE,0047df78,word,4A0002FF
+SCED-53162:
+  name: "Official PlayStation 2 Magazine Demo 59"
+  region: "PAL-M5"
 SCED-53163:
   name: "Official PlayStation 2 Magazine Demo 60"
   region: "PAL-M12"
-SCED-53325:
+SCED-53164:
+  name: "Official PlayStation 2 Magazine Demo 61"
+  region: "PAL-M5"
+SCED-53165:
+  name: "Official PlayStation 2 Magazine Demo 62"
+  region: "PAL-M5"
+SCED-53166:
+  name: "Official PlayStation 2 Magazine Demo 63"
+  region: "PAL-M5"
+SCED-53167:
+  name: "Official PlayStation 2 Magazine Demo 64"
+  region: "PAL-M5"
+SCED-53168:
+  name: "Official PlayStation 2 Magazine Demo 65"
+  region: "PAL-M5"
+SCED-53169:
+  name: "Official PlayStation 2 Magazine Demo 66"
+  region: "PAL-M5"
+SCED-53170:
+  name: "Official PlayStation 2 Magazine Demo 67"
+  region: "PAL-M5"
+SCED-53171:
+  name: "Official PlayStation 2 Magazine Demo 68"
+  region: "PAL-M5"
+SCED-53175:
+  name: "Official PlayStation 2 Magazine Demo 40"
+  region: "PAL-G"
+SCED-53176:
+  name: "Official PlayStation 2 Magazine Demo 56"
+  region: "PAL-M5"
+SCED-53206:
+  name: "Official PlayStation 2 Magazine Demo 58" # German
+  region: "PAL-G"
+SCED-53207:
+  name: "Official PlayStation 2 Magazine Demo 59" # German
+  region: "PAL-G"
+SCED-53208:
+  name: "Official PlayStation 2 Magazine Demo 60" # German
+  region: "PAL-G"
+SCED-53209:
+  name: "Official PlayStation 2 Magazine Demo 61" # German
+  region: "PAL-G"
+SCED-53210:
+  name: "Official PlayStation 2 Magazine Demo 62" # German
+  region: "PAL-G"
+SCED-53211:
+  name: "Official PlayStation 2 Magazine Demo 63" # German
+  region: "PAL-G"
+SCED-53212:
+  name: "Official PlayStation 2 Magazine Demo 64" # German
+  region: "PAL-G"
+SCED-53213:
+  name: "Official PlayStation 2 Magazine Demo 65" # German
+  region: "PAL-G"
+SCED-53214:
+  name: "Official PlayStation 2 Magazine Demo 66" # German
+  region: "PAL-G"
+SCED-53215:
+  name: "Official PlayStation 2 Magazine Demo 67" # German
+  region: "PAL-G"
+SCED-53216:
+  name: "Official PlayStation 2 Magazine Demo 68" # German
+  region: "PAL-G"
+SCED-53217:
+  name: "Official PlayStation 2 Magazine Demo 69" # German
+  region: "PAL-G"
+SCED-53225:
   name: "Official PlayStation 2 Magazine Demo 58"
   region: "PAL-M5"
+SCED-53228:
+  name: "Official PlayStation 2 Magazine Demo 57"
+  region: "PAL-M5"
+SCED-53288:
+  name: "Official PlayStation 2 Magazine Demo 58"
+  region: "PAL-M5"
+SCED-53289:
+  name: "Official PlayStation 2 Magazine Demo 59"
+  region: "PAL-M5"
+SCED-53290:
+  name: "Official PlayStation 2 Magazine Demo 60"
+  region: "PAL-M5"
+SCED-53291:
+  name: "Official PlayStation 2 Magazine Demo 61"
+  region: "PAL-M5"
+SCED-53292:
+  name: "Official PlayStation 2 Magazine Demo 62"
+  region: "PAL-M5"
+SCED-53293:
+  name: "Official PlayStation 2 Magazine Demo 63"
+  region: "PAL-M5"
+SCED-53325:
+  name: "Official PlayStation 2 Magazine Demo 58" # Spanish/Portuguese
+  region: "PAL-M5"
+SCED-53348:
+  name: "Official PlayStation 2 Magazine Demo 58" # French
+  region: "PAL-F"
+SCED-53854:
+  name: "Official PS2 Magazine French Christmas Special" # French
+  region: "PAL-F"
+SCED-53905:
+  name: "Official PlayStation 2 Magazine Italia Special Sport Demo"
+  region: "PAL-M5"
+SCED-53916:
+  name: "Official PlayStation 2 Magazine Demo 67" # French
+  region: "PAL-M5"
+SCED-53932:
+  name: "Official PlayStation 2 Magazine Demo 67" # Spanish
+  region: "PAL-M5"
+SCED-53939:
+  name: "Official PlayStation 2 Magazine Demo 67" # Australian
+  region: "PAL-E"
+SCED-53978:
+  name: "Official PlayStation 2 Magazine Demo 69"
+  region: "PAL-M5"
+SCED-54001:
+  name: "Official PlayStation 2 Magazine Demo 69"
+  region: "PAL-M5"
+SCED-54024:
+  name: "Official PlayStation 2 Magazine Demo 70"
+  region: "PAL-M5"
+SCED-54036:
+  name: "Official PlayStation 2 Magazine Demo 69/70"
+  region: "PAL-M5"
+SCED-54037:
+  name: "Official PlayStation 2 Magazine Demo 70"
+  region: "PAL-M5"
+SCED-54043:
+  name: "Official PlayStation 2 Magazine Demo 71"
+  region: "PAL-M5"
+SCED-54044:
+  name: "Official PlayStation 2 Magazine Demo 72"
+  region: "PAL-M5"
+SCED-54045:
+  name: "Official PlayStation 2 Magazine Demo 73"
+  region: "PAL-M5"
+SCED-54046:
+  name: "Official PlayStation 2 Magazine Demo 74"
+  region: "PAL-M5"
+SCED-54047:
+  name: "Official PlayStation 2 Magazine Demo 75"
+  region: "PAL-M5"
+SCED-54048:
+  name: "Official PlayStation 2 Magazine Demo 76"
+  region: "PAL-M5"
+SCED-54049:
+  name: "Official PlayStation 2 Magazine Demo 77"
+  region: "PAL-M5"
+SCED-54050:
+  name: "Official PlayStation 2 Magazine Demo 71" # German
+  region: "PAL-M5"
+SCED-54051:
+  name: "Official PlayStation 2 Magazine Demo 72" # German
+  region: "PAL-M5"
+SCED-54052:
+  name: "Official PlayStation 2 Magazine Demo 73" # German
+  region: "PAL-M5"
+SCED-54053:
+  name: "Official PlayStation 2 Magazine Demo 74" # German
+  region: "PAL-M5"
+SCED-54054:
+  name: "Official PlayStation 2 Magazine Demo 75" # German
+  region: "PAL-M5"
+SCED-54055:
+  name: "Official PlayStation 2 Magazine Demo 76" # German
+  region: "PAL-M5"
+SCED-54056:
+  name: "Official PlayStation 2 Magazine Demo 77" # German
+  region: "PAL-M5"
+SCED-54057:
+  name: "Official PlayStation 2 Magazine Demo 78" # German
+  region: "PAL-M5"
+SCED-54058:
+  name: "Official PlayStation 2 Magazine Demo 79" # German
+  region: "PAL-M5"
+SCED-54059:
+  name: "Official PlayStation 2 Magazine Demo 80" # German
+  region: "PAL-M5"
+SCED-54070:
+  name: "Official PlayStation 2 Magazine Demo 71" # Spanish/Portuguese
+  region: "PAL-M5"
+SCED-54079:
+  name: "Official PlayStation 2 Magazine Demo 71" # French
+  region: "PAL-M5"
+SCED-54099:
+  name: "Official PlayStation 2 Magazine Demo 71" # Australian
+  region: "PAL-M5"
+SCED-54144:
+  name: "Official PlayStation 2 Magazine Demo 72" # French
+  region: "PAL-M5"
+SCED-54176:
+  name: "Official PlayStation 2 Magazine Demo 73" # BeNeLux
+  region: "PAL-M5"
+SCED-54202:
+  name: "Official PlayStation 2 Magazine Demo 74"
+  region: "PAL-M5"
+SCED-54403:
+  name: "Official PlayStation 2 Magazine Demo 78"
+  region: "PAL-M5"
+SCED-54404:
+  name: "Official PlayStation 2 Magazine Demo 79"
+  region: "PAL-M5"
+SCED-54405:
+  name: "Official PlayStation 2 Magazine Demo 80"
+  region: "PAL-M5"
+SCED-54406:
+  name: "Official PlayStation 2 Magazine Demo 81"
+  region: "PAL-M5"
+SCED-54407:
+  name: "Official PlayStation 2 Magazine Demo 82"
+  region: "PAL-M5"
+SCED-54408:
+  name: "Official PlayStation 2 Magazine Demo 83"
+  region: "PAL-M5"
+SCED-54409:
+  name: "Official PlayStation 2 Magazine Demo 84"
+  region: "PAL-M5"
+SCED-54410:
+  name: "Official PlayStation 2 Magazine Demo 85"
+  region: "PAL-M5"
+SCED-54411:
+  name: "Official PlayStation 2 Magazine Demo 86"
+  region: "PAL-M5"
+SCED-54412:
+  name: "Official PlayStation 2 Magazine Demo 87"
+  region: "PAL-M5"
+SCED-54413:
+  name: "Official PlayStation 2 Magazine Demo 88"
+  region: "PAL-M5"
+SCED-54414:
+  name: "Official PlayStation 2 Magazine Demo 89"
+  region: "PAL-M5"
+SCED-54415:
+  name: "Official PlayStation 2 Magazine Demo 90"
+  region: "PAL-M5"
+SCED-54416:
+  name: "Official PlayStation 2 Magazine Demo 91"
+  region: "PAL-M5"
+SCED-54417:
+  name: "Official PlayStation 2 Magazine Demo 92"
+  region: "PAL-M5"
+SCED-54418:
+  name: "Official PlayStation 2 Magazine Demo 93"
+  region: "PAL-M5"
+SCED-54480:
+  name: "Official PlayStation 2 Magazine Demo 78" # French
+  region: "PAL-M5"
+SCED-54481:
+  name: "Official PlayStation 2 Magazine Demo 79" # French
+  region: "PAL-M5"
+SCED-54567:
+  name: "Official PlayStation 2 Magazine Demo 80" # Spanish/Portuguese
+  region: "PAL-M5"
+SCED-54605:
+  name: "Official PlayStation 2 Magazine Demo 81" # German
+  region: "PAL-G"
+SCED-54642:
+  name: "Official PlayStation 2 Magazine Demo 82" # German
+  region: "PAL-M5"
+SCED-54692:
+  name: "Official PlayStation 2 Magazine Demo 83" # German
+  region: "PAL-E-G"
+SCED-54758:
+  name: "Official PlayStation 2 Magazine Demo 84" # German
+  region: "PAL-G"
+SCED-55113:
+  name: "Official PlayStation 2 Magazine Demo 94"
+  region: "PAL-M5"
+SCED-55114:
+  name: "Official PlayStation 2 Magazine Demo 95"
+  region: "PAL-M5"
+SCED-55115:
+  name: "Official PlayStation 2 Magazine Demo 96"
+  region: "PAL-M5"
+SCED-55116:
+  name: "Official PlayStation 2 Magazine Demo 97"
+  region: "PAL-M5"
+SCED-55117:
+  name: "Official PlayStation 2 Magazine Demo 98"
+  region: "PAL-M5"
+SCED-55118:
+  name: "Official PlayStation 2 Magazine Demo 99"
+  region: "PAL-M5"
+SCED-55119:
+  name: "Official PlayStation 2 Magazine Demo 100"
+  region: "PAL-M5"
+SCED-55120:
+  name: "Official PlayStation 2 Magazine Demo 101"
+  region: "PAL-DU"
 SCES-50000:
   name: "Ridge Racer V"
   region: "PAL-M5"
@@ -1175,7 +1953,7 @@ SCES-50034:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Crash On Load.
+    - VUKickstartHack # Fixes Crash On Load.
 SCES-50105:
   name: "Sky Odyssey"
   region: "PAL-M5"
@@ -1227,13 +2005,13 @@ SCES-50360:
   name: "Twisted Metal - Black"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCES-50361:
   name: "Jak and Daxter: The Precursor Legacy"
   region: "PAL-M6"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCES-50408:
   name: "PaRappa the Rapper 2"
   region: "PAL-M5"
@@ -1255,43 +2033,35 @@ SCES-50459:
   name: "Dropship - United Peace Force"
   region: "PAL-M5"
   compat: 2
+  speedHacks:
+    InstantVU1SpeedHack: 0
 SCES-50490:
   name: "Final Fantasy X"
   region: "PAL-E"
   compat: 5
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SCES-50491:
   name: "Final Fantasy X"
   region: "PAL-F"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SCES-50492:
   name: "Final Fantasy X"
   region: "PAL-G"
   compat: 5
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SCES-50493:
   name: "Final Fantasy X"
   region: "PAL-I"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SCES-50494:
   name: "Final Fantasy X"
   region: "PAL-S"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SCES-50499:
   name: "Ecco the Dolphin - Defender of the Future"
   region: "PAL-M5"
@@ -1366,7 +2136,7 @@ SCES-50614:
   name: "Jak and Daxter: The Precursor Legacy"
   region: "PAL-Unk"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCES-50759:
   name: "Virtua Fighter 4"
   region: "PAL-M5"
@@ -1432,7 +2202,8 @@ SCES-50916:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCES-50917:
   name: "Sly Racoon"
   region: "PAL-M5"
@@ -1441,8 +2212,6 @@ SCES-50928:
   region: "PAL-M6"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCES-50934:
   name: "WRC II Extreme"
   region: "PAL-M7"
@@ -1485,7 +2254,7 @@ SCES-50971:
   region: "PAL-S"
   compat: 5
 SCES-50982:
-  name: "Moto GP 3"
+  name: "MotoGP 3"
   region: "PAL-M5"
   compat: 5
 SCES-50987:
@@ -1526,7 +2295,7 @@ SCES-51135:
   clampModes:
     vuClampMode: 2  # Fix other SPS.
   gameFixes:
-    - VU0KickstartHack # Fixes objects disappearing.
+    - VUKickstartHack # Fixes objects disappearing.
 SCES-51159:
   name: "The Getaway"
   region: "PAL-M5"
@@ -1574,11 +2343,13 @@ SCES-51463:
   name: "Ghosthunter"
   region: "PAL-M6"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Missing Graphics.
 SCES-51480:
   name: "Twisted Metal - Black - Online"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCES-51513:
   name: "EyeToy - Play"
   region: "PAL-M11"
@@ -1598,7 +2369,7 @@ SCES-51593:
   name: "Hardware Online Arena [Beta, Promo & Full Release]"
   region: "PAL-M4"
   gameFixes:
-    - VU0KickstartHack # Reduces chance of hanging going ingame.
+    - VUKickstartHack # Reduces chance of hanging going ingame.
   patches:
     81797E77:
       content: |-
@@ -1612,7 +2383,8 @@ SCES-51607:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes DMA errors 
   memcardFilters: # Reads Ratchet 1 data.
     - "SCES-51607"
     - "SCES-50916"
@@ -1621,7 +2393,7 @@ SCES-51608:
   region: "PAL-M7"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   patches:
     default:
       content: |-
@@ -1647,8 +2419,6 @@ SCES-51618:
   region: "PAL-M5"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCES-51635:
   name: "Brave - The Search for Spirit Dancer"
   region: "PAL-M5"
@@ -1672,7 +2442,7 @@ SCES-51685:
   clampModes:
     vuClampMode: 2  # Fix other SPS.
   gameFixes:
-    - VU0KickstartHack # Fixes objects disappearing.
+    - VUKickstartHack # Fixes objects disappearing.
 SCES-51706:
   name: "Amplitude"
   region: "PAL-M5"
@@ -1766,7 +2536,7 @@ SCES-52156:
   name: "Ghosthunter - Hunter on the spectres"
   region: "PAL-M3"
 SCES-52268:
-  name: "Sing-Star"
+  name: "SingStar"
   region: "PAL-E"
 SCES-52299:
   name: "SingStar"
@@ -1878,7 +2648,8 @@ SCES-52456:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters: # Reads Ratchet 1 & 2 data.
     - "SCES-52456"
     - "SCES-51607"
@@ -1888,7 +2659,7 @@ SCES-52460:
   region: "PAL-M7"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   patches:
     default:
       content: |-
@@ -1902,10 +2673,10 @@ SCES-52530:
   name: "Crisis Zone"
   region: "PAL-M5"
 SCES-52564:
-  name: "Sing-Star"
+  name: "SingStar"
   region: "PAL-F"
 SCES-52565:
-  name: "Sing-Star"
+  name: "SingStar"
   region: "PAL-G"
 SCES-52566:
   name: "SingStar"
@@ -1924,6 +2695,8 @@ SCES-52677:
   name: "Network Access Disc & Hardware - Online Arena"
   region: "PAL-M7"
   compat: 5
+  speedHacks:
+    InstantVU1SpeedHack: 1  # Fixes not rendering most the screen
   patches:
     default:
       content: |-
@@ -1947,16 +2720,16 @@ SCES-52763:
   name: "DJ Decks & FX Vol.1"
   region: "PAL-G"
 SCES-52826:
-  name: "Sing-Star Party"
+  name: "SingStar Party"
   region: "PAL-E"
 SCES-52827:
   name: "SingStar Party"
   region: "PAL-I"
 SCES-52828:
-  name: "Sing-Star NRJ Music Tour"
+  name: "SingStar NRJ Music Tour"
   region: "PAL-F"
 SCES-52829:
-  name: "Sing-Star Party"
+  name: "SingStar Party"
   region: "PAL-G"
 SCES-52830:
   name: "SingStar Party"
@@ -1966,7 +2739,7 @@ SCES-52883:
   region: "PAL-M7"
   compat: 2
 SCES-52892:
-  name: "Moto GP 4"
+  name: "MotoGP 4"
   region: "PAL-M5"
   compat: 5
 SCES-52893:
@@ -2006,13 +2779,13 @@ SCES-53179:
   name: "SingStar Pop"
   region: "PAL-F"
 SCES-53180:
-  name: "Sing-Star - The Dome"
+  name: "SingStar - The Dome"
   region: "PAL-G"
 SCES-53181:
   name: "SingStar"
   region: "PAL-I"
 SCES-53182:
-  name: "Sing-Star Pop"
+  name: "SingStar Pop"
   region: "PAL-S"
 SCES-53183:
   name: "SingStar Pop"
@@ -2040,12 +2813,13 @@ SCES-53285:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCES-53286:
   name: "Jak X - Combat Racing"
   region: "PAL-M7"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   memcardFilters: # Reads Ratchet Gladiator data.
     - "SCES-53286"
     - "SCES-53285"
@@ -2102,7 +2876,7 @@ SCES-53358:
   clampModes:
     vuClampMode: 2  # Fixes minimap HUD.
   gameFixes:
-    - VU0KickstartHack # Fixes missing geometry.
+    - VUKickstartHack # Fixes missing geometry.
 SCES-53372:
   name: "Tourist Trophy - The Real Riding Simulator"
   region: "PAL-M5"
@@ -2131,28 +2905,28 @@ SCES-53565:
   name: "SingStar Pop"
   region: "PAL-Unk"
 SCES-53602:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-E"
 SCES-53603:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-F"
 SCES-53604:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-G"
 SCES-53605:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-I"
 SCES-53606:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-S"
 SCES-53607:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-DU"
 SCES-53609:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-SW"
 SCES-53610:
-  name: "Sing-Star '80s"
+  name: "SingStar '80s"
   region: "PAL-PL"
 SCES-53642:
   name: "Ape Escape 3"
@@ -2234,10 +3008,10 @@ SCES-53895:
   name: "SingStar Rocks!"
   region: "PAL-S"
 SCES-53897:
-  name: "Sing-Star Rocks!"
+  name: "SingStar Rocks!"
   region: "PAL-F"
 SCES-53898:
-  name: "Sing-Star Rocks!"
+  name: "SingStar Rocks!"
   region: "PAL-I"
 SCES-53925:
   name: "Buzz! The Big Quiz"
@@ -2300,7 +3074,7 @@ SCES-54129:
   name: "SingStar"
   region: "PAL-S"
 SCES-54131:
-  name: "Sing-Star Anthems"
+  name: "SingStar Anthems"
   region: "PAL-E"
   compat: 3
 SCES-54145:
@@ -2308,7 +3082,7 @@ SCES-54145:
   region: "PAL-M10"
   compat: 5
 SCES-54191:
-  name: "Sing-Star Legends"
+  name: "SingStar Legends"
   region: "PAL-E"
 SCES-54197:
   name: "SingStar Legends"
@@ -2415,15 +3189,18 @@ SCES-54552:
         author=kozarovv
         // Fixes Vedan Myna area out of bounds glitch.
         patch=1,EE,00124898,word,3442fffe
-SCES-54560:
-  name: "Sing-Star R&B"
-  region: "PAL-E"
 SCES-54570:
-  name: "Sing-Star Pop Hits"
+  name: "SingStar Pop Hits"
   region: "PAL-E"
 SCES-54571:
-  name: "Sing-Star Pop Hits"
+  name: "SingStar Pop Hits"
   region: "PAL-G"
+SCES-54572:
+  name: "SingStar Pop Hits"
+  region: "PAL-S"
+SCES-54573:
+  name: "SingStar Pop Hits"
+  region: "PAL-SC"
 SCES-54597:
   name: "Buzz! The Mega Quiz"
   region: "PAL-M3"
@@ -2457,6 +3234,12 @@ SCES-54748:
 SCES-54749:
   name: "Buzz! Junior - Dino Den"
   region: "PAL-M8"
+SCES-54760:
+  name: "SingStar R&B"
+  region: "PAL-E"
+SCES-54761:
+  name: "SingStar R&B"
+  region: "PAL-S"
 SCES-54762:
   name: "SingStar R&B"
   region: "PAL-G"
@@ -2484,6 +3267,9 @@ SCES-55093:
 SCES-55094:
   name: "Buzz! The Pop Quiz"
   region: "PAL-M3"
+SCES-55178:
+  name: "Singstar Boy Bands vs Girl Bands"
+  region: "PAL-M5"
 SCES-55179:
   name: "SingStar Schlager"
   region: "PAL-G"
@@ -2525,7 +3311,7 @@ SCES-55510:
   name: "Jak and Daxter: The Lost Frontier"
   region: "PAL-M12"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCES-55535:
   name: "Desi Adda: Games of India"
   region: "PAL-M4"
@@ -2536,6 +3322,9 @@ SCES-55538:
 SCES-55552:
   name: "SingStar MoTown"
   region: "PAL-G"
+SCES-55554:
+  name: "Singstar Take That"
+  region: "PAL-M5"
 SCES-55557:
   name: "SingStar Take That"
   region: "PAL-G"
@@ -2583,12 +3372,13 @@ SCKA-20010:
   name: "Jak II"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCKA-20011:
   name: "Ratchet & Clank 2"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCKA-20011"
     - "SCKA-20120"
@@ -2629,7 +3419,7 @@ SCKA-20022:
   # eeClampMode = 3  Text in races works.
   # vuClampMode = 2  Text in GT mode works.
 SCKA-20023:
-  name: "Fatal Frame 2"
+  name: "Fatal Frame II"
   region: "NTSC-K"
   compat: 5
 SCKA-20025:
@@ -2679,7 +3469,8 @@ SCKA-20037:
   name: "Ratchet & Clank 3"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCKA-20037"
     - "SCKA-20011"
@@ -2694,7 +3485,7 @@ SCKA-20040:
   name: "Jak 3"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCKA-20043:
   name: "Magna Carta"
   region: "NTSC-K"
@@ -2766,7 +3557,8 @@ SCKA-20060:
   name: "Ratchet - Deadlocked"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCKA-20061:
   name: "Wanda to Kyozou (Shadow of the Colossus)"
   region: "NTSC-K"
@@ -2825,7 +3617,7 @@ SCKA-20079:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCKA-20081:
   name: "Tekken 5 [PlayStation 2 Big Hit Series]"
   region: "NTSC-K"
@@ -2846,6 +3638,8 @@ SCKA-20090:
 SCKA-20092:
   name: "K-1 World Grand Prix 2006"
   region: "NTSC-K"
+  speedHacks: 
+    InstantVU1SpeedHack: 0  # Fixes random black frames from happening when in a fight session.
   gameFixes:
     - XGKickHack # Fixes grey fighters problem.
 SCKA-20096:
@@ -2877,7 +3671,8 @@ SCKA-20120:
   name: "Ratchet & Clank"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCKA-20132:
   name: "Shin Megami Tensei: Persona 4"
   region: "NTSC-K"
@@ -2887,8 +3682,6 @@ SCKA-24008:
   region: "NTSC-K"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCKA-30001:
   name: "Gran Turismo 4"
   region: "NTSC-K"
@@ -3000,12 +3793,6 @@ SCPS-11021:
 SCPS-11022:
   name: "Yoake no Mariko 2nd Act"
   region: "NTSC-J"
-  patches:
-    0cf7e6ff:
-      content: |-
-        comment=Patch by Prafull
-        // Fixes initial hang.
-        patch=1,EE,00176000,word,00000000
 SCPS-11023:
   name: "Bravo Music - Chou-Meikyokuban"
   region: "NTSC-J"
@@ -3127,7 +3914,7 @@ SCPS-15021:
   name: "Jak x Daxter: Kyuusekai no Isan"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-15022:
   name: "Dual Hearts"
   region: "NTSC-J"
@@ -3181,7 +3968,8 @@ SCPS-15037:
   name: "Ratchet & Clank"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-15038:
   name: "Operator's Side"
   region: "NTSC-J"
@@ -3206,8 +3994,6 @@ SCPS-15044:
   region: "NTSC-J"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCPS-15045:
   name: "Ka (Mosquito) - Let's Go Hawaiian"
   region: "NTSC-J"
@@ -3226,17 +4012,6 @@ SCPS-15050:
   name: "Flipnic"
   region: "NTSC-J"
   compat: 5
-  patches:
-    25433CBD:
-      content: |-
-        comment=Patches by Nachbrenner
-        // Fix D3_CHCR (might be redundant).
-        patch=0,EE,0011c1b8,word,00000000
-        // Skip sceIpuSync.
-        patch=0,EE,00208eb0,word,03e00008
-        patch=0,EE,00208eb4,word,00000000
-        // Fix sceIpuRestartDMA.
-        patch=0,EE,00208e04,word,00000000
 SCPS-15051:
   name: "MLB 2003"
   region: "NTSC-J"
@@ -3270,7 +4045,8 @@ SCPS-15056:
   name: "Ratchet & Clank 2"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCPS-15056"
     - "SCPS-15037"
@@ -3278,7 +4054,7 @@ SCPS-15057:
   name: "Jak and Daxter II"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-15058:
   name: "Arc the Lad - Generation"
   region: "NTSC-J"
@@ -3367,7 +4143,8 @@ SCPS-15084:
   name: "Ratchet & Clank 3"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCPS-15084"
     - "SCPS-15056"
@@ -3454,12 +4231,14 @@ SCPS-15099:
   name: "Ratchet & Clank 4th - GiriGiri Ginga no Giga Battle"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-15100:
   name: "Ratchet & Clank 4th - GiriGiri Ginga no Giga Battle"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-15101:
   name: "Bleach - Hanatareshi Yabou"
   region: "NTSC-J"
@@ -3536,7 +4315,8 @@ SCPS-15120:
   name: "Ratchet & Clank 5 Gekitotsu! Dodeka Ginga no Mirimiri Gundan"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-17001:
   name: "Gran Turismo 4"
   region: "NTSC-J"
@@ -3572,8 +4352,14 @@ SCPS-17011:
   name: "Nike - Gran Turismo [Limited Edition - 11 inch]"
   region: "NTSC-J"
 SCPS-17013:
-  name: "Rogue Galaxy [Directors Cut]"
+  name: "Rogue Galaxy [Director's Cut]"
   region: "NTSC-J"
+  patches:
+    CDEE4B19:
+      content: |-
+        author=kozarovv
+        // Fixes Vedan Myna out of bounds glitch.
+        patch=1,EE,00124898,word,3442fffe
 SCPS-19101:
   name: "Mosquito [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -3639,12 +4425,13 @@ SCPS-19210:
   name: "Jak x Daxter: Kyuusekai no Isan [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-19211:
   name: "Ratchet & Clank [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19213:
   name: "Operator's Side [PlayStation 2 The Best] [with Microphone]"
   region: "NTSC-J"
@@ -3685,7 +4472,8 @@ SCPS-19302:
   name: "Ratchet & Clank 2 [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19303:
   name: "Boku no Natsuyasumi 2 [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -3722,12 +4510,14 @@ SCPS-19309:
   name: "Ratchet & Clank 3 - Up Your Arsenal [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19310:
   name: "Ratchet & Clank [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19311:
   name: "Saru Get You 3 [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -3755,12 +4545,14 @@ SCPS-19316:
   name: "Ratchet & Clank [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19317:
   name: "Ratchet & Clank 2 - Going Commando [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19318:
   name: "Genji - Dawn of the Samurai [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -3782,7 +4574,8 @@ SCPS-19321:
   name: "Ratchet & Clank 4th - GiriGiri Ginga no Giga Battle [PlayStation 2 The Best]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19322:
   name: "Wild ARMs - The 4th Detonator [PlayStation 2 The Best - Reprint]"
   region: "NTSC-J"
@@ -3829,7 +4622,8 @@ SCPS-19328:
   name: "Ratchet & Clank 4th - GiriGiri Ginga no Giga Battle [PlayStation 2 the Best - Reprint]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCPS-19329:
   name: "Bleach - Blade Battlers [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -3843,7 +4637,7 @@ SCPS-19332:
   name: "Minna no Tennis [PlayStation 2 The Best]"
   region: "NTSC-J"
 SCPS-51001:
-  name: "Moto GP 2"
+  name: "MotoGP 2"
   region: "NTSC-J"
 SCPS-51004:
   name: "Bravo Music"
@@ -3900,7 +4694,7 @@ SCPS-55004:
   name: "Jak x Daxter: Kyuusekai no Isan"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-55005:
   name: "Gran Turismo - Concept 2001 Tokyo"
   region: "NTSC-J"
@@ -3949,7 +4743,7 @@ SCPS-55019:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-55020:
   name: "Kengo 2"
   region: "NTSC-J"
@@ -3986,7 +4780,7 @@ SCPS-55028:
   name: "Popolocrois Story - Hajime no Bouken"
   region: "NTSC-J"
 SCPS-55029:
-  name: "dot Hack - Vol.1"
+  name: ".hack//Infection Part 1"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -4025,7 +4819,7 @@ SCPS-55041:
   name: "Memories Off"
   region: "NTSC-J"
 SCPS-55042:
-  name: "dot Hack - Vol.2"
+  name: ".hack//Mutation Part 2"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -4072,12 +4866,20 @@ SCPS-55901:
   patches:
     A3D63039:
       content: |-
-        // Reduces JPEG quality to its minimum for save file thumbnails. This prevents
-        // the game from calling its own exit function, which was strangely its safety
-        // mechanism for when a captured thumbnail exceeded 4 KB in size.
+        // Repeatedly decrements JPEG quality until the generated save file thumbnail is
+        // within the 4 KB limit. Replaces the game's previous escape mechanism, which
+        // was simply to exit the game completely.
         comment=Save Point Crash Prevention
         author=pandubz, PSI, turtleli
-        patch=1,EE,20285f48,extended,24040000
+        patch=1,EE,00285f44,word,2413001e
+        patch=1,EE,00285f48,word,8f85ab00
+        patch=1,EE,00285f4c,word,26640000
+        patch=1,EE,00285f50,word,0c0935a8
+        patch=1,EE,00285f54,word,00b02821
+        patch=1,EE,00285f58,word,28421001
+        patch=1,EE,00285f5c,word,1040fffa
+        patch=1,EE,00285f60,word,2673ffff
+        patch=1,EE,00285f64,word,00000000
 SCPS-55902:
   name: "Gran Turismo - Concept 2002 Tokyo-Geneva"
   region: "NTSC-J"
@@ -4099,7 +4901,7 @@ SCPS-56003:
   name: "Jak and Daxter: The Precursor Legacy"
   region: "NTSC-K"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCPS-56005:
   name: "Gran Turismo Concept 2002 Tokyo-Seoul"
   region: "NTSC-K"
@@ -4169,7 +4971,7 @@ SCUS-97101:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCUS-97102:
   name: "Gran Turismo 3 - A-Spec"
   region: "NTSC-U"
@@ -4243,7 +5045,7 @@ SCUS-97124:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97125:
   name: "Frequency"
   region: "NTSC-U"
@@ -4283,8 +5085,6 @@ SCUS-97134:
   compat: 5
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCUS-97136:
   name: "NCAA Final Four 2002"
   region: "NTSC-U"
@@ -4321,7 +5121,7 @@ SCUS-97142:
   clampModes:
     vuClampMode: 2  # Fix other SPS.
   gameFixes:
-    - VU0KickstartHack # Fixes objects disappearing.
+    - VUKickstartHack # Fixes objects disappearing.
 SCUS-97144:
   name: "PlayStation Underground 5.1"
   region: "NTSC-U"
@@ -4386,7 +5186,7 @@ SCUS-97164:
   name: "Twisted Metal Black [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCUS-97165:
   name: "Official U.S. PlayStation Magazine Demo Disc 051"
   region: "NTSC-U"
@@ -4406,12 +5206,12 @@ SCUS-97170:
   name: "Jak and Daxter: The Precursor Legacy [Cingular Wireless Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97171:
   name: "Jak and Daxter: The Precursor Legacy [PS Underground Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97172:
   name: "World Tour Soccer 2002"
   region: "NTSC-U"
@@ -4437,7 +5237,7 @@ SCUS-97179:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCUS-97181:
   name: "Official U.S. PlayStation Magazine Demo Disc 055"
   region: "NTSC-U"
@@ -4481,13 +5281,13 @@ SCUS-97195:
   name: "Twisted Metal Black - Online"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCUS-97196:
   name: "Twisted Metal Black - Online [Demo]"
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Bad Car Models.
+    - VUKickstartHack # Fixes Bad Car Models.
 SCUS-97197:
   name: "War of the Monsters"
   region: "NTSC-U"
@@ -4501,7 +5301,8 @@ SCUS-97199:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97200:
   name: "Kiosk Demo Disc 2.05"
   region: "NTSC-U"
@@ -4520,8 +5321,6 @@ SCUS-97205:
   region: "NTSC-U"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCUS-97206:
   name: "PlayStation Underground Jampack Summer 2002"
   region: "NTSC-U"
@@ -4534,7 +5333,8 @@ SCUS-97209:
   name: "Ratchet & Clank [E3 Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97210:
   name: "Sly Cooper and the Thievius Raccoonus [Demo]"
   region: "NTSC-U"
@@ -4590,7 +5390,7 @@ SCUS-97225:
   clampModes:
     vuClampMode: 2  # Fix other SPS.
   gameFixes:
-    - VU0KickstartHack # Fixes objects disappearing.
+    - VUKickstartHack # Fixes objects disappearing.
 SCUS-97226:
   name: "NCAA GameBreaker 2003 [Demo]"
   region: "NTSC-U"
@@ -4605,8 +5405,6 @@ SCUS-97230:
   region: "NTSC-U"
   clampModes:
     vuClampMode: 2  # Fixes bad shadows.
-  gameFixes:
-    - GIFFIFOHack # Resolves random sprite/HUD corruption.
 SCUS-97231:
   name: "Arc the Lad - Twilight of the Spirits"
   region: "NTSC-U"
@@ -4636,7 +5434,8 @@ SCUS-97240:
   name: "Ratchet & Clank [EB Games Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97241:
   name: "Official U.S. PlayStation Magazine Demo Disc 066"
   region: "NTSC-U"
@@ -4719,17 +5518,18 @@ SCUS-97265:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97266:
   name: "Final Fantasy XI [Disc1of2]"
   region: "NTSC-U"
   compat: 3
 SCUS-97268:
-  name: "Ratchet & Clank - Going Commando"
+  name: "Ratchet & Clank 2 - Going Commando"
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCUS-97268"
     - "SCUS-97199"
@@ -4750,12 +5550,12 @@ SCUS-97273:
   name: "Jak II [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97274:
   name: "Jak II [Video Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97275:
   name: "SOCOM II - U.S. Navy SEALs"
   region: "NTSC-U"
@@ -4819,12 +5619,14 @@ SCUS-97322:
   name: "Ratchet & Clank 2 - Going Commando [Regular Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97323:
   name: "Ratchet & Clank 2 - Going Commando [Retail Employees Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97324:
   name: "Kiosk Demo Disc 2.11"
   region: "NTSC-U"
@@ -4859,7 +5661,7 @@ SCUS-97330:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97331:
   name: "Official U.S. PlayStation Magazine Demo Disc 078"
   region: "NTSC-U"
@@ -4911,7 +5713,8 @@ SCUS-97353:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
   memcardFilters:
     - "SCUS-97353"
     - "SCUS-97268"
@@ -4966,7 +5769,8 @@ SCUS-97374:
   name: "Ratchet & Clank 2 - Going Commando & Jak II [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS (for both).
+    - VUKickstartHack # Fixes Character SPS (for both).
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97377:
   name: "Syphon Filter - The Omega Strain [Regular Demo]"
   region: "NTSC-U"
@@ -4984,7 +5788,8 @@ SCUS-97381:
   name: "Ratchet & Clank 2 - Going Commando [GameStop Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97382:
   name: "NBA Shootout 2004 [Demo]"
   region: "NTSC-U"
@@ -5055,17 +5860,19 @@ SCUS-97411:
   name: "Ratchet & Clank - Up Your Arsenal [Regular Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97412:
   name: "Jak 3 [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97413:
   name: "Ratchet & Clank - Up Your Arsenal [Public Beta v1.0]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97414:
   name: "EyeToy - AntiGrav"
   region: "NTSC-U"
@@ -5115,7 +5922,7 @@ SCUS-97429:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   memcardFilters:
     - "SCUS-97429"
     - "SCUS-97465"
@@ -5153,7 +5960,7 @@ SCUS-97440:
   name: "Jak and Daxter Trilogy [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97441:
   name: "The Getaway - Black Monday [Demo]"
   region: "NTSC-U"
@@ -5228,7 +6035,8 @@ SCUS-97465:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97466:
   name: "Gretzky NHL '06"
   region: "NTSC-U"
@@ -5316,23 +6124,25 @@ SCUS-97485:
   name: "Ratchet - Deadlocked [Regular Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97486:
   name: "Jak X - Combat Racing [Regular Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97487:
   name: "Ratchet - Deadlocked [Public Beta v.1]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97488:
   name: "Jak X - Combat Racing [Public Beta v.1]"
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97489:
   name: "SOCOM 3 - U.S. Navy SEALs [Public Beta v.1]"
   region: "NTSC-U"
@@ -5399,7 +6209,7 @@ SCUS-97509:
   name: "Jak II [Greatest Hits]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97510:
   name: "ATV Off-Road Fury 2 [Greatest Hits]"
   region: "NTSC-U"
@@ -5417,10 +6227,11 @@ SCUS-97512:
     - "SCUS-97512"
     - "SCUS-97102"
 SCUS-97513:
-  name: "Ratchet & Clank - Going Commando [Greatest Hits]"
+  name: "Ratchet & Clank 2 - Going Commando [Greatest Hits]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97514:
   name: "ATV Off-Road Fury 3 [Greatest Hits]"
   region: "NTSC-U"
@@ -5431,7 +6242,7 @@ SCUS-97516:
   name: "Jak 3 [Greatest Hits]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97517:
   name: "Killzone [Greatest Hits]"
   region: "NTSC-U"
@@ -5441,7 +6252,8 @@ SCUS-97518:
   name: "Ratchet & Clank - Up Your Arsenal [Greatest Hits]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 SCUS-97519:
   name: "Sly 2 - Band of Thieves [Greatest Hits]"
   region: "NTSC-U"
@@ -5518,7 +6330,7 @@ SCUS-97555:
   name: "Jak and Daxter Complete Trilogy [Demo]"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS (for all 3 games).
+    - VUKickstartHack # Fixes Character SPS (for all 3 games).
 SCUS-97556:
   name: "MLB '07 - The Show"
   region: "NTSC-U"
@@ -5530,7 +6342,7 @@ SCUS-97558:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97560:
   name: "SOCOM - U.S. Navy SEALs - Combined Assault [Demo]"
   region: "NTSC-U"
@@ -5613,7 +6425,7 @@ SCUS-97615:
   name: "Ratchet & Clank - Size Matters"
   region: "NTSC-U"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SCUS-97616:
   name: "SingStar 80's"
   region: "NTSC-U"
@@ -5772,6 +6584,8 @@ SLAJ-25046:
 SLAJ-25047:
   name: "Dororo"
   region: "NTSC-Ch-J"
+  gameFixes:
+    - VUKickstartHack # Fixes main character model SPS.
 SLAJ-25048:
   name: "Sengoku Musou Mushoden"
   region: "NTSC-Unk"
@@ -5996,7 +6810,13 @@ SLED-53723:
   name: "Peter Jackson's King Kong [Demo]"
   region: "PAL-E"
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
+SLED-53732:
+  name: "Spartan: Total Warrior [Demo]"
+  region: "PAL"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes garbage textures flashing on the character model 
 SLED-53745:
   name: "Total Overdose [Demo]"
   region: "PAL-M5"
@@ -6097,6 +6917,8 @@ SLES-50029:
 SLES-50030:
   name: "SSX Snowboarding"
   region: "PAL-M3"
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLES-50031:
   name: "X-Squad"
   region: "PAL-E"
@@ -6144,23 +6966,10 @@ SLES-50046:
   name: "F1 Racing Championship"
   region: "PAL-F-G"
   compat: 2
-  patches:
-    EDD7E0FF:
-      content: |-
-        author=Nachbrenner
-        // Skip Videos.
-        patch=0,EE,0024ddc0,word,24020001
 SLES-50047:
   name: "F1 Racing Championship"
   region: "PAL-M3"
   compat: 5
-  patches:
-    3063bd41:
-      content: |-
-        author=Prafull
-        // Fixes IPU issues causing a hang at loading menu.
-        patch=1,EE,00258e34,word,00000000
-        patch=1,EE,00217484,word,00000000
 SLES-50048:
   name: "Donald Duck - Quack Attack"
   region: "PAL-M5"
@@ -6314,14 +7123,6 @@ SLES-50126:
   name: "Quake III - Revolution"
   region: "PAL-M3"
   compat: 5
-  patches:
-    2064ACE6:
-      content: |-
-        comment=Patch by leilei
-        // Removes intro and end credits FMVs.
-        // Fixes hanging caused by FMVs.
-        patch=1,EE,0072C161,byte,00000061
-        patch=1,EE,00722677,byte,00000061
 SLES-50127:
   name: "Quake III - Revolution"
   region: "PAL-E"
@@ -6432,6 +7233,13 @@ SLES-50178:
 SLES-50179:
   name: "Oni"
   region: "PAL-S"
+  patches:
+    20F419E9:
+      content: |-
+        comment=Patch by refraction
+        // Rearrange PCR write and BC0F instruction
+        patch=0,EE,001CEF78,word,4100ffff
+        patch=0,EE,001CEF7C,word,ac430000
 SLES-50182:
   name: "MTV Music Generator 2"
   region: "PAL-M5"
@@ -6519,8 +7327,6 @@ SLES-50212:
   name: "Paris-Dakar Rally"
   region: "PAL-E"
   compat: 5
-  gameFixes:
-    - SkipMPEGHack
 SLES-50213:
   name: "NFL Quarterback Club 2002"
   region: "PAL-E"
@@ -6532,16 +7338,6 @@ SLES-50215:
   name: "Crazy Taxi"
   region: "PAL-M4"
   compat: 5
-  patches:
-    C9C145BF:
-      content: |-
-        comment=Patches by Nachbrenner
-        // Skip movie 'PlaySega'.
-        patch=0,EE,001a42d0,word,03e00008
-        patch=0,EE,001a42d4,word,00000000
-        // Skip movie 'PlayAcclaim'.
-        patch=0,EE,001a4468,word,03e00008
-        patch=0,EE,001a446c,word,00000000
 SLES-50217:
   name: "Dave Mirra Freestyle BMX 2"
   region: "PAL-E-S"
@@ -6638,13 +7434,73 @@ SLES-50263:
 SLES-50264:
   name: "Playmobil - Hype - The Time Quest"
   region: "PAL-F"
+  patches:
+    B911D61B:
+      content: |-
+        // patches __kernel_cosf function to show text and boxes
+        // due to the rounding being slightly off.
+        // It looks worse than it is, it's just moving a block down
+        // so I can fit in an extra instruction
+        author=Refraction
+        patch=1,EE,0011ede8,word,34210001
+        patch=1,EE,0011edec,word,44811800
+        patch=1,EE,0011edf0,word,46003002
+        patch=1,EE,0011edf4,word,46020841
+        patch=1,EE,0011edf8,word,46010001
+        patch=1,EE,0011edfc,word,03e00008
+        patch=1,EE,0011ee00,word,46001801
+        patch=1,EE,0011ee04,word,3c023f48
+        patch=1,EE,0011ee08,word,0044102a
+        patch=1,EE,0011ee0c,word,10400003
+        patch=1,EE,0011ee10,word,3c02ff00
+        patch=1,EE,0011ee18,word,3c023e90
 SLES-50265:
   name: "Playmobil - Hype - The Time Quest"
   region: "PAL-G"
+  patches:
+    3D2A2448:
+      content: |-
+        // patches __kernel_cosf function to show text and boxes
+        // due to the rounding being slightly off.
+        // It looks worse than it is, it's just moving a block down
+        // so I can fit in an extra instruction
+        author=Refraction
+        patch=1,EE,0011ede8,word,34210001
+        patch=1,EE,0011edec,word,44811800
+        patch=1,EE,0011edf0,word,46003002
+        patch=1,EE,0011edf4,word,46020841
+        patch=1,EE,0011edf8,word,46010001
+        patch=1,EE,0011edfc,word,03e00008
+        patch=1,EE,0011ee00,word,46001801
+        patch=1,EE,0011ee04,word,3c023f48
+        patch=1,EE,0011ee08,word,0044102a
+        patch=1,EE,0011ee0c,word,10400003
+        patch=1,EE,0011ee10,word,3c02ff00
+        patch=1,EE,0011ee18,word,3c023e90
 SLES-50266:
   name: "Playmobil - Hype - The Time Quest"
   region: "PAL-M4"
   compat: 4
+  patches:
+    F668693E:
+      content: |-
+        // patches __kernel_cosf function to show text and boxes
+        // due to the rounding being slightly off.
+        // It looks worse than it is, it's just moving a block down
+        // so I can fit in an extra instruction
+        author=Refraction
+        patch=1,EE,0011ede8,word,34210001
+        patch=1,EE,0011edec,word,44811800
+        patch=1,EE,0011edf0,word,46003002
+        patch=1,EE,0011edf4,word,46020841
+        patch=1,EE,0011edf8,word,46010001
+        patch=1,EE,0011edfc,word,03e00008
+        patch=1,EE,0011ee00,word,46001801
+        patch=1,EE,0011ee04,word,3c023f48
+        patch=1,EE,0011ee08,word,0044102a
+        patch=1,EE,0011ee0c,word,10400003
+        patch=1,EE,0011ee10,word,3c02ff00
+        patch=1,EE,0011ee18,word,3c023e90
 SLES-50267:
   name: "CART Fury Championship Racing"
   region: "PAL-M5"
@@ -6659,7 +7515,7 @@ SLES-50267:
         patch=0,EE,00100eb0,word,03e00008
         patch=0,EE,00100eb4,word,24020001
 SLES-50268:
-  name: "SpyHunter"
+  name: "Spy Hunter"
   region: "PAL-M5"
 SLES-50273:
   name: "Legion - The Legend of Excalibur"
@@ -6722,7 +7578,7 @@ SLES-50306:
   region: "PAL-M4"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes lightning effects.
+    - VUKickstartHack # Fixes lightning effects.
 SLES-50310:
   name: "Freak Out"
   region: "PAL-E"
@@ -7086,6 +7942,8 @@ SLES-50539:
 SLES-50540:
   name: "Simpsons Road Rage"
   region: "PAL-E"
+  gameFixes:
+    - VUKickstartHack # Fixes Bad Character Models.
 SLES-50541:
   name: "Capcom vs. SNK 2 - Mark of the Millennium"
   region: "PAL-E"
@@ -7096,6 +7954,8 @@ SLES-50544:
 SLES-50545:
   name: "SSX Tricky"
   region: "PAL-M3"
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLES-50546:
   name: "LMA Manager 2002"
   region: "PAL-E"
@@ -7209,6 +8069,8 @@ SLES-50620:
 SLES-50628:
   name: "Simpsons Road Rage"
   region: "PAL-M5"
+  gameFixes:
+    - VUKickstartHack # Fixes Bad Character Models.
 SLES-50630:
   name: "Dragon Rage"
   region: "PAL-E"
@@ -7314,11 +8176,11 @@ SLES-50703:
   name: "Maximo"
   region: "PAL-M5"
 SLES-50704:
-  name: "Godai - Elemental Force"
+  name: "GoDai - Elemental Force"
   region: "PAL-F-G"
   compat: 5
 SLES-50705:
-  name: "Godai - Elemental Force"
+  name: "GoDai - Elemental Force"
   region: "PAL-I-S"
 SLES-50706:
   name: "Army Men - Real Time Strategy"
@@ -7388,6 +8250,14 @@ SLES-50725:
 SLES-50726:
   name: "Myst III - Exile"
   region: "PAL-M6"
+  patches:
+    9E159E95:
+      content: |-
+        // Gives the IPU more time to process the textures
+        // CPU does a wait loop then starts copying the output of the IPU
+        patch=0,EE,001f02a0,word,24027fff
+  gameFixes:
+    - EETimingHack # Speeds up IPU DMA's
 SLES-50727:
   name: "Knockout Kings 2002"
   region: "PAL-E"
@@ -7724,6 +8594,13 @@ SLES-50846:
 SLES-50848:
   name: "Speed Kings"
   region: "PAL-M5"
+  patches:
+    4C133D9D:
+      content: |-
+        author=Prafull
+        // Fixes hang before going ingame.
+        // Needed due to lack of VIF FIFO in PCSX2.
+        patch=1,EE,0022ee34,word,00000000
 SLES-50849:
   name: "Urban Freestyle Soccer"
   region: "PAL-M5"
@@ -7796,7 +8673,7 @@ SLES-50882:
   name: "Mary-Kate and Ashley - Sweet 16"
   region: "PAL-E"
 SLES-50886:
-  name: "Transworld Surf"
+  name: "TransWorld Surf"
   region: "PAL-M5"
 SLES-50891:
   name: "Legaia 2 - Duel Saga"
@@ -7860,6 +8737,8 @@ SLES-50920:
 SLES-50921:
   name: "Way of the Samurai"
   region: "PAL-M3"
+  gameFixes:
+   - EETimingHack # Stops crash after intro movie
 SLES-50922:
   name: "Terminator, The - Dawn of Fate"
   region: "PAL-M5"
@@ -7949,13 +8828,13 @@ SLES-50984:
   region: "PAL-E"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes minor random car SPS.
+    - VUKickstartHack # Fixes minor random car SPS.
 SLES-50985:
   name: "Gumball 3000"
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes minor random car SPS.
+    - VUKickstartHack # Fixes minor random car SPS.
 SLES-50986:
   name: "Twin Caliber"
   region: "PAL-M4"
@@ -7993,15 +8872,11 @@ SLES-51011:
   region: "PAL-M4"
   compat: 5
 SLES-51013:
-  name: "Blade 2"
+  name: "Blade II"
   region: "PAL-E"
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering HUD. (originally was EE Timing Hack but required since r4821)
 SLES-51014:
-  name: "Blade 2"
+  name: "Blade II"
   region: "PAL-F"
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering HUD. (originally was EE Timing Hack but required since r4821)
 SLES-51017:
   name: "Scooby-Doo! and The Night of 100 Frights"
   region: "PAL-E"
@@ -8018,13 +8893,6 @@ SLES-51023:
   name: "LMA Manager 2003"
   region: "PAL-E"
   compat: 5
-  patches:
-    5C313124:
-      content: |-
-        comment=Patches by Shadow Lady
-        // IPU menus.
-        patch=0,EE,002328a8,word,00000000
-        patch=0,EE,00338570,word,00000000
 SLES-51024:
   name: "Roger Lemerre: La Sélection des Champions 2003"
   region: "PAL-F"
@@ -8078,6 +8946,8 @@ SLES-51056:
   name: "Fighting Fury"
   region: "PAL-E"
   compat: 5
+  gameFixes:
+    - EETimingHack # Fixes hang at menu.
 SLES-51057:
   name: "Hard Hitter 2"
   region: "PAL-M3"
@@ -8226,6 +9096,8 @@ SLES-51124:
 SLES-51125:
   name: "Sega Soccer Slam"
   region: "PAL-E"
+  gameFixes:
+   - EETimingHack # Fixes hang
 SLES-51126:
   name: "Whirl Tour"
   region: "PAL-M5"
@@ -8250,13 +9122,15 @@ SLES-51132:
   roundModes:
     vuRoundMode: 0  # Crashes without.
 SLES-51133:
-  name: "Red Faction 2"
+  name: "Red Faction II"
   region: "PAL-M3"
   compat: 5
 SLES-51134:
   name: "Powerpuff Girls - Relish Rampage"
   region: "PAL-M4"
   compat: 5
+  clampModes:
+    eeClampMode: 3  # Fixes hangs in certain locations like building under construction.
 SLES-51141:
   name: "Summoner 2"
   region: "PAL-E"
@@ -8273,7 +9147,7 @@ SLES-51144:
   region: "PAL-M7"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLES-51145:
   name: "Monopoly Party"
   region: "PAL-M5"
@@ -8484,12 +9358,12 @@ SLES-51250:
   region: "PAL-E"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLES-51251:
   name: "Shox - Rally Reinvented"
   region: "PAL-E"
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLES-51252:
   name: "Lord of the Rings, The - The Two Towers"
   region: "PAL-M3"
@@ -8578,7 +9452,7 @@ SLES-51284:
   name: "Contra - Shattered Soldier"
   region: "PAL-M3"
 SLES-51285:
-  name: "Spongebob Squarepants - Revenge of the Flying Dutchman"
+  name: "Spongebob SquarePants - Revenge of the Flying Dutchman"
   region: "PAL-E"
   compat: 5
 SLES-51286:
@@ -8680,17 +9554,6 @@ SLES-51341:
 SLES-51343:
   name: "Galerians - Ash"
   region: "PAL-M5"
-  patches:
-    1AE08CF5:
-      content: |-
-        author=kozarovv
-        // Floats workaround to make HW GSDX mode working.
-        // There is still overflow on GS, but this time GSDX can handle it just fine in HW mode.
-        patch=1,EE,001e7130,word,3c017e00
-        patch=1,EE,001e7138,word,44812800
-        patch=1,EE,001e7150,word,44813000
-        patch=1,EE,001e7160,word,44813800
-        patch=1,EE,001e7170,word,44810000
 SLES-51344:
   name: "Guilty Gear X2"
   region: "PAL-E"
@@ -8762,8 +9625,6 @@ SLES-51372:
   compat: 5
   clampModes:
     vuClampMode: 3  # Fixes minor SPS on characters.
-  gameFixes:
-    - GIFFIFOHack
 SLES-51374:
   name: "RoboCop"
   region: "PAL-M5"
@@ -8820,6 +9681,12 @@ SLES-51391:
 SLES-51392:
   name: "Evolution Snowboarding"
   region: "PAL-M3"
+  patches:
+    2B2E1535:
+      content: |-
+        author=kozarovv
+        // Skip PSS movies, workaround for EE Cache requirement.
+        patch=1,EE,001233e0,word,100000d7
 SLES-51393:
   name: "Syberia"
   region: "PAL-M5"
@@ -8963,7 +9830,7 @@ SLES-51479:
   name: "Def Jam Vendetta"
   region: "PAL-E"
 SLES-51481:
-  name: "NBA Street 2"
+  name: "NBA Street Vol. 2"
   region: "PAL-E-F"
   compat: 5
   clampModes:
@@ -8985,13 +9852,6 @@ SLES-51495:
   name: "SX Superstar"
   region: "PAL-M4"
   compat: 5
-  patches:
-    96B76E56:
-      content: |-
-        comment=Patches by Nachbrenner
-        // Fix IPU busy!
-        patch=0,EE,003300b0,word,03e00008
-        patch=0,EE,003300b4,word,00000000
 SLES-51496:
   name: "Breath of Fire: Dragon Quarter"
   region: "PAL-M5"
@@ -9260,7 +10120,7 @@ SLES-51696:
   region: "PAL-M5"
   gameFixes:
     - EETimingHack # Fixes hang before going ingame.
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLES-51697:
   name: "SSX 3"
   region: "PAL-M5"
@@ -9284,16 +10144,16 @@ SLES-51707:
   name: "Secret Weapons Over Normandy"
   region: "PAL-E"
 SLES-51708:
-  name: "Secret Weapons over Normandy"
+  name: "Secret Weapons Over Normandy"
   region: "PAL-F"
 SLES-51709:
-  name: "Secret Weapons over Normandy"
+  name: "Secret Weapons Over Normandy"
   region: "PAL-G"
 SLES-51710:
-  name: "Secret Weapons over Normandy"
+  name: "Secret Weapons Over Normandy"
   region: "PAL-I"
 SLES-51711:
-  name: "Secret Weapons over Normandy"
+  name: "Secret Weapons Over Normandy"
   region: "PAL-S"
 SLES-51712:
   name: "Snowboard Racer 2"
@@ -9518,7 +10378,7 @@ SLES-51840:
   name: "NHL Hitz Pro"
   region: "PAL-E"
 SLES-51841:
-  name: "SpyHunter 2"
+  name: "Spy Hunter 2"
   region: "PAL-M5"
 SLES-51842:
   name: "Road Kill"
@@ -9635,13 +10495,11 @@ SLES-51877:
 SLES-51879:
   name: "Hot Wheels World Race"
   region: "PAL-E"
-  gameFixes:
-    - GIFFIFOHack
 SLES-51881:
   name: "Mercedes Bens World Racing"
   region: "PAL-F-G"
 SLES-51883:
-  name: "Scooby Doo! Mystery Mayhem"
+  name: "Scooby-Doo! Mystery Mayhem"
   region: "PAL-M3"
 SLES-51885:
   name: "MegaMan X7"
@@ -9650,7 +10508,7 @@ SLES-51885:
   clampModes:
     eeClampMode: 3  # For camera issues in some scenes.
 SLES-51886:
-  name: "Lethal Skies 2"
+  name: "Lethal Skies II"
   region: "PAL-E"
 SLES-51887:
   name: "Tiger Woods PGA Tour 2004"
@@ -9660,6 +10518,8 @@ SLES-51887:
 SLES-51888:
   name: "RTL Ski Jumping 2004"
   region: "PAL-E-G"
+  clampModes:
+    vuClampMode: 3 # Fixes SPS 
 SLES-51890:
   name: "Buffy the Vampire Slayer - Chaos Bleeds"
   region: "PAL-M4"
@@ -9720,7 +10580,7 @@ SLES-51917:
   roundModes:
     eeRoundMode: 0  # Fixes SPS with water in some places.
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-51918:
   name: "Prince of Persia - The Sands of Time"
   region: "PAL-M5"
@@ -9829,7 +10689,7 @@ SLES-51967:
   gameFixes:
     - EETimingHack # Fixes broken textures.
 SLES-51968:
-  name: "Spongebob Squarepants - Battle for Bikini Bottom"
+  name: "Spongebob SquarePants - Battle for Bikini Bottom"
   region: "PAL-E"
 SLES-51970:
   name: "Spongebob Schwammkopf - Schlacht um Bikini Bottom"
@@ -9873,8 +10733,6 @@ SLES-51989:
   compat: 5
   clampModes:
     vuClampMode: 3  # Fixes minor SPS on characters.
-  gameFixes:
-    - GIFFIFOHack
 SLES-51991:
   name: "Dance UK"
   region: "PAL-E"
@@ -9898,7 +10756,7 @@ SLES-52001:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes crashes and broken graphics.
+    - VUKickstartHack # Fixes crashes and broken graphics.
 SLES-52002:
   name: "Rogue Ops"
   region: "PAL-M6"
@@ -9950,8 +10808,6 @@ SLES-52026:
   compat: 5
   clampModes:
     vuClampMode: 3  # Fixes minor SPS on characters.
-  gameFixes:
-    - GIFFIFOHack
 SLES-52028:
   name: "Junior Sports Basketball"
   region: "PAL-M5"
@@ -10131,7 +10987,7 @@ SLES-52152:
   name: "Terminator 3 - Rise of the Machines"
   region: "PAL-E"
 SLES-52153:
-  name: "Driver 3"
+  name: "Driv3r"
   region: "PAL-E-S"
 SLES-52155:
   name: "EyeToy - L'Eredita"
@@ -10208,7 +11064,7 @@ SLES-52230:
   gameFixes:
     - OPHFlagHack # Fixes some hanging throughout the game.
 SLES-52237:
-  name: "dot Hack - Part 1 - Infection"
+  name: ".hack//Infection Part 1"
   region: "PAL-M5"
   memcardFilters:
     - "SLES-52237"
@@ -10537,7 +11393,7 @@ SLES-52386:
   name: "World Championship Snooker 2004"
   region: "PAL-E"
 SLES-52387:
-  name: "SpyHunter 2"
+  name: "Spy Hunter 2"
   region: "PAL-M5"
 SLES-52388:
   name: "Transformers Armada - Prelude to Energon [Special Edition]"
@@ -10658,7 +11514,7 @@ SLES-52466:
   name: "Ribbit King"
   region: "PAL-M5"
 SLES-52467:
-  name: "dot Hack - Part 2 - Mutation"
+  name: ".hack//Mutation Part 2"
   region: "PAL-M5"
   compat: 5
   memcardFilters:
@@ -10667,7 +11523,7 @@ SLES-52467:
     - "SLES-52468"
     - "SLES-52469"
 SLES-52468:
-  name: "dot Hack - Part 4 - Quarantine"
+  name: ".hack//Quarantine Part 4"
   region: "PAL-M5"
   compat: 5
   memcardFilters:
@@ -10676,7 +11532,7 @@ SLES-52468:
     - "SLES-52468"
     - "SLES-52469"
 SLES-52469:
-  name: "dot Hack - Part 3 - Outbreak"
+  name: ".hack//Outbreak Part 3"
   region: "PAL-M5"
   compat: 5
   memcardFilters:
@@ -10796,7 +11652,7 @@ SLES-52521:
   name: "Adibou & Les Voleurs d'Energie"
   region: "PAL-M6"
 SLES-52523:
-  name: "Cocoto - Platform Jumper"
+  name: "Cocoto - Platform Jumper: Griffin's Story"
   region: "PAL-M5"
 SLES-52525:
   name: "Mouse Trophy"
@@ -10900,7 +11756,6 @@ SLES-52568:
   compat: 5
   gameFixes:
     - XGKickHack # Fixes bad Geometry.
-    - VU0KickstartHack # Fixes loading hang.
 SLES-52569:
   name: "Spyro - A Hero's Tail"
   region: "PAL-M6"
@@ -11030,8 +11885,8 @@ SLES-52631:
   name: "Digimon Rumble Arena 2"
   region: "PAL-M5"
   compat: 5
-  gameFixes:
-    - FpuCompareHack
+  clampModes:
+    eeClampMode: 3
 SLES-52636:
   name: "Colin McRae Rally 2005"
   region: "PAL-M5"
@@ -11175,8 +12030,6 @@ SLES-52693:
 SLES-52694:
   name: "BDFL Manager 2005"
   region: "PAL-G"
-  gameFixes:
-    - SkipMPEGHack
 SLES-52695:
   name: "Roger Lemerre - La Selection des Champions"
   region: "PAL-F"
@@ -11323,7 +12176,7 @@ SLES-52755:
   name: "Blood Will Tell"
   region: "PAL-M5"
   gameFixes:
-    - VU0KickstartHack # Fixes main character model SPS.
+    - VUKickstartHack # Fixes main character model SPS.
 SLES-52760:
   name: "Pro Evolution Soccer 4"
   region: "PAL-M4"
@@ -11493,7 +12346,7 @@ SLES-52854:
   region: "PAL-E"
   compat: 5
 SLES-52857:
-  name: "Fairly Odd Parents, The - Shadow Showdown"
+  name: "Fairly OddParents, The - Shadow Showdown"
   region: "PAL-E"
 SLES-52858:
   name: "Cocoto Kart Racer"
@@ -11561,14 +12414,14 @@ SLES-52894:
   name: "Bard's Tale, The"
   region: "PAL-E"
 SLES-52895:
-  name: "Spongebob Squarepants - The Movie"
+  name: "Spongebob SquarePants - The Movie"
   region: "PAL-E"
   compat: 5
 SLES-52896:
-  name: "Spongebob Squarepants - The Movie"
+  name: "Spongebob SquarePants - The Movie"
   region: "PAL-F-G"
 SLES-52897:
-  name: "Spongebob Squarepants - The Movie"
+  name: "Spongebob SquarePants - The Movie"
   region: "PAL-I"
 SLES-52898:
   name: "King of Fighters - Maximum Impact"
@@ -11651,6 +12504,16 @@ SLES-52941:
 SLES-52942:
   name: "Midnight Club 3 - DUB Edition"
   region: "PAL-M5"
+  patches:
+    EBE1972D:
+      content: |-
+        comment=Patch by Refraction and Prafull
+        // Patches a CTC2 write to FBRST to not set the T-Bit enable
+        // Fixes slow speed in MTVU due to developers leaving T-Bit enabled and not using it
+        // PCSX2 has to sync more when T-Bit is enabled so the game spends more time waiting
+        // for VU1 to finish, which reduces the advantage of MTVU to basically zero.
+        patch=1,EE,D0525A1C,extended,00000800
+        patch=1,EE,20525A1C,extended,00000000
 SLES-52943:
   name: "ESPN NFL 2K5"
   region: "PAL-E"
@@ -11715,6 +12578,13 @@ SLES-52965:
 SLES-52966:
   name: "ESPN NHL 2K5"
   region: "PAL-E"
+  patches:
+    EC301155:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,003e4018,word,00000000
 SLES-52967:
   name: "Guilty Gear X2 Reloaded"
   region: "PAL-E"
@@ -11738,7 +12608,7 @@ SLES-52976:
   name: "GoldenEye - Rogue Agent"
   region: "PAL-G"
 SLES-52977:
-  name: "GoldenEye - Rogue Agent"
+  name: "GoldenEye: Agente Corrupto"
   region: "PAL-S"
 SLES-52978:
   name: "La Pucelle Tactics"
@@ -11760,10 +12630,10 @@ SLES-52984:
   name: "Panzer Front Ausf B"
   region: "PAL-E"
 SLES-52985:
-  name: "Spongebob Squarepants - The Movie"
+  name: "Spongebob SquarePants - The Movie"
   region: "PAL-G"
 SLES-52986:
-  name: "Spongebob Squarepants - The Movie"
+  name: "Spongebob SquarePants - The Movie"
   region: "PAL-S"
 SLES-52988:
   name: "MegaMan X8"
@@ -11967,9 +12837,13 @@ SLES-53046:
 SLES-53047:
   name: "Punisher, The"
   region: "PAL-E-F"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLES-53049:
   name: "Punisher, The"
   region: "PAL-I-S"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLES-53052:
   name: "Robots"
   region: "PAL-M5"
@@ -12069,18 +12943,12 @@ SLES-53098:
 SLES-53099:
   name: "Pilot Down - Behind Enemy Lines"
   region: "PAL-M5"
+  gameFixes:
+    - DMABusyHack # Game has weird DMA handling, this allows required DMA's to finish.
   roundModes:
     vuRoundMode: 0
-  patches:
-    53BB63A0:
-      content: |-
-        author=kozarovv
-        // Patch allow sending VU1 mpg successfully. This fix missing graphic. Thanks to PSI for figuring what is wrong.
-        // Game need at least -2 EE cyclerate + MTVU on my pc to get full speed.
-        // To fix shadows set VU rounding to nearest - thx Atomic83
-        patch=1,EE,00426140,word,00000000
 SLES-53100:
-  name: "Scooby Doo! Unmasked"
+  name: "Scooby-Doo! Unmasked"
   region: "PAL-M4"
 SLES-53104:
   name: "Tom Clancy's Rainbow Six - Lockdown"
@@ -12239,6 +13107,8 @@ SLES-53194:
 SLES-53195:
   name: "Punisher, The"
   region: "PAL-E"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLES-53196:
   name: "Destroy All Humans!"
   region: "PAL-M4"
@@ -12259,6 +13129,8 @@ SLES-53201:
 SLES-53203:
   name: "Punisher, The"
   region: "PAL-R"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLES-53218:
   name: "Dancing Stage MAX"
   region: "PAL-M5"
@@ -12357,6 +13229,8 @@ SLES-53301:
 SLES-53303:
   name: "Ski Jumping 2006"
   region: "PAL-E-G"
+  clampModes:
+    vuClampMode: 3 # Fixes SPS 
 SLES-53309:
   name: "Transformers [Director's Cut]"
   region: "PAL-M5"
@@ -12483,7 +13357,7 @@ SLES-53364:
   name: "7 Sins"
   region: "PAL-G"
 SLES-53366:
-  name: "Killer 7"
+  name: "Killer7"
   region: "PAL-M3"
   compat: 5
 SLES-53367:
@@ -12546,9 +13420,15 @@ SLES-53393:
   name: "Spartan Total Warrior"
   region: "PAL-M5"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes garbage textures flashing on the character model
 SLES-53396:
   name: "Spartan Total Warrior"
   region: "PAL-M3"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes garbage textures flashing on the character model
 SLES-53398:
   name: "Zombie Zone"
   region: "PAL-E"
@@ -12593,6 +13473,8 @@ SLES-53408:
 SLES-53411:
   name: "Kuon"
   region: "PAL-M3"
+  roundModes:
+    eeRoundMode: 0  # Fixes Sugoroku mini-game.
 SLES-53413:
   name: "Rebel Raiders - Operation Nighthawk"
   region: "PAL-M5"
@@ -12646,7 +13528,7 @@ SLES-53439:
   name: "Crash Tag Team Racing"
   region: "PAL-M6"
   gameFixes:
-    - CrashTagTeamRacingIbitHack # Fixes constant recompilation problems.
+    - IbitHack # Fixes constant recompilation problems.
 SLES-53441:
   name: "Heroes of the Pacific"
   region: "PAL-M5"
@@ -12677,6 +13559,8 @@ SLES-53461:
   name: "Sega Classics Collection"
   region: "PAL-E"
   compat: 5
+  gameFixes:
+    - XGKickHack # Fixes black and white vehicle previews in MonacoGP.
 SLES-53462:
   name: "Matrix, The - Path of Neo"
   region: "PAL-M5"
@@ -12744,14 +13628,14 @@ SLES-53492:
   name: "Total Overdose"
   region: "PAL-M5"
 SLES-53494:
-  name: "Spongebob Squarepants - Lights, Camera, PANTS!"
+  name: "Spongebob SquarePants - Lights, Camera, PANTS!"
   region: "PAL-E"
   compat: 5
 SLES-53495:
   name: "Nickelodeon Bob L'éponge - Silence on Tourne!"
   region: "PAL-F"
 SLES-53496:
-  name: "Spongebob Squarepants - Lights, Camera, PANTS!"
+  name: "Spongebob SquarePants - Lights, Camera, PANTS!"
   region: "PAL-I"
 SLES-53497:
   name: "Nickelodeon SpongeBob Schwammkopf - Film ab!"
@@ -12820,14 +13704,12 @@ SLES-53518:
 SLES-53521:
   name: "Musashi - Samurai Legend"
   region: "PAL-M4"
-  roundModes:
-    vuRoundMode: 0  # Fixes Red SPS while ingame.
-    eeRoundMode: 0  # Partially fixes wrong enemies eye rendering.
-  clampModes:
-    vuClampMode: 3  # Fixes White SPS while ingame.
-    eeClampMode: 3  # Fixes White SPS while ingame.
-  gameFixes:
-    - EETimingHack # Fixes garbled character animation.
+  patches:
+    BC897AC9:
+      content: |-
+        author=Prafull, Kozarovv and Agrippa
+        // Fixes almost all problems apart from little translucent fog effect in some areas.
+        patch=1,EE,00147828,word,3c04000f
 SLES-53523:
   name: "Gun"
   region: "PAL-M4"
@@ -13034,7 +13916,7 @@ SLES-53561:
   clampModes:
     eeClampMode: 3  # Fixes the inability to take the bottle in the trophy case in Chapter 2: Hattrick vs Galloway.
 SLES-53563:
-  name: "Spongebob Squarepants and Friends - Untie!"
+  name: "Spongebob SquarePants and Friends - Untie!"
   region: "PAL-M6"
 SLES-53564:
   name: "Darkwatch"
@@ -13128,15 +14010,19 @@ SLES-53614:
 SLES-53616:
   name: "True Crime - New York City"
   region: "PAL-E"
+  clampModes:
+    eeClampMode: 2  # Fixes SPS on highway.
 SLES-53618:
   name: "True Crime - New York City"
   region: "PAL-S"
+  clampModes:
+    eeClampMode: 2  # Fixes SPS on highway.
 SLES-53621:
   name: "Wallace & Grommit - The Curse of the Were Rabbit"
   region: "PAL-M5"
   compat: 5
 SLES-53623:
-  name: "Spongebob Squarepants - Battle for Bikini Bottom"
+  name: "Spongebob SquarePants - Battle for Bikini Bottom"
   region: "PAL-F"
 SLES-53624:
   name: "Disney-Pixar's Cars"
@@ -13242,7 +14128,7 @@ SLES-53667:
         comment=- Language selection is done through the BIOS configuration.
         comment=- Implementation requires Full boot - 'Boot CDVD (full)'.
 SLES-53668:
-  name: "Micro Machines v4"
+  name: "Micro Machines V4"
   region: "PAL-M5"
 SLES-53672:
   name: "Ultimate Spider-Man [Limited]"
@@ -13266,10 +14152,17 @@ SLES-53685:
   region: "PAL-E-G"
   compat: 5
 SLES-53686:
-  name: "NHL Hockey 2K6"
+  name: "NHL 2K6"
   region: "PAL-M3"
+  patches:
+    98ec4d86:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,00433150,word,00000000
 SLES-53687:
-  name: "NHL Hockey 2K6"
+  name: "NBA 2K6"
   region: "PAL-M5"
 SLES-53689:
   name: "World Poker Tour 2K6"
@@ -13299,7 +14192,8 @@ SLES-53701:
   region: "PAL-M5"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes loading hang.
+    - XGKickHack # Fixes texture normals.
+    - VUKickstartHack # Fixes loading hang.
 SLES-53702:
   name: "Resident Evil 4"
   region: "PAL-M5"
@@ -13309,17 +14203,17 @@ SLES-53703:
   region: "PAL-M10"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLES-53704:
   name: "King Kong, Peter Jackson's - The Official Game of the Movie"
   region: "PAL-R"
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLES-53705:
   name: "King Kong, Peter Jackson's - The Official Game of the Movie"
   region: "PAL-PL-E"
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLES-53706:
   name: "Disney's The Chronicles of Narnia - The Lion, The Witch, and The Wardrobe"
   region: "PAL-E"
@@ -13351,6 +14245,16 @@ SLES-53716:
 SLES-53717:
   name: "Midnight Club 3 - DUB Edition Remix"
   region: "PAL-M5"
+  patches:
+    208183AF:
+      content: |-
+        comment=Patch by Refraction
+        // Patches a CTC2 write to FBRST to not set the T-Bit enable
+        // Fixes slow speed in MTVU due to developers leaving T-Bit enabled and not using it
+        // PCSX2 has to sync more when T-Bit is enabled so the game spends more time waiting
+        // for VU1 to finish, which reduces the advantage of MTVU to basically zero.
+        patch=1,EE,D0529074,extended,00000800
+        patch=1,EE,20529074,extended,00000000
 SLES-53718:
   name: "Sims 2, The"
   region: "PAL-M10"
@@ -13728,8 +14632,7 @@ SLES-53904:
   name: "DT Racer"
   region: "PAL-M5"
   gameFixes:
-    - GIFFIFOHack # Fixes corrupted graphics in the menus.
-    - VU0KickstartHack # Fixes TLB misses and collision bugs.
+    - VUKickstartHack # Fixes TLB misses and collision bugs.
 SLES-53906:
   name: "50cent - Bulletproof"
   region: "PAL-F"
@@ -13878,8 +14781,6 @@ SLES-53979:
 SLES-53982:
   name: "Fight Night Round 3"
   region: "PAL-E-F"
-  gameFixes:
-  - GIFFIFOHack # Fixes corrupt textures.
 SLES-53984:
   name: "Ice Age 2 - The Meltdown"
   region: "PAL-M6"
@@ -13922,6 +14823,19 @@ SLES-53998:
 SLES-53999:
   name: "King of Fighters, The - Neo Wave"
   region: "PAL-E"
+  patches:
+    F5090D15:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080f7913
+        patch=1,EE,003de444,word,0803ff00
+        patch=1,EE,003de448,word,4bea497d
 SLES-54002:
   name: "FlatOut 2"
   region: "PAL-M5"
@@ -14276,17 +15190,17 @@ SLES-54182:
   name: "Scarface - The World is Yours"
   region: "PAL-M4"
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLES-54183:
   name: "Scarface - The World is Yours"
   region: "PAL-G"
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLES-54184:
   name: "Scarface - The World is Yours"
   region: "PAL-R"
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLES-54185:
   name: "Dirge of Cerberus - Final Fantasy VII"
   region: "PAL-M5"
@@ -14341,6 +15255,13 @@ SLES-54210:
 SLES-54211:
   name: "NHL 2K7"
   region: "PAL-M5"
+  patches:
+    1ad6efd1:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,004412a8,word,00000000
 SLES-54212:
   name: "Agent Hugo - RoboRumble"
   region: "PAL-M11"
@@ -14456,7 +15377,7 @@ SLES-54271:
   name: "Scarface - The World is Yours"
   region: "PAL-E"
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLES-54305:
   name: "Demon Chaos"
   region: "PAL-M5"
@@ -14468,6 +15389,8 @@ SLES-54307:
   name: "Rayman - Raving Rabbids"
   region: "PAL-M6"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLES-54308:
   name: "Phantasy Star Universe"
   region: "PAL-M3"
@@ -14701,6 +15624,19 @@ SLES-54394:
 SLES-54395:
   name: "NeoGeo Battle Coliseum"
   region: "PAL-E"
+  patches:
+    FE883E27:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,08051f9f
+        patch=1,EE,00147e74,word,0803ff00
+        patch=1,EE,00147e78,word,4bea497d
 SLES-54396:
   name: "Cricket 07"
   region: "PAL-E"
@@ -14708,8 +15644,6 @@ SLES-54396:
 SLES-54400:
   name: "SpongeBob SquarePants - Creature from the Krusty Krab"
   region: "PAL-M7"
-  gameFixes:
-    - GIFFIFOHack # Fixes bad graphics.
 SLES-54402:
   name: "Need for Speed - Carbon [Collector's Edition]"
   region: "PAL-F"
@@ -14764,6 +15698,19 @@ SLES-54436:
 SLES-54437:
   name: "King of Fighters XI"
   region: "PAL-E"
+  patches:
+    542210E4:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080980cb
+        patch=1,EE,00260324,word,0803ff00
+        patch=1,EE,00260328,word,4bea497d
 SLES-54439:
   name: "Okami"
   region: "PAL-M3"
@@ -14839,12 +15786,34 @@ SLES-54462:
 SLES-54463:
   name: "Sprint Cars - Road to Knoxville"
   region: "PAL-A"
+  clampModes:
+    vuClampMode: 3
+  gameFixes:
+    - VUKickstartHack
+  patches:
+    DFBAE612:
+      content: |-
+        comment=Patch by Prafull
+        // Rearrange COP2 instructions to fix bad mac flag stuff. Fixes ingame physics.
+        patch=1,EE,002657d0,word,48448800
+        patch=1,EE,002657d4,word,309000E0
+        patch=1,EE,002657dc,word,4BF0116C
+        patch=1,EE,002657e4,word,00908024
+        patch=1,EE,002657e8,word,4A0002FF
+        patch=1,EE,002657ec,word,4BF019AC
+        patch=1,EE,00265800,word,48448800
+        patch=1,EE,00265804,word,309000E0
+        patch=1,EE,00265808,word,4BE2896C
+        patch=1,EE,0026580c,word,48448800
+        patch=1,EE,00265810,word,4BE389AC
+        patch=1,EE,00265814,word,4A0002FF
+        patch=1,EE,00265818,word,4A0002FF
 SLES-54464:
   name: "Global Defence Force"
   region: "PAL-E"
   compat: 5
 SLES-54465:
-  name: "CSI 3 - Dimensions of Murder"
+  name: "CSI: 3 Dimensions of Murder"
   region: "PAL-M5"
 SLES-54466:
   name: "Test Drive Unlimited"
@@ -14959,7 +15928,7 @@ SLES-54534:
   name: "Scarface - The World is Yours [Collector's Edition]"
   region: "PAL-E"
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLES-54536:
   name: "Big Idea's VeggieTales - LarryBoy and the Bad Apple"
   region: "PAL-I"
@@ -15037,6 +16006,10 @@ SLES-54559:
 SLES-54560:
   name: "Alpine Ski Racing 2007"
   region: "PAL-M3"
+  clampModes:
+    vuClampMode: 3
+  gameFixes:
+    - VUKickstartHack
 SLES-54561:
   name: "Capcom Classics Collection Vol. 2"
   region: "PAL-E"
@@ -15192,33 +16165,33 @@ SLES-54644:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-54645:
   name: "Valkyrie Profile 2 - Silmeria"
   region: "PAL-F"
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-54646:
   name: "Valkyrie Profile 2 - Silmeria"
   region: "PAL-G"
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-54647:
   name: "Valkyrie Profile 2 - Silmeria"
   region: "PAL-I"
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-54648:
   name: "Valkyrie Profile 2 - Silmeria"
   region: "PAL-S"
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-54653:
   name: "Freak Out - Extreme Freeride"
   region: "PAL-M5"
@@ -15696,8 +16669,15 @@ SLES-54880:
   name: "NBA 2K8"
   region: "PAL-M5"
 SLES-54881:
-  name: "NBA 2K8"
+  name: "NHL 2K8"
   region: "PAL-M5"
+  patches:
+    F2027778:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,004323b8,word,00000000
 SLES-54882:
   name: "Gecko Blaster"
   region: "PAL-M5"
@@ -15903,7 +16883,7 @@ SLES-54964:
   roundModes:
     vuRoundMode: 0  # Crashes without.
 SLES-54971:
-  name: "Hot Wheels - Beat That!"
+  name: "Hot Wheels: Beat That!"
   region: "PAL-M4"
 SLES-54972:
   name: "Wild Arms 5"
@@ -15954,12 +16934,12 @@ SLES-54994:
   name: "Pippa Funnell - Ranch Rescue"
   region: "PAL-M11"
   compat: 5
+  gameFixes:
+    - VUKickstartHack
 SLES-54995:
   name: "Puzzle Quest - Challenge of the Warlords"
   region: "PAL-M5"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering black and white sprites.
 SLES-54996:
   name: "Golden Compass, The"
   region: "PAL-M5"
@@ -16040,7 +17020,7 @@ SLES-55019:
   name: "Ratchet & Clank - Size Matters"
   region: "PAL-M13"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-55020:
   name: "Die Simpsons - Das Spiel"
   region: "PAL-G"
@@ -16165,8 +17145,6 @@ SLES-55088:
 SLES-55090:
   name: "Naruto - Uzumaki Chronicles 2"
   region: "PAL-M5"
-  gameFixes:
-    - OPHFlagHack
 SLES-55091:
   name: "Hoppie"
   region: "PAL-E"
@@ -16218,7 +17196,7 @@ SLES-55126:
   name: "Artlist Collection - The Dog Island"
   region: "PAL-M6"
 SLES-55129:
-  name: "Jumper - Griffin's Story"
+  name: "Jumper: Griffin's Story"
   region: "PAL-M5"
 SLES-55131:
   name: "Roller Coaster Funfare"
@@ -16489,10 +17467,17 @@ SLES-55251:
   region: "PAL-M5"
   compat: 5
 SLES-55252:
-  name: "NBA 2K5"
+  name: "NHL 2K9"
   region: "PAL-M5"
+  patches:
+    5d981df2:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,00430d38,word,00000000
 SLES-55253:
-  name: "NBA 2K5"
+  name: "NBA 2K9"
   region: "PAL-M5"
 SLES-55254:
   name: "Incredible Hulk, The"
@@ -16511,10 +17496,10 @@ SLES-55266:
   region: "PAL-M5"
   compat: 5
 SLES-55271:
-  name: "Spongebob Squarepants Featuring Nicktoons - Globs of Doom"
+  name: "Spongebob SquarePants Featuring Nicktoons - Globs of Doom"
   region: "PAL-E-F"
 SLES-55272:
-  name: "Spongebob Squarepants Featuring Nicktoons - Globs of Doom"
+  name: "Spongebob SquarePants Featuring Nicktoons - Globs of Doom"
   region: "PAL-M3"
 SLES-55274:
   name: "Diabolik - The Original Sin"
@@ -16531,6 +17516,29 @@ SLES-55278:
 SLES-55280:
   name: "King of Fighters '98 - Ultimate Match"
   region: "PAL-E"
+  patches:
+    E7516A6E:
+      content: |-
+        author=refraction
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        // Modifies GIF Packets to use 24bit Z and fill in FOG (unused in game).
+        // Menu is still broken only in 50hz mode, 60hz is mostly fine.
+        patch=1,EE,00100cc8,word,24050004
+        patch=1,EE,004492ec,word,3c020041
+        patch=1,EE,004492f0,word,34453413
+        patch=1,EE,00438a3c,word,3c021341
+        patch=1,EE,00438a44,word,34423413
+        patch=1,EE,001699d0,word,34853413
+        patch=1,EE,001699cc,word,3c040041
+        patch=1,EE,00438a30,word,24020004
+        patch=1,EE,00438b98,word,3c020043
+        patch=1,EE,00438b9c,word,34424343
+        patch=1,EE,001dfa60,word,24034343
+        patch=1,EE,00178614,word,24064343
+        patch=1,EE,0015e5b8,word,240a4343
 SLES-55281:
   name: "Nickelodeon Dora the Explorer - Dora Saves the Snow Princess"
   region: "PAL-M3"
@@ -16692,9 +17700,13 @@ SLES-55376:
 SLES-55378:
   name: "RTL Biathlon 2009"
   region: "PAL-E-G"
+  clampModes:
+    vuClampMode: 3 # Fixes SPS in game 
 SLES-55379:
   name: "RTL Biathlon 2009"
   region: "PAL-E-G"
+  clampModes:
+    vuClampMode: 3 # Fixes SPS in game 
 SLES-55380:
   name: "Sonic Unleashed"
   region: "PAL-M5"
@@ -16792,8 +17804,6 @@ SLES-55443:
   compat: 5
   roundModes:
     eeRoundMode: 0  # Fixes jump issue.
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 SLES-55444:
   name: "Ar tonelico II: Melody of Metafalica"
   region: "PAL-E"
@@ -16846,6 +17856,8 @@ SLES-55470:
 SLES-55472:
   name: "Guitar Hero - Metalica"
   region: "PAL-M5"
+  roundModes:
+    vuRoundMode: 0  # Crashes without.
 SLES-55474:
   name: "Shin Megami Tensei: Persona 4"
   region: "PAL-E"
@@ -16884,13 +17896,13 @@ SLES-55493:
 SLES-55494:
   name: "X-Men Origins - Wolverine"
   region: "PAL-E-F"
-  gameFixes:
-    - FpuCompareHack # Flickering objects, sound loop.
+  clampModes:
+    eeClampMode: 3  # Flickering objects, sound loop.
 SLES-55495:
   name: "X-Men Origins - Wolverine"
   region: "PAL-M3"
-  gameFixes:
-    - FpuCompareHack # Flickering objects, sound loop.
+  clampModes:
+    eeClampMode: 3  # Flickering objects, sound loop.
 SLES-55496:
   name: "Secret Agent Clank"
   region: "PAL-Unk"
@@ -16985,6 +17997,8 @@ SLES-55572:
   name: "Marvel Super Hero Squad"
   region: "PAL-M6"
   compat: 5
+  gameFixes:
+    - EETimingHack # Broken textures.
 SLES-55573:
   name: "MotorStorm Arctic Edge"
   region: "PAL-M14"
@@ -16997,8 +18011,6 @@ SLES-55576:
 SLES-55577:
   name: "DJ Hero"
   region: "PAL-M5"
-  gameFixes:
-    - GIFFIFOHack
 SLES-55578:
   name: "Band Hero"
   region: "PAL-M5"
@@ -17237,14 +18249,14 @@ SLES-82028:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLES-82029:
   name: "Star Ocean 3 - Till the End of Time [Disc2of2]"
   region: "PAL-E"
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   memcardFilters:
     - "SLES-82028"
 SLES-82030:
@@ -17559,7 +18571,7 @@ SLKA-25133:
   region: "NTSC-K"
   compat: 5
 SLKA-25134:
-  name: "NBA Street v3"
+  name: "NBA Street V3"
   region: "NTSC-K"
 SLKA-25135:
   name: "Kunoichi"
@@ -17678,8 +18690,6 @@ SLKA-25214:
   region: "NTSC-K"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLKA-25215:
   name: "Shining Wild"
   region: "NTSC-K"
@@ -17710,6 +18720,8 @@ SLKA-25225:
   name: "Dororo"
   region: "NTSC-K"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes main character model SPS.
 SLKA-25227:
   name: "Neo Contra"
   region: "NTSC-K"
@@ -17744,8 +18756,8 @@ SLKA-25254:
   name: "Digimon Rumble Arena 2"
   region: "NTSC-K"
   compat: 5
-  gameFixes:
-    - FpuCompareHack
+  clampModes:
+    eeClampMode: 3
 SLKA-25255:
   name: "Mobile Suit Gundam - Seed - Never Ending Tomorrow"
   region: "NTSC-K"
@@ -17941,8 +18953,6 @@ SLKA-25366:
   name: "Naruto - Uzumaki Chronicles 2"
   region: "NTSC-K"
   compat: 5
-  gameFixes:
-    - OPHFlagHack
 SLKA-25374:
   name: "FIFA Street 2"
   region: "NTSC-K"
@@ -18033,8 +19043,6 @@ SLPM-20436:
 SLPM-55005:
   name: "Mana Khemia 2: Ochita Gakuen to Renkinjutsushi Tachi"
   region: "NTSC-J"
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 SLPM-55008:
   name: "Sengoku Basara X"
   region: "NTSC-J"
@@ -18079,8 +19087,6 @@ SLPM-55110:
 SLPM-55114:
   name: "Mana Khemia 2: Ochita Gakuen to Renkinjutsushi Tachi"
   region: "NTSC-J"
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 SLPM-55118:
   name: "Galaxy Angel II - Eigou Kaiki no Koku [Disc1of2]"
   region: "NTSC-J"
@@ -18188,6 +19194,15 @@ SLPM-60101:
 SLPM-60102:
   name: "From Software First Previews"
   region: "NTSC-J"
+  patches:
+    9E9AC9DC:
+      content: |-
+        author=kozarovv
+        // Patch for From Software First Preview, Evergrace demo. 
+        // Fix loading. Expected data is 2 bytes later than game trying to read it. 
+        // Patch force read from address where data is.
+        patch=1,EE,E0018447,extended,0023BB86
+        patch=1,EE,0023BB84,extended,00000006
 SLPM-60104:
   name: "Konami PlayStation 2 Taikeban"
   region: "NTSC-J"
@@ -18196,6 +19211,9 @@ SLPM-60106:
   region: "NTSC-J"
 SLPM-60107:
   name: "Golf Paradise"
+  region: "NTSC-J"
+SLPM-60109:
+  name: "Ridge Racer V [Trial]"
   region: "NTSC-J"
 SLPM-60172:
   name: "Itadaki Street 3 - Okuman Chouja ni Shiteageru"
@@ -18223,6 +19241,9 @@ SLPM-60265:
 SLPM-60273:
   name: "Zettai Zetsumei Toshi 2: Itetsuita Kioku-tachi [Trial B]"
   region: "NTSC-J"
+SLPM-60282:
+  name: "Lucky * Star RAvish Romance [Trial]"
+  region: "NTSC-J"
 SLPM-61009:
   name: "Silent Hill 2 (Red Ribbon) [Trial]"
   region: "NTSC-J"
@@ -18236,6 +19257,9 @@ SLPM-61011:
   region: "NTSC-J"
   speedHacks:
     InstantVU1SpeedHack: 0  # Fixes hang on FMV's when CDVD timing is accurate.
+SLPM-61018:
+  name: "Abarenbou Princess [Trial]"
+  region: "NTSC-J"
 SLPM-61051:
   name: "Dengeki PS2 D61"
   region: "NTSC-J"
@@ -18325,6 +19349,12 @@ SLPM-62023:
   region: "NTSC-J"
   clampModes:
     vuClampMode: 3  # Fixes missing 3D polygons when going ingame.
+SLPM-62025:
+  name: "PrintFan"
+  region: "NTSC-J"
+SLPM-62026:
+  name: "Silent Scope"
+  region: "NTSC-J"
 SLPM-62027:
   name: "Snowboard Heaven"
   region: "NTSC-J"
@@ -18546,7 +19576,7 @@ SLPM-62132:
   clampModes:
     vuClampMode: 2  # Fixes minimap HUD.
   gameFixes:
-    - VU0KickstartHack # Fixes missing geometry.
+    - VUKickstartHack # Fixes missing geometry.
 SLPM-62133:
   name: "Bloody Roar 3 [Konami The Best]"
   region: "NTSC-J"
@@ -19036,6 +20066,8 @@ SLPM-62362:
 SLPM-62364:
   name: "Sega Ages 2500 Series Vol.02 - Monaco GP"
   region: "NTSC-J"
+  gameFixes:
+    - XGKickHack # Fixes black and white vehicle previews.
 SLPM-62365:
   name: "Cardinal Arc - Konton no Fuusatsu"
   region: "NTSC-J"
@@ -19349,6 +20381,9 @@ SLPM-62482:
 SLPM-62483:
   name: "Simple 2000 Series Vol.48 - The Taxi"
   region: "NTSC-J"
+  roundModes:
+     eeRoundMode: 2
+     vuRoundMode: 2
 SLPM-62484:
   name: "Simple 2000 Series Vol.50 - The Daibijin"
   region: "NTSC-J"
@@ -19747,6 +20782,13 @@ SLPM-62623:
   compat: 5
   gameFixes:
     - XGKickHack # Fixes chocolate coloured characters.
+  patches:
+    B99379B7:
+      content: |-
+        // Fixes game not working in hardware mode
+        comment=Patch by refraction and Kojin
+        patch=1,EE,0053B740,word,00009400
+        patch=1,EE,0053B768,word,00009400
 SLPM-62624:
   name: "Indoor Helicopter Adventure 2"
   region: "NTSC-J"
@@ -20050,7 +21092,7 @@ SLPM-62737:
   name: "Rally Shox & Freestyle Motorcross [EA Best Hits]"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLPM-62739:
   name: "Suro Genjin"
   region: "NTSC-J"
@@ -20168,6 +21210,9 @@ SLPM-64502:
 SLPM-64504:
   name: "Maximo"
   region: "NTSC-K"
+SLPM-64513:
+  name: "Crash Bandicoot: Return of the Demon King"
+  region: "NTSC-K"
 SLPM-64522:
   name: "La Pucelle"
   region: "NTSC-K"
@@ -20240,6 +21285,8 @@ SLPM-65014:
   name: "Bouken Jidai Katsugeki - Goemon"
   region: "NTSC-J"
   compat: 5
+  gameFixes:
+    - GoemonTlbHack
 SLPM-65015:
   name: "Kessen 2"
   region: "NTSC-J"
@@ -20554,8 +21601,6 @@ SLPM-65115:
   region: "NTSC-J"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPM-65116:
   name: "Lilie no Atelier Plus: Salburg no Renkinjutsushi 3"
   region: "NTSC-J"
@@ -20778,7 +21823,7 @@ SLPM-65209:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-65210:
   name: "Chou Battle Houshin - Bundle #1"
   region: "NTSC-J"
@@ -21275,6 +22320,8 @@ SLPM-65373:
 SLPM-65374:
   name: "Energy Airforce - Aim Strike!"
   region: "NTSC-J"
+  speedHacks:
+    InstantVU1SpeedHack: 0  # Fixes hanging while going ingame.
 SLPM-65375:
   name: "Shin Sangoku Musou 3 - Mushouden [Premium Pack]"
   region: "NTSC-J"
@@ -21461,14 +22508,14 @@ SLPM-65438:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-65439:
   name: "Star Ocean 3 [Director's Cut] [Disc2of2]"
   region: "NTSC-J"
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   memcardFilters:
     - "SLPM-65438"
 SLPM-65441:
@@ -21723,6 +22770,8 @@ SLPM-65525:
 SLPM-65526:
   name: "Dororo"
   region: "NTSC-J"
+  gameFixes:
+    - VUKickstartHack # Fixes main character model SPS.
 SLPM-65527:
   name: "FIFA Total Football"
   region: "NTSC-J"
@@ -21730,7 +22779,7 @@ SLPM-65529:
   name: "Mission Impossible - Operation Surma"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes crashes and broken graphics.
+    - VUKickstartHack # Fixes crashes and broken graphics.
 SLPM-65530:
   name: "J-League Pro Soccer Club - Tsukuku 2004"
   region: "NTSC-J"
@@ -22101,7 +23150,7 @@ SLPM-65648:
   name: "Medal of Honor - Frontline [EA Best Hits]"
   region: "NTSC-J"
 SLPM-65649:
-  name: "NBA Street 2 [EA Best Hits]"
+  name: "NBA Street Vol. 2 [EA Best Hits]"
   region: "NTSC-J"
 SLPM-65650:
   name: "Harry Potter and The Sorcerer's Stone [EA Best Hits]"
@@ -22263,6 +23312,8 @@ SLPM-65700:
 SLPM-65701:
   name: "Ghost Hunter"
   region: "NTSC-J"
+  gameFixes:
+    - VUKickstartHack # Fixes Missing Graphics.
 SLPM-65702:
   name: "Sangokushi Senki [Koei Collection Series]"
   region: "NTSC-J"
@@ -22376,7 +23427,7 @@ SLPM-65740:
   name: "J-League Winning Eleven 8 - Asia Championship"
   region: "NTSC-J"
 SLPM-65741:
-  name: "Driver 3"
+  name: "Driv3r"
   region: "NTSC-J"
 SLPM-65742:
   name: "Cool Girl [Konami the Best]"
@@ -22558,6 +23609,15 @@ SLPM-65797:
   name: "Dragon Quest & Final Fantasy in Itadaki Street"
   region: "NTSC-J"
   compat: 5
+  patches:
+    4CE7FB04:
+      content: |-
+        author=refraction
+        // Game seems to have problems with alpha values being zero in some instances
+        // this patches the results from FPU to be an alpha of 2
+        // Fixes missing board
+        patch=1,EE,00143CBC,word,3C030200
+        patch=1,EE,00143CC0,word,00831825
 SLPM-65798:
   name: "Madden NFL Superbowl 2005"
   region: "NTSC-J"
@@ -22571,14 +23631,14 @@ SLPM-65800:
   region: "NTSC-J"
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-65801:
   name: "Crash Bandicoot 5"
   region: "NTSC-J"
   compat: 5
   gameFixes:
     - XGKickHack # Fixes bad geometry.
-    - VU0KickstartHack # Fixes loading hang.
+    - VUKickstartHack # Fixes loading hang.
 SLPM-65802:
   name: "Def Jam - Vendetta [EA Best Hits]"
   region: "NTSC-J"
@@ -23006,13 +24066,14 @@ SLPM-65946:
   region: "NTSC-J"
   compat: 5
 SLPM-65947:
-  name: "Killer 7"
+  name: "Killer7"
   region: "NTSC-J"
 SLPM-65948:
   name: "Enthusia Professional Racing"
   region: "NTSC-J"
   clampModes:
-    eeClampMode: 3
+    eeClampMode: 3 # Fixes Freezing at the start of the race
+    vuClampMode: 3 # Fixes Freezing at the start of the race
 SLPM-65949:
   name: "Get Ride! AM Driver - The Truth of Xiangke"
   region: "NTSC-J"
@@ -23184,14 +24245,13 @@ SLPM-66007:
 SLPM-66008:
   name: "Musashiden II - Blademaster"
   region: "NTSC-J"
-  roundModes:
-    vuRoundMode: 0  # Fixes Red SPS while ingame.
-    eeRoundMode: 0  # Partially fixes wrong enemies eye rendering.
-  clampModes:
-    vuClampMode: 3  # Fixes White SPS while ingame.
-    eeClampMode: 3  # Fixes White SPS while ingame.
-  gameFixes:
-    - EETimingHack # Fixes garbled character animation.
+  patches:
+    F0E90890:
+      content: |-
+        author=Prafull, Kozarovv and Agrippa
+        comment=patched by Prafull and Kozarovv
+        // Fixes almost all problems apart from little translucent fog effect in some areas.
+        patch=1,EE,00147c38,word,3c04000f
 SLPM-66009:
   name: "World Soccer Winning Eleven 9 - Bonus Pack"
   region: "NTSC-J"
@@ -23237,7 +24297,7 @@ SLPM-66020:
   name: "Psi-Ops - The Mindgate Conspiracy"
   region: "NTSC-J"
 SLPM-66021:
-  name: "NBA Street v3"
+  name: "NBA Street V3"
   region: "NTSC-J"
 SLPM-66022:
   name: "Kaido Touge no Densetsu"
@@ -23539,8 +24599,6 @@ SLPM-66124:
   region: "NTSC-J"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPM-66125:
   name: "Final Fantasy X-2 [Ultimate Hits]"
   region: "NTSC-J"
@@ -23786,6 +24844,8 @@ SLPM-66206:
 SLPM-66207:
   name: "Dororo [Sega the Best 2800]"
   region: "NTSC-J"
+  gameFixes:
+    - VUKickstartHack # Fixes main character model SPS.
 SLPM-66208:
   name: "Sakura Taisen V - Episode 0 - Samurai Girl of Wild [Sega the Best]"
   region: "NTSC-J"
@@ -23799,7 +24859,7 @@ SLPM-66211:
   name: "King Kong, Peter Jackson's - The Official Game of the Movie"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLPM-66212:
   name: "Sega Rally 2006"
   region: "NTSC-J"
@@ -24451,7 +25511,7 @@ SLPM-66419:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-66420:
   name: "Front Mission 4 [Ultimate Hits]"
   region: "NTSC-J"
@@ -24530,6 +25590,9 @@ SLPM-66443:
 SLPM-66444:
   name: "Spartan - Total Warrior"
   region: "NTSC-J"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes garbage textures flashing on the character model 
 SLPM-66445:
   name: "Persona 3"
   region: "NTSC-J"
@@ -24632,6 +25695,8 @@ SLPM-66472:
 SLPM-66473:
   name: "True Crime - New York City"
   region: "NTSC-J"
+  clampModes:
+    eeClampMode: 2  # Fixes SPS on highway.
 SLPM-66474:
   name: "Odin Sphere"
   region: "NTSC-J"
@@ -24651,14 +25716,14 @@ SLPM-66478:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-66479:
   name: "Star Ocean 3 - Till the End of Time [Ultimate Hits] [Disc2of2]"
   region: "NTSC-J"
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
   memcardFilters:
     - "SLPM-66478"
 SLPM-66480:
@@ -24990,6 +26055,9 @@ SLPM-66585:
   name: "Elvandia Story"
   region: "NTSC-J"
   compat: 5
+  clampModes:
+    eeClampMode: 3 # Fixes black overlay ingame during dialog.
+    vuClampMode: 3 # Fixes black overlay ingame during dialog.
 SLPM-66586:
   name: "Karutagura - Tamashii no Kunou [2800 Collection]"
   region: "NTSC-J"
@@ -25297,8 +26365,6 @@ SLPM-66677:
   region: "NTSC-J"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPM-66678:
   name: "Final Fantasy X-2 - International + Last Mission [Ultimate Hits]"
   region: "NTSC-J"
@@ -25370,8 +26436,6 @@ SLPM-66693:
 SLPM-66694:
   name: "Spongebob"
   region: "NTSC-J"
-  gameFixes:
-    - GIFFIFOHack # Fixes bad graphics.
 SLPM-66695:
   name: "Kono Aozora ni Yakusoku o - Melody of the Sun and Sea"
   region: "NTSC-J"
@@ -25524,7 +26588,7 @@ SLPM-66743:
   name: "Shinkyouku Soukai Polyphonica"
   region: "NTSC-J"
 SLPM-66744:
-  name: "Killer 7 [CapKore]"
+  name: "Killer7 [CapKore]"
   region: "NTSC-J"
 SLPM-66745:
   name: "Shadow of Rome [CapKore]"
@@ -25652,7 +26716,7 @@ SLPM-66782:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLPM-66783:
   name: "Idol Janshi Suchie-Pai 4 [Limited Edition]"
   region: "NTSC-J"
@@ -26297,8 +27361,6 @@ SLPM-67513:
   region: "NTSC-K"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPM-67514:
   name: "Kessen"
   region: "NTSC-K"
@@ -26516,6 +27578,8 @@ SLPM-74242:
 SLPM-74243:
   name: "True Crime - New York City [PlayStation 2 The Best]"
   region: "NTSC-J"
+  clampModes:
+    eeClampMode: 2  # Fixes SPS on highway.
 SLPM-74244:
   name: "Phantasy Star Universe [PlayStation 2 The Best]"
   region: "NTSC-J"
@@ -26719,6 +27783,8 @@ SLPS-20024:
 SLPS-20025:
   name: "SSX - Snowboard Supercross"
   region: "NTSC-J"
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLPS-20027:
   name: "Aquaqua"
   region: "NTSC-J"
@@ -26750,24 +27816,19 @@ SLPS-20037:
 SLPS-20038:
   name: "Grappler Baki - Baki Saidai no Tournament"
   region: "NTSC-J"
+  gameFixes:
+    - EETimingHack # Fixes hang at menu.
 SLPS-20040:
-  name: "Moto GP"
+  name: "MotoGP"
   region: "NTSC-J"
   gameFixes:
-    - VU0KickstartHack # Fixes Crash On Load
+    - VUKickstartHack # Fixes Crash On Load
 SLPS-20041:
   name: "Mahjong Goku Taisei"
   region: "NTSC-J"
 SLPS-20042:
   name: "F1 Racing Championship"
   region: "NTSC-J"
-  patches:
-    32F1FA12:
-      content: |-
-        author=Prafull
-        // Fixes IPU issues causing a hang at loading menu.
-        patch=1,EE,00251f94,word,00000000 //0440fffa
-        patch=1,EE,0020e7a4,word,00000000 //1440fffa
 SLPS-20043:
   name: "Lake Masters Fishing EX"
   region: "NTSC-J"
@@ -27858,8 +28919,6 @@ SLPS-25050:
   compat: 5
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPS-25051:
   name: "Missing Blue"
   region: "NTSC-J"
@@ -27947,6 +29006,8 @@ SLPS-25077:
 SLPS-25078:
   name: "SSX Tricky"
   region: "NTSC-J"
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLPS-25079:
   name: "Madden NFL 2002"
   region: "NTSC-J"
@@ -27970,8 +29031,6 @@ SLPS-25088:
   compat: 5
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPS-25094:
   name: "Reveal Fantasia"
   region: "NTSC-J"
@@ -28055,7 +29114,7 @@ SLPS-25120:
   name: "Gundam Gihren's Ambition"
   region: "NTSC-J"
 SLPS-25121:
-  name: "dot Hack Vol.1"
+  name: ".hack//Infection Part 1"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -28119,7 +29178,7 @@ SLPS-25142:
   name: "Tiger Woods PGA Tour 2002"
   region: "NTSC-J"
 SLPS-25143:
-  name: "dot Hack Vol.2 - Mutation"
+  name: ".hack//Mutation Part 2"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -28162,7 +29221,7 @@ SLPS-25156:
   name: "King of Fighters 2000, The"
   region: "NTSC-J"
 SLPS-25158:
-  name: "dot Hack - Vol.3 - Erosion Pollution"
+  name: ".hack//Outbreak Part 3"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -28296,7 +29355,7 @@ SLPS-25201:
   name: "Reveal Fantasia"
   region: "NTSC-J"
 SLPS-25202:
-  name: "dot Hack - Vol.4 - Zettai Houi"
+  name: ".hack//Quarantine Part 4"
   region: "NTSC-J"
   memcardFilters:
     - "SCPS-55029"
@@ -28312,7 +29371,7 @@ SLPS-25202:
     - "SLPS-73232"
     - "SLPS-73233"
 SLPS-25204:
-  name: "Moto GP3"
+  name: "MotoGP3"
   region: "NTSC-J"
 SLPS-25205:
   name: "Ys I-II - Eternal Story [Limited Edition]"
@@ -28643,6 +29702,8 @@ SLPS-25329:
   name: "Kuon"
   region: "NTSC-J"
   compat: 5
+  roundModes:
+    eeRoundMode: 0  # Fixes Sugoroku mini-game.
 SLPS-25330:
   name: "Dragon Ball Z - Budokai 2"
   region: "NTSC-J"
@@ -29062,9 +30123,35 @@ SLPS-25447:
 SLPS-25448:
   name: "King of Fighters '94, The - Rebout [Special Pack]"
   region: "NTSC-J"
+  patches:
+    E74F7C39:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080836b3
+        patch=1,EE,0020dac4,word,0803ff00
+        patch=1,EE,0020dac8,word,4bea497d
 SLPS-25449:
   name: "King of Fighters '94, The - Rebout"
   region: "NTSC-J"
+  patches:
+    E64F90E5:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080836b3
+        patch=1,EE,0020dac4,word,0803ff00
+        patch=1,EE,0020dac8,word,4bea497d
 SLPS-25450:
   name: "Tales of Rebirth"
   region: "NTSC-J"
@@ -29301,11 +30388,24 @@ SLPS-25525:
   name: "King of Fighters, The - NeoWave"
   region: "NTSC-J"
   compat: 5
+  patches:
+    0109B59E:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080f66db
+        patch=1,EE,003d9b64,word,0803ff00
+        patch=1,EE,003d9b68,word,4bea497d
 SLPS-25526:
   name: "Medical 91"
   region: "NTSC-J"
 SLPS-25527:
-  name: "dot Hack - Fragment"
+  name: ".hack//Fragment"
   region: "NTSC-J"
   compat: 5
 SLPS-25528:
@@ -29789,6 +30889,19 @@ SLPS-25660:
   name: "King of Fighters XI, The"
   region: "NTSC-J"
   compat: 5
+  patches:
+    E4BB51C1:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080c274f
+        patch=1,EE,00309d34,word,0803ff00
+        patch=1,EE,00309d38,word,4bea497d
 SLPS-25661:
   name: "King of Fighters, The - Nests"
   region: "NTSC-J"
@@ -29938,8 +31051,17 @@ SLPS-25710:
   name: "K-1 World Grand Prix 2006"
   region: "NTSC-J"
   compat: 4
+  speedHacks:
+    InstantVU1SpeedHack: 0  # Fixes random black frames from happening when in a fight session.
   gameFixes:
     - XGKickHack # Fixes grey fighters problem.
+  patches:
+    A7E5CE23:
+      content: |-
+        // Fixes game not working in hardware mode
+        comment=Patch by refraction and Kojin
+        patch=1,EE,004574B0,word,0000948c
+        patch=1,EE,004574D8,word,0000948c
 SLPS-25711:
   name: "Kashimashi! Girl Meets Girl [Best Collection]"
   region: "NTSC-J"
@@ -30175,6 +31297,29 @@ SLPS-25782:
 SLPS-25783:
   name: "King of Fighters '98, The - Ultimate Match"
   region: "NTSC-J"
+  patches:
+    FD714FCB:
+      content: |-
+        author=refraction, kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        // Modifies GIF Packets to use 24bit Z and fill in FOG (unused in game).
+        patch=1,EE,00100cc8,word,24050004
+        patch=1,EE,00229720,word,3c050041
+        patch=1,EE,00229724,word,34a63413
+        patch=1,EE,004f2d68,word,24020004
+        patch=1,EE,004f2d7c,word,3c021341
+        patch=1,EE,004f2d84,word,34423413
+        patch=1,EE,0021e804,word,24084343
+        patch=1,EE,0023761c,word,24084343
+        patch=1,EE,00237f8c,word,24084343
+        patch=1,EE,0029d6d0,word,24084343
+        patch=1,EE,00503108,word,3c030041
+        patch=1,EE,0050310c,word,34633413
+        patch=1,EE,004f2ee8,word,3c020043
+        patch=1,EE,004f2ef0,word,34424343
 SLPS-25784:
   name: "Another Century's Episode 3 - The Final"
   region: "NTSC-J"
@@ -30506,6 +31651,19 @@ SLPS-25914:
 SLPS-25915:
   name: "King of Fighters 2002, The - Unlimited Match"
   region: "NTSC-J"
+  patches:
+    0A70CB4C:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,08139d9b
+        patch=1,EE,004e7664,word,0803ff00
+        patch=1,EE,004e7668,word,4bea497d
 SLPS-25917:
   name: "Sacred Blaze"
   region: "NTSC-J"
@@ -30554,18 +31712,39 @@ SLPS-25961:
 SLPS-25983:
   name: "King of Fighters 2002, The - Unlimited Match"
   region: "NTSC-J"
+  patches:
+    439656F5:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,081079b3
+        patch=1,EE,0041e6c4,word,0803ff00
+        patch=1,EE,0041e6c8,word,4bea497d
 SLPS-29001:
   name: "Xenosaga Episode 1 - Der Wille zur Macht [Premium Box]"
   region: "NTSC-J"
   patches:
     A3D63039:
       content: |-
-        // Reduces JPEG quality to its minimum for save file thumbnails. This prevents
-        // the game from calling its own exit function, which was strangely its safety
-        // mechanism for when a captured thumbnail exceeded 4 KB in size.
+        // Repeatedly decrements JPEG quality until the generated save file thumbnail is
+        // within the 4 KB limit. Replaces the game's previous escape mechanism, which
+        // was simply to exit the game completely.
         comment=Save Point Crash Prevention
         author=pandubz, PSI, turtleli
-        patch=1,EE,20285f48,extended,24040000
+        patch=1,EE,00285f44,word,2413001e
+        patch=1,EE,00285f48,word,8f85ab00
+        patch=1,EE,00285f4c,word,26640000
+        patch=1,EE,00285f50,word,0c0935a8
+        patch=1,EE,00285f54,word,00b02821
+        patch=1,EE,00285f58,word,28421001
+        patch=1,EE,00285f5c,word,1040fffa
+        patch=1,EE,00285f60,word,2673ffff
+        patch=1,EE,00285f64,word,00000000
 SLPS-29002:
   name: "Xenosaga Episode 1 - Der Wille zur Macht"
   region: "NTSC-J"
@@ -30573,12 +31752,20 @@ SLPS-29002:
   patches:
     A3D63039:
       content: |-
-        // Reduces JPEG quality to its minimum for save file thumbnails. This prevents
-        // the game from calling its own exit function, which was strangely its safety
-        // mechanism for when a captured thumbnail exceeded 4 KB in size.
+        // Repeatedly decrements JPEG quality until the generated save file thumbnail is
+        // within the 4 KB limit. Replaces the game's previous escape mechanism, which
+        // was simply to exit the game completely.
         comment=Save Point Crash Prevention
         author=pandubz, PSI, turtleli
-        patch=1,EE,20285f48,extended,24040000
+        patch=1,EE,00285f44,word,2413001e
+        patch=1,EE,00285f48,word,8f85ab00
+        patch=1,EE,00285f4c,word,26640000
+        patch=1,EE,00285f50,word,0c0935a8
+        patch=1,EE,00285f54,word,00b02821
+        patch=1,EE,00285f58,word,28421001
+        patch=1,EE,00285f5c,word,1040fffa
+        patch=1,EE,00285f60,word,2673ffff
+        patch=1,EE,00285f64,word,00000000
 SLPS-29003:
   name: "Lord of the Rings - The Two Towers [Collector's Box]"
   region: "NTSC-J"
@@ -30598,8 +31785,6 @@ SLPS-72501:
   region: "NTSC-J"
   roundModes:
     eeRoundMode: 1  # Fixes reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLPS-72502:
   name: "Tales of Destiny 2 [Mega Hits]"
   region: "NTSC-J"
@@ -30648,7 +31833,7 @@ SLPS-73111:
   name: "Taiko no Tatsujin Super Animehit [PlayStation 2 The Best]"
   region: "NTSC-J"
 SLPS-73201:
-  name: "Fatal Frame 2 - Crimson Butterfly [PlayStation 2 The Best]"
+  name: "Fatal Frame II - Crimson Butterfly [PlayStation 2 The Best]"
   region: "NTSC-J"
 SLPS-73202:
   name: "Armored Core - Nexus [PlayStation 2 The Best] [Disc 1]"
@@ -30921,7 +32106,7 @@ SLPS-73255:
   name: "Fatal Frame [PlayStation 2 the Best - Reprint]"
   region: "NTSC-J"
 SLPS-73256:
-  name: "Fatal Frame 2 - Crimson Butterfly [PlayStation 2 the Best - Reprint]"
+  name: "Fatal Frame II - Crimson Butterfly [PlayStation 2 the Best - Reprint]"
   region: "NTSC-J"
 SLPS-73257:
   name: "Fatal Frame III - The Tormented [PlayStation 2 the Best - Reprint]"
@@ -31034,12 +32219,20 @@ SLPS-73901:
   patches:
     A3D63039:
       content: |-
-        // Reduces JPEG quality to its minimum for save file thumbnails. This prevents
-        // the game from calling its own exit function, which was strangely its safety
-        // mechanism for when a captured thumbnail exceeded 4 KB in size.
+        // Repeatedly decrements JPEG quality until the generated save file thumbnail is
+        // within the 4 KB limit. Replaces the game's previous escape mechanism, which
+        // was simply to exit the game completely.
         comment=Save Point Crash Prevention
         author=pandubz, PSI, turtleli
-        patch=1,EE,20285f48,extended,24040000
+        patch=1,EE,00285f44,word,2413001e
+        patch=1,EE,00285f48,word,8f85ab00
+        patch=1,EE,00285f4c,word,26640000
+        patch=1,EE,00285f50,word,0c0935a8
+        patch=1,EE,00285f54,word,00b02821
+        patch=1,EE,00285f58,word,28421001
+        patch=1,EE,00285f5c,word,1040fffa
+        patch=1,EE,00285f60,word,2673ffff
+        patch=1,EE,00285f64,word,00000000
 SLUS-20001:
   name: "Tekken Tag Tournament"
   region: "NTSC-U"
@@ -31204,11 +32397,11 @@ SLUS-20056:
   gameFixes:
     - VIF1StallHack # Fixes loading hang.
 SLUS-20058:
-  name: "Moto GP"
+  name: "MotoGP"
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes crash on load.
+    - VUKickstartHack # Fixes crash on load.
 SLUS-20062:
   name: "Grand Theft Auto III"
   region: "NTSC-U"
@@ -31343,6 +32536,8 @@ SLUS-20095:
   name: "SSX"
   region: "NTSC-U"
   compat: 5
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLUS-20096:
   name: "Swing Away Golf"
   region: "NTSC-U"
@@ -31444,6 +32639,8 @@ SLUS-20138:
 SLUS-20139:
   name: "Simpsons, The - Road Rage"
   region: "NTSC-U"
+  gameFixes:
+    - VUKickstartHack # Fixes Bad Character Models.
 SLUS-20140:
   name: "NHL Hitz 2002"
   region: "NTSC-U"
@@ -31560,16 +32757,8 @@ SLUS-20167:
   name: "Quake III - Revolution"
   region: "NTSC-U"
   compat: 5
-  patches:
-    A56A0525:
-      content: |-
-        comment=Patch by leilei
-        // Removes intro and end credits FMVs.
-        // Fixes hanging caused by FMVs.
-        patch=1,EE,0072C1E1,byte,00000061
-        patch=1,EE,007226F7,byte,00000061
 SLUS-20168:
-  name: "Triple Play 2002"
+  name: "Triple Play Baseball"
   region: "NTSC-U"
 SLUS-20169:
   name: "Ephemeral Fantasia"
@@ -31587,7 +32776,7 @@ SLUS-20172:
   region: "NTSC-U"
   compat: 5
 SLUS-20173:
-  name: "Unison"
+  name: "Unison: Rebels of Rhythm & Dance"
   region: "NTSC-U"
 SLUS-20174:
   name: "Rumble Racing"
@@ -31609,7 +32798,7 @@ SLUS-20178:
   region: "NTSC-U"
   compat: 5
 SLUS-20179:
-  name: "X-Files - Resist or Serve"
+  name: "X-Files, The - Resist or Serve"
   region: "NTSC-U"
   compat: 5
 SLUS-20181:
@@ -31629,7 +32818,7 @@ SLUS-20184:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes lightning effects.
+    - VUKickstartHack # Fixes lightning effects.
 SLUS-20186:
   name: "Monster Jam - Maximum Destruction"
   region: "NTSC-U"
@@ -31664,8 +32853,11 @@ SLUS-20197:
   name: "Pac-Man Fever"
   region: "NTSC-U"
   compat: 5
+  roundModes:
+    eeRoundMode: 2 # Fixes Gauntlet Golf 
+    vuRoundMode: 2 # Fixes game board jittering
 SLUS-20198:
-  name: "Fire Blade"
+  name: "FireBlade"
   region: "NTSC-U"
   compat: 5
 SLUS-20199:
@@ -31676,25 +32868,6 @@ SLUS-20202:
   name: "Crazy Taxi"
   region: "NTSC-U"
   compat: 5
-  patches:
-    F00293CA:
-      content: |-
-        comment=Patches by Nachbrenner
-        // Skip movie 'PlaySega'.
-        patch=0,EE,001a0b50,word,03e00008
-        patch=0,EE,001a0b54,word,00000000
-        // Skip movie 'PlayAcclaim'.
-        patch=0,EE,001a0ce8,word,03e00008
-        patch=0,EE,001a0cec,word,00000000
-    4C9EE7DF:
-      content: |-
-        comment=Patches by Nachbrenner
-        // Skip movie 'PlaySega'.
-        patch=0,EE,001a1950,word,03e00008
-        patch=0,EE,001a1954,word,00000000
-        // Skip movie 'PlayAcclaim'.
-        patch=0,EE,001a1ae8,word,03e00008
-        patch=0,EE,001a1aec,word,00000000
 SLUS-20204:
   name: "Smuggler's Run 2 - Hostile Territory"
   region: "NTSC-U"
@@ -31767,6 +32940,12 @@ SLUS-20217:
   name: "Arctic Thunder"
   region: "NTSC-U"
   compat: 5
+  patches:
+    2B2E1535:
+      content: |-
+        author=kozarovv
+        // Set proper height for in game videos. Prevent videos being displayed doubled vertically.
+        patch=1,EE,0013345C,word,240701c0
 SLUS-20218:
   name: "Stunt GP"
   region: "NTSC-U"
@@ -31877,7 +33056,7 @@ SLUS-20239:
   name: "Driven"
   region: "NTSC-U"
 SLUS-20240:
-  name: "Conflict Zone"
+  name: "Conflict Zone: Modern War Strategy"
   region: "NTSC-U"
   compat: 5
 SLUS-20241:
@@ -31967,7 +33146,7 @@ SLUS-20266:
   region: "NTSC-U"
   compat: 5
 SLUS-20267:
-  name: "dot Hack - Part 1 - Infection"
+  name: ".hack//Infection Part 1"
   region: "NTSC-U"
   compat: 5
   memcardFilters:
@@ -32061,7 +33240,7 @@ SLUS-20284:
         // Fixed by rearranging COP2 instructions.
         patch=1,EE,002131bc,word,00000000
 SLUS-20285:
-  name: "Moto GP 2"
+  name: "MotoGP 2"
   region: "NTSC-U"
   compat: 5
 SLUS-20286:
@@ -32072,7 +33251,7 @@ SLUS-20287:
   region: "NTSC-U"
   compat: 5
 SLUS-20288:
-  name: "Godai - Elemental Force"
+  name: "GoDai - Elemental Force"
   region: "NTSC-U"
   compat: 5
 SLUS-20291:
@@ -32127,6 +33306,8 @@ SLUS-20305:
   name: "Simpsons, The - Road Rage"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Bad Character Models.
 SLUS-20306:
   name: "Contra - Shattered Soldier"
   region: "NTSC-U"
@@ -32155,8 +33336,6 @@ SLUS-20312:
   compat: 5
   roundModes:
     eeRoundMode: 1  # Fix reverse control and boss in some places.
-  gameFixes:
-    - IPUWaitHack
 SLUS-20313:
   name: "Wave Rally"
   region: "NTSC-U"
@@ -32179,7 +33358,7 @@ SLUS-20316:
   region: "NTSC-U"
   compat: 5
 SLUS-20318:
-  name: "King's Field IV"
+  name: "King's Field IV: The Ancient City"
   region: "NTSC-U"
   compat: 5
   patches:
@@ -32207,6 +33386,26 @@ SLUS-20323:
   name: "Virtua Fighter 4"
   region: "NTSC-U"
   compat: 5
+  patches:
+    EA131B57:
+      content: |-
+        author=kozarovv
+        // Fix for Virtua Fighter 4 SLUS-20323 hang while loading replays.
+        // Game interrupt required data read if break command is done too early.
+        // Hard to tell that it works by luck on PS2, or maybe something is missing on pcsx2 side.
+        // Also workaround to https://github.com/PCSX2/pcsx2/issues/2009. 
+        // Note: CDVD Break is used only in few places in that title, all of them break without patch.
+        // Delay Break CDVD command
+        // Fix replays / A.I replays loading
+        patch=1,IOP,0003d010,word,0807fff9
+        patch=1,IOP,0003d014,word,3c020004
+        patch=1,IOP,001fffe4,word,24180016
+        patch=1,IOP,001fffe8,word,14980003
+        patch=1,IOP,001fffec,word,3c190010
+        patch=1,IOP,001ffff0,word,1720ffff
+        patch=1,IOP,001ffff4,word,2739ffff
+        patch=1,IOP,001ffff8,word,0800f406
+        patch=1,IOP,001ffffc,word,8c42e36c
 SLUS-20324:
   name: "Paris Dakar Rally"
   region: "NTSC-U"
@@ -32219,6 +33418,8 @@ SLUS-20326:
   name: "SSX Tricky"
   region: "NTSC-U"
   compat: 5
+  roundModes:
+    eeRoundMode: 0 # Fixes riders vanish into the floor
 SLUS-20327:
   name: "Aggressive Inline"
   region: "NTSC-U"
@@ -32273,7 +33474,7 @@ SLUS-20339:
   region: "NTSC-U"
   compat: 5
 SLUS-20340:
-  name: "RPG Maker 2"
+  name: "RPG Maker II"
   region: "NTSC-U"
   compat: 5
 SLUS-20341:
@@ -32312,7 +33513,7 @@ SLUS-20348:
   clampModes:
     vuClampMode: 0  # Fixes missing game board.
 SLUS-20349:
-  name: "Scooby Doo! Night of 100 Frights"
+  name: "Scooby-Doo! Night of 100 Frights"
   region: "NTSC-U"
   compat: 5
 SLUS-20352:
@@ -32330,7 +33531,7 @@ SLUS-20355:
   region: "NTSC-U"
   compat: 5
 SLUS-20356:
-  name: "Transworld Surf"
+  name: "Transworld SURF"
   region: "NTSC-U"
   compat: 5
 SLUS-20357:
@@ -32341,11 +33542,9 @@ SLUS-20358:
   region: "NTSC-U"
   compat: 5
 SLUS-20360:
-  name: "Blade 2"
+  name: "Blade II"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering HUD. (originally was EE Timing Hack but required since r4821)
 SLUS-20361:
   name: "Rally Fusion - Race of Champions"
   region: "NTSC-U"
@@ -32401,7 +33600,7 @@ SLUS-20371:
   region: "NTSC-U"
   compat: 5
 SLUS-20373:
-  name: "Men in Black 2 - Alien Escape"
+  name: "Men in Black II - Alien Escape"
   region: "NTSC-U"
   compat: 5
   gameFixes:
@@ -32415,7 +33614,7 @@ SLUS-20375:
   region: "NTSC-U"
   compat: 5
 SLUS-20376:
-  name: "Mad Maestro"
+  name: "Mad Maestro!"
   region: "NTSC-U"
   compat: 5
 SLUS-20377:
@@ -32442,7 +33641,7 @@ SLUS-20380:
   name: "Jurassic Park - Operation Genesis"
   region: "NTSC-U"
 SLUS-20381:
-  name: "MX Superfly"
+  name: "MX SuperFly"
   region: "NTSC-U"
   compat: 5
 SLUS-20382:
@@ -32453,7 +33652,7 @@ SLUS-20383:
   region: "NTSC-U"
   compat: 5
 SLUS-20384:
-  name: "Skygunner"
+  name: "SkyGunner"
   region: "NTSC-U"
   compat: 5
 SLUS-20385:
@@ -32520,7 +33719,7 @@ SLUS-20394:
         patch=1,EE,201018d8,extended,24040007
         patch=1,EE,201018e4,extended,24040006
 SLUS-20395:
-  name: "GTC Africa"
+  name: "Global Touring Challenge: Africa"
   region: "NTSC-U"
 SLUS-20397:
   name: "Tenchu 3 - Wrath of Heaven"
@@ -32540,7 +33739,7 @@ SLUS-20400:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes crashes and broken graphics.
+    - VUKickstartHack # Fixes crashes and broken graphics.
 SLUS-20402:
   name: "Britney's Dance Beat"
   region: "NTSC-U"
@@ -32564,6 +33763,8 @@ SLUS-20407:
   name: "Way of the Samurai"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+   - EETimingHack # Stops crash after intro movie
 SLUS-20408:
   name: "Pitfall - The Lost Expedition"
   region: "NTSC-U"
@@ -32576,6 +33777,14 @@ SLUS-20412:
   name: "Hot Wheels - Velocity X"
   region: "NTSC-U"
   compat: 5
+  patches:
+    E7273BFA:
+      content: |-
+        comment=COP2 DIV Rearrangement to fix SPS
+        patch=0,EE,0023DB00,word,4BE0A39C
+        patch=0,EE,0023DB04,word,4A6F03BC
+        patch=0,EE,0023DB0C,word,4BE0ABDC
+        patch=0,EE,0023DB10,word,4A7003BC
 SLUS-20413:
   name: "Shadow Man - 2econd Coming"
   region: "NTSC-U"
@@ -32611,6 +33820,19 @@ SLUS-20419:
   region: "NTSC-U"
   roundModes:
     eeRoundMode: 0  # Fixes crash when using the Subaru.
+  gameFixes:
+    - XGKickHack # Fixes SPS while ingame (with following patch)
+  patches:
+    5838E074:
+      content: |-
+        author=kozarovv
+        // Rearrange XGKick timing to fix SPS
+        patch=1,EE,0020efa0,word,8000033c
+        patch=1,EE,0020efd8,word,80004efc
+        patch=1,EE,0020f040,word,8000033c
+        patch=1,EE,0020f0b0,word,80004efc
+        patch=1,EE,0020f118,word,8000033c
+        patch=1,EE,0020f188,word,80004efc     
 SLUS-20420:
   name: "Star Wars - Bounty Hunter"
   region: "NTSC-U"
@@ -32637,7 +33859,7 @@ SLUS-20424:
   region: "NTSC-U"
   compat: 5
 SLUS-20425:
-  name: "Spongebob Squarepants - Revenge of the Flying Dutchman"
+  name: "Spongebob SquarePants - Revenge of the Flying Dutchman"
   region: "NTSC-U"
   compat: 5
 SLUS-20428:
@@ -32678,6 +33900,14 @@ SLUS-20434:
   name: "Myst III - Exile"
   region: "NTSC-U"
   compat: 5
+  patches:
+    75DB04A3:
+      content: |-
+        // Gives the IPU more time to process the textures
+        // CPU does a wait loop then starts copying the output of the IPU
+        patch=0,EE,001f0030,word,24027fff
+  gameFixes:
+    - EETimingHack # Speeds up IPU DMA's
 SLUS-20435:
   name: "Armored Core 3"
   region: "NTSC-U"
@@ -32708,7 +33938,7 @@ SLUS-20441:
   region: "NTSC-U"
   compat: 5
 SLUS-20442:
-  name: "Red Faction 2"
+  name: "Red Faction II"
   region: "NTSC-U"
   compat: 5
 SLUS-20443:
@@ -32777,6 +34007,8 @@ SLUS-20463:
   name: "Dropship - United Peace Force"
   region: "NTSC-U"
   compat: 2
+  speedHacks:
+    InstantVU1SpeedHack: 0
 SLUS-20464:
   name: "Fugitive Hunter - War on Terror"
   region: "NTSC-U"
@@ -32811,12 +34043,20 @@ SLUS-20469:
   patches:
     6D1276AB:
       content: |-
-        // Reduces JPEG quality to its minimum for save file thumbnails. This prevents
-        // the game from calling its own exit function, which was strangely its safety
-        // mechanism for when a captured thumbnail exceeded 4 KB in size.
+        // Repeatedly decrements JPEG quality until the generated save file thumbnail is
+        // within the 4 KB limit. Replaces the game's previous escape mechanism, which
+        // was simply to exit the game completely.
         comment=Save Point Crash Prevention
         author=pandubz, PSI, turtleli
-        patch=1,EE,20289db0,extended,24040000
+        patch=1,EE,00289dac,word,2413001e
+        patch=1,EE,00289db0,word,8f85af40
+        patch=1,EE,00289db4,word,26640000
+        patch=1,EE,00289db8,word,0c093746
+        patch=1,EE,00289dbc,word,00b02821
+        patch=1,EE,00289dc0,word,28421001
+        patch=1,EE,00289dc4,word,1040fffa
+        patch=1,EE,00289dc8,word,2673ffff
+        patch=1,EE,00289dcc,word,00000000
 SLUS-20470:
   name: "EverQuest - Online Adventures"
   region: "NTSC-U"
@@ -32899,7 +34139,7 @@ SLUS-20488:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLUS-20489:
   name: "Whirl Tour"
   region: "NTSC-U"
@@ -32968,7 +34208,7 @@ SLUS-20506:
   region: "NTSC-U"
   compat: 5
 SLUS-20507:
-  name: "Legends of Wrestling 2"
+  name: "Legends of Wrestling II"
   region: "NTSC-U"
   compat: 3
 SLUS-20508:
@@ -32979,12 +34219,14 @@ SLUS-20509:
   name: "Soccer Slam - Sega Sports"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+   - EETimingHack # Fixes hang
 SLUS-20510:
   name: "Star Wars - Clone Wars"
   region: "NTSC-U"
   compat: 5
 SLUS-20511:
-  name: "Hunter the Reckoning - Wayward"
+  name: "Hunter - The Reckoning - Wayward"
   region: "NTSC-U"
   compat: 5
 SLUS-20513:
@@ -33022,7 +34264,7 @@ SLUS-20521:
   region: "NTSC-U"
   compat: 5
 SLUS-20522:
-  name: "King of Route 66"
+  name: "King of Route 66, The"
   region: "NTSC-U"
   compat: 5
 SLUS-20523:
@@ -33074,7 +34316,7 @@ SLUS-20533:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLUS-20534:
   name: "Cabela's Big Game Hunter"
   region: "NTSC-U"
@@ -33123,10 +34365,12 @@ SLUS-20546:
   name: "Evolution Snowboarding"
   region: "NTSC-U"
   compat: 4
-  gameFixes:
-    - OPHFlagHack # Avoid hanging at the "press start" screen.
-  # Comments from old GameIndex.dbf for this Game
-  #  Needs EmotionEngine set to "Interpreter" and "Enable EE Cache" enabled.
+  patches:
+    2B2E1535:
+      content: |-
+        author=kozarovv
+        // Skip PSS movies, workaround for EE Cache requirement.
+        patch=1,EE,00122d00,word,100000d9
 SLUS-20547:
   name: "Cubix Showdown"
   region: "NTSC-U"
@@ -33192,7 +34436,7 @@ SLUS-20561:
   region: "NTSC-U"
   compat: 5
 SLUS-20562:
-  name: "dot Hack - Part 2 - Mutation"
+  name: ".hack//Mutation Part 2"
   region: "NTSC-U"
   compat: 5
   memcardFilters:
@@ -33201,7 +34445,7 @@ SLUS-20562:
     - "SLUS-20563"
     - "SLUS-20564"
 SLUS-20563:
-  name: "dot Hack - Part 3 - Outbreak"
+  name: ".hack//Outbreak Part 3"
   region: "NTSC-U"
   compat: 5
   memcardFilters:
@@ -33292,16 +34536,25 @@ SLUS-20584:
   name: "Speed Kings"
   region: "NTSC-U"
   compat: 3
+  patches:
+    C90920FC:
+      content: |-
+        author=Prafull
+        // Fixes hang before going ingame.
+        // Needed due to lack of VIF FIFO in PCSX2.
+        patch=1,EE,0022b4a4,word,00000000
 SLUS-20585:
   name: "Powerpuff Girls, The - Relish Rampage"
   region: "NTSC-U"
   compat: 5
+  clampModes:
+    eeClampMode: 3  # Fixes hangs in certain locations like building under construction.
 SLUS-20586:
   name: "IHRA Drag Racing 2"
   region: "NTSC-U"
   compat: 5
 SLUS-20587:
-  name: "Driver 3"
+  name: "Driv3r"
   region: "NTSC-U"
   compat: 5
 SLUS-20588:
@@ -33447,7 +34700,7 @@ SLUS-20622:
     - "SLUS-20622"
     - "SLUS-20228"
 SLUS-20623:
-  name: "Winning Eleven 6"
+  name: "World Soccer: Winning Eleven 6 International"
   region: "NTSC-U"
 SLUS-20624:
   name: "Simpsons, The - Hit & Run"
@@ -33456,7 +34709,7 @@ SLUS-20624:
   gameFixes:
     - FpuNegDivHack # Lens flare appears even when behind objects.
 SLUS-20625:
-  name: "Moto GP 3"
+  name: "MotoGP 3"
   region: "NTSC-U"
 SLUS-20626:
   name: "Deer Hunter"
@@ -33508,7 +34761,7 @@ SLUS-20637:
   region: "NTSC-U"
   compat: 5
 SLUS-20638:
-  name: "Backyard Wrestling - Don't Try This At Home"
+  name: "Backyard Wrestling - Don't Try This at Home"
   region: "NTSC-U"
   compat: 5
 SLUS-20639:
@@ -33557,8 +34810,6 @@ SLUS-20647:
   compat: 5
   clampModes:
     vuClampMode: 3  # Fixes minor SPS on characters.
-  gameFixes:
-    - GIFFIFOHack
 SLUS-20648:
   name: "NBA Jam 2004"
   region: "NTSC-U"
@@ -33570,7 +34821,7 @@ SLUS-20650:
   name: "MVP Baseball 2003"
   region: "NTSC-U"
 SLUS-20651:
-  name: "NBA Street 2"
+  name: "NBA Street Vol. 2"
   region: "NTSC-U"
   compat: 5
   clampModes:
@@ -33584,7 +34835,7 @@ SLUS-20653:
   region: "NTSC-U"
   compat: 5
 SLUS-20655:
-  name: "Hobbit, The"
+  name: "Hobbit, The: The Prelude to the Lord of the Rings"
   region: "NTSC-U"
   compat: 5
 SLUS-20656:
@@ -33592,7 +34843,7 @@ SLUS-20656:
   region: "NTSC-U"
   compat: 5
 SLUS-20657:
-  name: "McFarlane Evil Prophecy"
+  name: "McFarlane's Evil Prophecy"
   region: "NTSC-U"
   compat: 5
 SLUS-20658:
@@ -33603,7 +34854,7 @@ SLUS-20659:
   name: "Piglet's Big Game"
   region: "NTSC-U"
 SLUS-20661:
-  name: "Fairly Odd Parents, The - Breakin' Da Rules"
+  name: "Fairly OddParents, The - Breakin' Da Rules"
   region: "NTSC-U"
 SLUS-20662:
   name: "Gallop Racer 2003 - A New Breed"
@@ -33659,7 +34910,7 @@ SLUS-20673:
   region: "NTSC-U"
   compat: 5
 SLUS-20674:
-  name: "Virtual On Marz"
+  name: "Cyber Troopers: Virtual-On Marz"
   region: "NTSC-U"
   compat: 5
 SLUS-20675:
@@ -33687,7 +34938,7 @@ SLUS-20681:
   region: "NTSC-U"
   compat: 5
 SLUS-20682:
-  name: "K1 World Grand Prix"
+  name: "K-1 World Grand Prix"
   region: "NTSC-U"
   compat: 5
 SLUS-20683:
@@ -33765,7 +35016,7 @@ SLUS-20702:
   region: "NTSC-U"
   compat: 5
 SLUS-20703:
-  name: "Air Force - Delta Strike"
+  name: "Airforce: Delta Strike"
   region: "NTSC-U"
   compat: 5
 SLUS-20704:
@@ -33808,7 +35059,7 @@ SLUS-20714:
   region: "NTSC-U"
   compat: 5
 SLUS-20715:
-  name: "WWII Paratroopers"
+  name: "Combat Elite: WWII Paratroopers"
   region: "NTSC-U"
 SLUS-20716:
   name: "Teenage Mutant Ninja Turtles"
@@ -33840,7 +35091,7 @@ SLUS-20723:
   region: "NTSC-U"
   compat: 4
 SLUS-20724:
-  name: "Firefighter FD 18"
+  name: "Firefighter F.D. 18"
   region: "NTSC-U"
   compat: 5
 SLUS-20725:
@@ -33899,7 +35150,7 @@ SLUS-20734:
   region: "NTSC-U"
   compat: 5
 SLUS-20735:
-  name: "Lethal Skies 2"
+  name: "Lethal Skies II"
   region: "NTSC-U"
   compat: 5
 SLUS-20736:
@@ -33909,8 +35160,6 @@ SLUS-20737:
   name: "Hot Wheels - World Race"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack
 SLUS-20738:
   name: "Van Helsing"
   region: "NTSC-U"
@@ -33995,6 +35244,11 @@ SLUS-20758:
   patches:
     03F9C6D1:
       content: |-
+        author=kozarovv
+        // Growlanser Generations (2 and 3), When game fail at sceCdReadClock due to bad sema/thread state, it will just use 0 as timestamp.
+        // That make issues with next saves, and finally lead to freeze. 
+        // Patch force game to use WaitSema instead of PollSema in problematic place, that force thread rescheduling. 
+        patch=1,EE,001153DC,word,0C042618
         comment=IPU freeze fix
         patch=0,EE,00109d04,word,00000000
 SLUS-20759:
@@ -34005,6 +35259,11 @@ SLUS-20759:
     default:
       content: |-
         // CRC 4AD529BB, 4CD3663F
+        author=kozarovv
+        // Growlanser Generations (2 and 3), When game fail at sceCdReadClock due to bad sema/thread state, it will just use 0 as timestamp.
+        // That make issues with next saves, and finally lead to freeze. 
+        // Patch force game to use WaitSema instead of PollSema in problematic place, that force thread rescheduling. 
+        patch=1,EE,00114CBC,word,0C042618
         comment=IPU freeze fix
         patch=0,EE,00109d04,word,00000000
 SLUS-20760:
@@ -34026,7 +35285,7 @@ SLUS-20763:
   roundModes:
     eeRoundMode: 0  # Fixes SPS with water in some places.
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLUS-20764:
   name: "Bombastic"
   region: "NTSC-U"
@@ -34036,7 +35295,7 @@ SLUS-20765:
   region: "NTSC-U"
   compat: 5
 SLUS-20766:
-  name: "Fatal Frame 2 - Crimson Butterfly"
+  name: "Fatal Frame II - Crimson Butterfly"
   region: "NTSC-U"
   compat: 5
 SLUS-20767:
@@ -34095,7 +35354,7 @@ SLUS-20782:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes main character model SPS.
+    - VUKickstartHack # Fixes main character model SPS.
 SLUS-20784:
   name: "Italian Job, The"
   region: "NTSC-U"
@@ -34120,7 +35379,7 @@ SLUS-20788:
   region: "NTSC-U"
   compat: 5
 SLUS-20789:
-  name: "Jeopardy"
+  name: "Jeopardy!"
   region: "NTSC-U"
   compat: 5
 SLUS-20790:
@@ -34165,7 +35424,7 @@ SLUS-20798:
   name: "Starcraft - Ghost"
   region: "NTSC-U"
 SLUS-20799:
-  name: "Terminator, The - Rise of the Machines"
+  name: "Terminator 3: Rise of the Machines"
   region: "NTSC-U"
   compat: 5
 SLUS-20800:
@@ -34241,7 +35500,7 @@ SLUS-20821:
   region: "NTSC-U"
   compat: 5
 SLUS-20822:
-  name: "Galactic Wrestling"
+  name: "Galactic Wrestling: Featuring Ultimate Muscle - The Kinnikuman Legacy"
   region: "NTSC-U"
   compat: 5
 SLUS-20823:
@@ -34290,7 +35549,7 @@ SLUS-20837:
   name: "Ribbit King"
   region: "NTSC-U"
 SLUS-20838:
-  name: "All-Star Baseball 2005"
+  name: "All-Star Baseball 2005 featuring Derek Jeter"
   region: "NTSC-U"
 SLUS-20839:
   name: "King of Fighters 2000 & 2001 [Disc2of2]"
@@ -34329,7 +35588,7 @@ SLUS-20847:
   region: "NTSC-U"
   compat: 5
 SLUS-20848:
-  name: "LifeLine - Voice Action Adventure"
+  name: "Life Line - Voice Action Adventure"
   region: "NTSC-U"
   compat: 4
 SLUS-20849:
@@ -34405,6 +35664,8 @@ SLUS-20864:
   name: "Punisher, The"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLUS-20865:
   name: "Backyard Baseball"
   region: "NTSC-U"
@@ -34469,7 +35730,7 @@ SLUS-20879:
   region: "NTSC-U"
   compat: 5
 SLUS-20880:
-  name: "Fairly Odd Parents, The - Shadow Showdown"
+  name: "Fairly OddParents, The - Shadow Showdown"
   region: "NTSC-U"
   compat: 5
 SLUS-20881:
@@ -34518,7 +35779,7 @@ SLUS-20891:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes character SPS.
+    - VUKickstartHack # Fixes character SPS.
   memcardFilters:
     - "SLUS-20488"
 SLUS-20892:
@@ -34572,7 +35833,7 @@ SLUS-20903:
   region: "NTSC-U"
   compat: 5
 SLUS-20904:
-  name: "SpongeBob Squarepants - The Movie"
+  name: "SpongeBob SquarePants - The Movie"
   region: "NTSC-U"
   compat: 5
 SLUS-20905:
@@ -34597,7 +35858,6 @@ SLUS-20909:
   compat: 5
   gameFixes:
     - XGKickHack # Fixes bad geometry.
-    - VU0KickstartHack # Fixes loading hang.
 SLUS-20910:
   name: "Test Drive - Eve of Destruction"
   region: "NTSC-U"
@@ -34770,7 +36030,7 @@ SLUS-20946:
   region: "NTSC-U"
   compat: 5
 SLUS-20947:
-  name: "Winback 2nd Operation"
+  name: "WinBack 2: Project Poseidon"
   region: "NTSC-U"
   compat: 5
 SLUS-20948:
@@ -34848,7 +36108,7 @@ SLUS-20963:
   region: "NTSC-U"
   compat: 5
 SLUS-20964:
-  name: "Devil May Cry 3"
+  name: "Devil May Cry 3: Dante's Awakening"
   region: "NTSC-U"
   compat: 5
   roundModes:
@@ -34870,7 +36130,7 @@ SLUS-20967:
   clampModes:
     eeClampMode: 3
 SLUS-20968:
-  name: "Karaoke Revolution 2"
+  name: "Karaoke Revolution Volume 2"
   region: "NTSC-U"
 SLUS-20969:
   name: "S.L.A.I. - Steel Lancer Arena International - Phantom Crash"
@@ -34907,7 +36167,7 @@ SLUS-20976:
   region: "NTSC-U"
   compat: 4
 SLUS-20977:
-  name: "Virtua Fighter Cyber Generation"
+  name: "Virtua Quest" # aka "Virtua Fighter Cyber Generation"
   region: "NTSC-U"
   compat: 5
 SLUS-20978:
@@ -34925,7 +36185,7 @@ SLUS-20980:
   gameFixes:
     - EETimingHack
 SLUS-20981:
-  name: "Teenage Mutant Ninja Turtles 2"
+  name: "Teenage Mutant Ninja Turtles 2: Battle Nexus"
   region: "NTSC-U"
   compat: 5
 SLUS-20982:
@@ -34936,20 +36196,12 @@ SLUS-20983:
   name: "Musashi Samurai Legend"
   region: "NTSC-U"
   compat: 5
-  roundModes:
-    vuRoundMode: 0  # Fixes Red SPS while ingame.
-    eeRoundMode: 0  # Partially fixes wrong enemies eye rendering.
-  clampModes:
-    vuClampMode: 3  # Fixes White SPS while ingame.
-    eeClampMode: 3  # Fixes White SPS while ingame.
-  gameFixes:
-    - EETimingHack # Fixes garbled character animation.
   patches:
     675CEB8F:
       content: |-
-        author=Prafull
-        // Fixes almost all problems apart from little translucent fog effect in some areas
-        patch=1,EE,001473b0,word,00000000
+        author=Prafull and Kozarovv
+        // Fixes almost all problems apart from little translucent fog effect in some areas.
+        patch=1,EE,001473b0,word,3c04000f
 SLUS-20984:
   name: "Resident Evil Outbreak - File #2"
   region: "NTSC-U"
@@ -34996,6 +36248,8 @@ SLUS-20993:
   name: "Ghosthunter"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Missing Graphics.
 SLUS-20994:
   name: "Full Metal Alchemist and The Broken Angel"
   region: "NTSC-U"
@@ -35003,9 +36257,35 @@ SLUS-20994:
 SLUS-20995:
   name: "King of Fighters 2002 & 2003 [Disc1of2]"
   region: "NTSC-U"
+  patches:
+    7F74D8D0:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,0805ce3b
+        patch=1,EE,001738e4,word,0803ff00
+        patch=1,EE,001738e8,word,4bea497d
 SLUS-20996:
   name: "King of Fighters 2002 & 2003 [Disc2of2]"
   region: "NTSC-U"
+  patches:
+    0334185F:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,080c60bf
+        patch=1,EE,003182F4,word,0803ff00
+        patch=1,EE,003182F8,word,4bea497d
 SLUS-20997:
   name: "Midway Arcade Treasures 2"
   region: "NTSC-U"
@@ -35084,6 +36364,8 @@ SLUS-21007:
   name: "Kuon"
   region: "NTSC-U"
   compat: 5
+  roundModes:
+    eeRoundMode: 0  # Fixes Sugoroku mini-game.
 SLUS-21008:
   name: "Katamari Damacy"
   region: "NTSC-U"
@@ -35096,6 +36378,8 @@ SLUS-21009:
   name: "Sega Classics Collection"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - XGKickHack # Fixes black and white vehicle previews in MonacoGP.
 SLUS-21010:
   name: "NanoBreaker"
   region: "NTSC-U"
@@ -35168,6 +36452,16 @@ SLUS-21029:
   name: "Midnight Club 3 - DUB Edition"
   region: "NTSC-U"
   compat: 5
+  patches:
+    4A0E5B3A:
+      content: |-
+        comment=Patch by Refraction
+        // Patches a CTC2 write to FBRST to not set the T-Bit enable
+        // Fixes slow speed in MTVU due to developers leaving T-Bit enabled and not using it
+        // PCSX2 has to sync more when T-Bit is enabled so the game spends more time waiting
+        // for VU1 to finish, which reduces the advantage of MTVU to basically zero.
+        patch=1,EE,D05257FC,extended,00000800
+        patch=1,EE,205257FC,extended,00000000
 SLUS-21030:
   name: "Outlaw Golf 2"
   region: "NTSC-U"
@@ -35189,6 +36483,13 @@ SLUS-21034:
 SLUS-21035:
   name: "Major League Baseball 2K5"
   region: "NTSC-U"
+  patches:
+    2243ce1d:
+      content: |-
+        author=Prafull
+        comment=Patched by Prafull
+        // Skip hang at start.
+        patch=1,EE,00364080,word,00000000
 SLUS-21036:
   name: "Get On Da Mic"
   region: "NTSC-U"
@@ -35312,8 +36613,8 @@ SLUS-21067:
   name: "Digimon Rumble Arena 2"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - FpuCompareHack
+  clampModes:
+    eeClampMode: 3
 SLUS-21068:
   name: "Vietcong - Purple Haze"
   region: "NTSC-U"
@@ -35322,7 +36623,7 @@ SLUS-21069:
   name: "American Chopper"
   region: "NTSC-U"
 SLUS-21070:
-  name: "Final Fantasy XI - Chains of Promathia"
+  name: "Final Fantasy XI: Chains of Promathia"
   region: "NTSC-U"
 SLUS-21071:
   name: "Nightmare of Druaga"
@@ -35375,7 +36676,7 @@ SLUS-21082:
   region: "NTSC-U"
   compat: 5
 SLUS-21083:
-  name: "LEGO Star Wars"
+  name: "LEGO Star Wars: The Video Game"
   region: "NTSC-U"
   compat: 5
 SLUS-21084:
@@ -35416,8 +36717,7 @@ SLUS-21095:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - GIFFIFOHack # Fixes corrupted graphics in the menus.
-    - VU0KickstartHack # Fixes TLB misses and collision bugs.
+    - VUKickstartHack # Fixes TLB misses and collision bugs.
 SLUS-21096:
   name: "Ape Escape - Pumped & Primed"
   region: "NTSC-U"
@@ -35460,6 +36760,8 @@ SLUS-21106:
   name: "True Crime - New York City"
   region: "NTSC-U"
   compat: 5
+  clampModes:
+    eeClampMode: 2  # Fixes SPS on highway.
 SLUS-21107:
   name: "X-Men - The Official Game"
   region: "NTSC-U"
@@ -35483,7 +36785,7 @@ SLUS-21111:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLUS-21112:
   name: "L.A. Rush"
   region: "NTSC-U"
@@ -35516,7 +36818,7 @@ SLUS-21118:
   gameFixes:
     - GIFFIFOHack # Fixes garbage graphics.
 SLUS-21119:
-  name: "Kessen 3"
+  name: "Kessen III"
   region: "NTSC-U"
   compat: 5
 SLUS-21120:
@@ -35539,7 +36841,7 @@ SLUS-21125:
   region: "NTSC-U"
   compat: 5
 SLUS-21126:
-  name: "NBA Street v3"
+  name: "NBA Street V3"
   region: "NTSC-U"
   compat: 5
 SLUS-21127:
@@ -35634,7 +36936,7 @@ SLUS-21148:
   region: "NTSC-U"
   compat: 5
 SLUS-21149:
-  name: "Yourself Fitness"
+  name: "Yourself! Fitness"
   region: "NTSC-U"
 SLUS-21150:
   name: "Beat Down - Fists of Vengeance"
@@ -35656,7 +36958,7 @@ SLUS-21153:
   region: "NTSC-U"
   compat: 5
 SLUS-21154:
-  name: "Killer 7"
+  name: "Killer7"
   region: "NTSC-U"
   compat: 5
 SLUS-21155:
@@ -35675,7 +36977,7 @@ SLUS-21158:
   name: "Rugby 2005"
   region: "NTSC-U"
 SLUS-21159:
-  name: "Moto GP 4"
+  name: "MotoGP 4"
   region: "NTSC-U"
   compat: 5
 SLUS-21160:
@@ -35765,7 +37067,7 @@ SLUS-21179:
   region: "NTSC-U"
   compat: 5
 SLUS-21180:
-  name: "Onimusha - Dawn of Dreams [Disc1]"
+  name: "Onimusha: Dawn of Dreams [Disc1of2]"
   region: "NTSC-U"
   compat: 5
   patches:
@@ -35774,7 +37076,7 @@ SLUS-21180:
         comment=Patch by Shadow Lady
         patch=0,EE,00104170,word,00000000
 SLUS-21181:
-  name: "D.I.C.E."
+  name: "D.I.C.E.: DNA Integrated Cybernetic Enterprises"
   region: "NTSC-U"
   compat: 5
 SLUS-21182:
@@ -35818,7 +37120,7 @@ SLUS-21191:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - CrashTagTeamRacingIbitHack # Fixes constant recompilation problems.
+    - IbitHack # Fixes constant recompilation problems.
 SLUS-21192:
   name: "Cabela's Outdoor Adventures 2006"
   region: "NTSC-U"
@@ -35903,6 +37205,9 @@ SLUS-21212:
   name: "Spartan - Total Warrior"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes garbage textures flashing on the character model
 SLUS-21213:
   name: "Madden NFL '06"
   region: "NTSC-U"
@@ -35961,7 +37266,7 @@ SLUS-21224:
   roundModes:
     vuRoundMode: 2  # Fixes cut-off numbers and restores missing whitespace inside combo meter.
 SLUS-21225:
-  name: "Bratz - Rock Angels"
+  name: "Bratz - Rock Angelz"
   region: "NTSC-U"
 SLUS-21226:
   name: "Velocity"
@@ -36023,7 +37328,7 @@ SLUS-21234:
         // Avoid hang at start.
         patch=1,EE,003fd608,word,00000000
 SLUS-21235:
-  name: "MLB 2k6"
+  name: "Major League Baseball 2K6"
   region: "NTSC-U"
   compat: 5
   patches:
@@ -36097,7 +37402,7 @@ SLUS-21248:
   clampModes:
     vuClampMode: 3  # Fixes broken polygons on trees.
 SLUS-21249:
-  name: "Yourself Fitness - Lifestyle"
+  name: "Yourself! Fitness - Lifestyle"
   region: "NTSC-U"
 SLUS-21250:
   name: "Full Spectrum Warrior - Ten Hammers"
@@ -36110,7 +37415,7 @@ SLUS-21251:
   region: "NTSC-U"
   compat: 5
 SLUS-21252:
-  name: "SpongeBob Squarepants - Lights, Camera, PANTS!"
+  name: "SpongeBob SquarePants - Lights, Camera, PANTS!"
   region: "NTSC-U"
   compat: 4
 SLUS-21253:
@@ -36162,7 +37467,7 @@ SLUS-21262:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLUS-21263:
   name: "Romancing SaGa"
   region: "NTSC-U"
@@ -36198,7 +37503,7 @@ SLUS-21268:
   clampModes:
     vuClampMode: 2  # Fixes minimap HUD.
   gameFixes:
-    - VU0KickstartHack # Fixes missing geometry.
+    - VUKickstartHack # Fixes missing geometry.
 SLUS-21269:
   name: "Bully"
   region: "NTSC-U"
@@ -36218,13 +37523,14 @@ SLUS-21272:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes loading hang.
+    - XGKickHack # Fixes texture normals.
+    - VUKickstartHack # Fixes loading hang.
 SLUS-21273:
   name: "Matrix, The - Path of Neo"
   region: "NTSC-U"
   compat: 5
 SLUS-21274:
-  name: "Outrun 2006 - Coast 2 Coast"
+  name: "OutRun 2006: Coast 2 Coast"
   region: "NTSC-U"
   compat: 5
 SLUS-21275:
@@ -36377,7 +37683,7 @@ SLUS-21311:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes bad polygons on characters.
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLUS-21312:
   name: "Wallace & Gromit - The Curse of the Were-Rabbit"
   region: "NTSC-U"
@@ -36588,6 +37894,16 @@ SLUS-21355:
   name: "Midnight Club 3 - DUB Edition Remix"
   region: "NTSC-U"
   compat: 5
+  patches:
+    60A42FF5:
+      content: |-
+        comment=Patch by Refraction
+        // Patches a CTC2 write to FBRST to not set the T-Bit enable
+        // Fixes slow speed in MTVU due to developers leaving T-Bit enabled and not using it
+        // PCSX2 has to sync more when T-Bit is enabled so the game spends more time waiting
+        // for VU1 to finish, which reduces the advantage of MTVU to basically zero.
+        patch=1,EE,D052907C,extended,00000800
+        patch=1,EE,2052907C,extended,00000000
 SLUS-21356:
   name: "Tom Clancy's Splinter Cell - Double Agent"
   region: "NTSC-U"
@@ -36616,7 +37932,7 @@ SLUS-21361:
   roundModes:
     eeRoundMode: 0
 SLUS-21362:
-  name: "Onimusha - Dawn of Dreams [Disc2]"
+  name: "Onimusha - Dawn of Dreams [Disc2of2]"
   region: "NTSC-U"
   compat: 5
   memcardFilters:
@@ -36631,7 +37947,7 @@ SLUS-21363:
   region: "NTSC-U"
   compat: 5
 SLUS-21364:
-  name: "One Piece - Pirates Carnival"
+  name: "One Piece - Pirates' Carnival"
   region: "NTSC-U"
   compat: 5
 SLUS-21365:
@@ -36723,14 +38039,12 @@ SLUS-21381:
   clampModes:
     vuClampMode: 2
 SLUS-21382:
-  name: "Franklin - A Birthday Surprise"
+  name: "Franklin the Turtle - A Birthday Surprise"
   region: "NTSC-U"
 SLUS-21383:
   name: "Fight Night - Round 3"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-  - GIFFIFOHack # Fixes corrupt textures.
 SLUS-21384:
   name: "Cabela's Alaskan Adventures"
   region: "NTSC-U"
@@ -36748,7 +38062,7 @@ SLUS-21387:
   region: "NTSC-U"
   compat: 5
 SLUS-21388:
-  name: "Sopranos, The"
+  name: "Sopranos, The: Road to Respect"
   region: "NTSC-U"
   compat: 5
 SLUS-21389:
@@ -36766,8 +38080,6 @@ SLUS-21391:
   name: "SpongeBob SquarePants - Creature from the Krusty Krab"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack # Fixes bad graphics.
 SLUS-21392:
   name: "Shrek Smash and Crash"
   region: "NTSC-U"
@@ -36808,11 +38120,11 @@ SLUS-21401:
   region: "NTSC-U"
   compat: 4
 SLUS-21402:
-  name: "Micro Machines v4"
+  name: "Micro Machines V4"
   region: "NTSC-U"
   compat: 5
 SLUS-21403:
-  name: "Backyard Baseball '07"
+  name: "Backyard Sports: Baseball 2007"
   region: "NTSC-U"
 SLUS-21404:
   name: "Final Fantasy XI - Treasures of Aht Urhgan"
@@ -36831,7 +38143,7 @@ SLUS-21407:
   clampModes:
     vuClampMode: 3  # Missing geometry with microVU.
 SLUS-21408:
-  name: "FIFA World Cup '06"
+  name: "FIFA World Cup Germany '06"
   region: "NTSC-U"
   compat: 5
 SLUS-21409:
@@ -36856,7 +38168,7 @@ SLUS-21413:
   region: "NTSC-U"
   compat: 5
 SLUS-21414:
-  name: "Delta Force - Team Sabre"
+  name: "Delta Force: Black Hawk Down - Team Sabre"
   region: "NTSC-U"
   compat: 5
 SLUS-21415:
@@ -36878,6 +38190,28 @@ SLUS-21418:
   name: "Sprint Cars - Road to Knoxville"
   region: "NTSC-U"
   compat: 5
+  clampModes:
+    vuClampMode: 3
+  gameFixes:
+    - VUKickstartHack
+  patches:
+    A08C4057:
+      content: |-
+        comment=Patch by Prafull
+        // Rearrange COP2 instructions to fix bad mac flag stuff. Fixes ingame physics.
+        patch=1,EE,00264d60,word,48448800
+        patch=1,EE,00264d64,word,309000E0
+        patch=1,EE,00264d6c,word,4BF0116C
+        patch=1,EE,00264d74,word,00908024
+        patch=1,EE,00264d78,word,4A0002FF
+        patch=1,EE,00264d7c,word,4BF019AC
+        patch=1,EE,00264d90,word,48448800
+        patch=1,EE,00264d94,word,309000E0
+        patch=1,EE,00264d98,word,4BE2896C
+        patch=1,EE,00264d9c,word,48448800
+        patch=1,EE,00264da0,word,4BE389AC
+        patch=1,EE,00264da4,word,4A0002FF
+        patch=1,EE,00264da8,word,4A0002FF
 SLUS-21419:
   name: "Dirge of Cerberus - Final Fantasy VII"
   region: "NTSC-U"
@@ -37014,7 +38348,7 @@ SLUS-21449:
   region: "NTSC-U"
   compat: 5
 SLUS-21450:
-  name: "Super Trucks Racing 2"
+  name: "Super PickUps"
   region: "NTSC-U"
 SLUS-21451:
   name: "Grim Adventures of Billy & Mandy, The"
@@ -37026,7 +38360,7 @@ SLUS-21452:
   compat: 5
   gameFixes:
     - VuAddSubHack
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLUS-21453:
   name: "Disney's Meet the Robinsons"
   region: "NTSC-U"
@@ -37076,7 +38410,7 @@ SLUS-21462:
     - "SLUS-20878"
     - "SLUS-21080"
 SLUS-21463:
-  name: "Tom Clancy's Ghost Recon 2"
+  name: "College Hoops 2K7"
   region: "NTSC-U"
 SLUS-21464:
   name: "Winning Eleven - Pro Evolution Soccer 2007"
@@ -37095,7 +38429,7 @@ SLUS-21467:
   region: "NTSC-U"
   compat: 5
 SLUS-21468:
-  name: "Peanuts All-Star"
+  name: "Charlie Brown's All-Stars [Cancelled]"
   region: "NTSC-U"
 SLUS-21469:
   name: "Nicktoons - Battle for Volcano Island"
@@ -37230,7 +38564,7 @@ SLUS-21492:
   region: "NTSC-U"
   compat: 5
   gameFixes:
-    - ScarfaceIbitHack
+    - IbitHack
 SLUS-21493:
   name: "Need for Speed - Carbon"
   region: "NTSC-U"
@@ -37260,7 +38594,7 @@ SLUS-21498:
   gameFixes:
     - OPHFlagHack
 SLUS-21499:
-  name: "Evolution GT"
+  name: "Corvette Evolution GT"
   region: "NTSC-U"
   compat: 5
 SLUS-21500:
@@ -37286,7 +38620,7 @@ SLUS-21538:
   name: "Eureka Seven - Vol.2 - The New Vision"
   region: "NTSC-U"
 SLUS-21539:
-  name: "Greg Hastings Tournament Paintball Max'd"
+  name: "Greg Hastings' Tournament Paintball Max'd"
   region: "NTSC-U"
   compat: 5
 SLUS-21540:
@@ -37426,6 +38760,8 @@ SLUS-21576:
   name: "Rayman - Raving Rabbids"
   region: "NTSC-U"
   compat: 5
+  gameFixes:
+    - VUKickstartHack # Fixes bad polygons on characters.
 SLUS-21577:
   name: "Odin Sphere"
   region: "NTSC-U"
@@ -37438,7 +38774,7 @@ SLUS-21579:
   name: "Barbie in The 12 Dancing Princesses"
   region: "NTSC-U"
 SLUS-21580:
-  name: "Pimp my Ride"
+  name: "MTV Pimp my Ride"
   region: "NTSC-U"
 SLUS-21581:
   name: "UEFA Champions League 2006-2007"
@@ -37466,7 +38802,7 @@ SLUS-21586:
   roundModes:
     vuRoundMode: 2  # Fixes cut-off numbers and restores missing whitespace inside combo meter.
 SLUS-21587:
-  name: "Made Man"
+  name: "Made Man: Confessions of the Family Blood"
   region: "NTSC-U"
   compat: 5
 SLUS-21588:
@@ -37497,8 +38833,6 @@ SLUS-21594:
   name: "Naruto - Uzumaki Chronicles 2"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - OPHFlagHack
 SLUS-21595:
   name: "T.M.N.T. - Teenage Mutant Ninja Turtles"
   region: "NTSC-U"
@@ -37525,6 +38859,8 @@ SLUS-21600:
 SLUS-21601:
   name: "Sprint Cars 2 - Showdown at Eldora"
   region: "NTSC-U"
+  clampModes:
+    vuClampMode: 3
   patches:
     75D13A19:
       content: |-
@@ -37638,7 +38974,7 @@ SLUS-21622:
   region: "NTSC-U"
   compat: 5
 SLUS-21623:
-  name: "BIGS, The"
+  name: "Bigs, The"
   region: "NTSC-U"
   compat: 5
 SLUS-21624:
@@ -37660,7 +38996,7 @@ SLUS-21627:
   region: "NTSC-U"
   compat: 5
 SLUS-21628:
-  name: "Hot Wheels - Beat That"
+  name: "Hot Wheels: Beat That!"
   region: "NTSC-U"
   compat: 5
 SLUS-21629:
@@ -37705,7 +39041,7 @@ SLUS-21636:
   region: "NTSC-U"
   compat: 5
 SLUS-21637:
-  name: "Disney-Pixar's Cars - Mater-National"
+  name: "Disney-Pixar's Cars: Mater-National Championship"
   region: "NTSC-U"
   compat: 5
 SLUS-21638:
@@ -37776,14 +39112,14 @@ SLUS-21653:
   region: "NTSC-U"
   compat: 5
 SLUS-21654:
-  name: "Kane & Lynch - Dead Men Sneak Preview"
+  name: "Kane & Lynch: Dead Men [Sneak Preview]"
   region: "NTSC-U"
 SLUS-21655:
-  name: "CSI 3 - Dimensions of Murder"
+  name: "CSI: 3 Dimensions of Murder"
   region: "NTSC-U"
   compat: 5
 SLUS-21656:
-  name: "World Superbikes '07"
+  name: "Hannspree Ten Kate Honda SBK: World Superbikes '07"
   region: "NTSC-U"
 SLUS-21658:
   name: "Need for Speed - ProStreet"
@@ -37895,6 +39231,19 @@ SLUS-21687:
   name: "King of Fighters XI, The"
   region: "NTSC-U"
   compat: 5
+  patches:
+    581A4DAA:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,08087ea3
+        patch=1,EE,0021fa84,word,0803ff00
+        patch=1,EE,0021fa88,word,4bea497d
 SLUS-21688:
   name: "MotoGP '07"
   region: "NTSC-U"
@@ -37904,7 +39253,7 @@ SLUS-21689:
   region: "NTSC-U"
   compat: 4
   gameFixes:
-    - VU0KickstartHack # Fixes SPS.
+    - VUKickstartHack # Fixes SPS.
 SLUS-21690:
   name: "Alone in the Dark"
   region: "NTSC-U"
@@ -37919,8 +39268,6 @@ SLUS-21692:
   name: "Puzzle Quest - Challenge of the Warlords"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering black and white sprites.
 SLUS-21693:
   name: "7 Wonders of the Ancient World"
   region: "NTSC-U"
@@ -37974,6 +39321,19 @@ SLUS-21707:
 SLUS-21708:
   name: "NeoGeo Battle Coliseum"
   region: "NTSC-U"
+  patches:
+    3724DA5C:
+      content: |-
+        author=kozarovv
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        patch=1,EE,000ffc00,word,f88a0000
+        patch=1,EE,000ffc04,word,a080000b
+        patch=1,EE,000ffc08,word,0804f553
+        patch=1,EE,0013d544,word,0803ff00
+        patch=1,EE,0013d548,word,4bea497d
 SLUS-21709:
   name: "Obscure - The Aftermath"
   region: "NTSC-U"
@@ -37981,13 +39341,13 @@ SLUS-21709:
   gameFixes:
     - EETimingHack # For stripes on FMVs and crashes on scenes.
 SLUS-21710:
-  name: "PopCap Hits Volume 1"
+  name: "PopCap Hits! Volume 1"
   region: "NTSC-U"
   compat: 5
   gameFixes:
     - EETimingHack # Fixes random crashing throughout the game.
 SLUS-21711:
-  name: "Biathlon 2008"
+  name: "RTL Biathlon 2008"
   region: "NTSC-U"
 SLUS-21712:
   name: "History Channel - Battle for the Pacific"
@@ -38069,9 +39429,9 @@ SLUS-21729:
         // Note: This issue will only happen if the game
         // run on the inhouse Visual Concept engine.
         // My theory is on a deep timing issue.
-        patch=0,EE,003cc1a0,word,00000000
+        patch=1,EE,003cc1a0,word,00000000
 SLUS-21730:
-  name: "Jumper"
+  name: "Jumper: Griffin's Story"
   region: "NTSC-U"
   compat: 5
 SLUS-21731:
@@ -38094,8 +39454,6 @@ SLUS-21735:
   compat: 5
   roundModes:
     eeRoundMode: 0  # Fixes jump issue.
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 SLUS-21736:
   name: "Wall-E"
   region: "NTSC-U"
@@ -38143,12 +39501,18 @@ SLUS-21744:
         // Normally this would require EE data cache, but this patch NOPs out the bad writes. This is likely anti-emulation code.
         patch=1,EE,003cb014,word,00000000
         patch=1,EE,003cb124,word,00000000
+SLUS-21745:
+  name: "NBA 2K9"
+  region: "NTSC-U"
 SLUS-21746:
   name: "Call of Duty: World at War - Final Fronts"
   region: "NTSC-U"
   compat: 5
 SLUS-21748:
   name: "MLB Power Pros 2008"
+  region: "NTSC-U"
+SLUS-21749:
+  name: "Garfield: Lasagna World Tour"
   region: "NTSC-U"
 SLUS-21750:
   name: "Hannah Montana - Spotlight World Tour"
@@ -38218,7 +39582,7 @@ SLUS-21765:
   region: "NTSC-U"
   compat: 5
 SLUS-21766:
-  name: "Pipemania"
+  name: "Pipe Mania"
   region: "NTSC-U"
   compat: 5
 SLUS-21767:
@@ -38226,7 +39590,7 @@ SLUS-21767:
   region: "NTSC-U"
   compat: 5
 SLUS-21768:
-  name: "PopCap Hits Vol.2"
+  name: "PopCap Hits! Vol.2"
   region: "NTSC-U"
   compat: 5
   gameFixes:
@@ -38300,11 +39664,14 @@ SLUS-21783:
   region: "NTSC-U"
   compat: 5
 SLUS-21785:
-  name: "LEGO Batman"
+  name: "LEGO Batman: The Videogame"
   region: "NTSC-U"
   compat: 5
+SLUS-21786:
+  name: "Summer Athletics: The Ultimate Challenge"
+  region: "NTSC-U"
 SLUS-21787:
-  name: "TNA Impact!"
+  name: "TNA Impact! Total Nonstop Action Wrestling"
   region: "NTSC-U"
   compat: 5
   gameFixes:
@@ -38323,15 +39690,21 @@ SLUS-21790:
   name: "Shrek's Carnival Craze"
   region: "NTSC-U"
   compat: 5
+SLUS-21791:
+  name: "Bratz: Girlz Really Rock" # Also has french
+  region: "NTSC-U"
 SLUS-21793:
   name: "DT Carnage"
   region: "NTSC-U"
   compat: 3
 SLUS-21794:
-  name: "Go, Diego, Go!: Great Dinosaur Rescue"
+  name: "Go, Diego, Go! Great Dinosaur Rescue"
   region: "NTSC-U"
 SLUS-21795:
   name: "Totally Spies! Totally Party"
+  region: "NTSC-U"
+SLUS-21796:
+  name: "Dora the Explorer: Dora Saves the Snow Princess"
   region: "NTSC-U"
 SLUS-21797:
   name: "Tak - Guardians Of Gross"
@@ -38357,6 +39730,9 @@ SLUS-21802:
   name: "Naked Brothers Band - The Video Game"
   region: "NTSC-U"
   compat: 5
+SLUS-21803:
+  name: "Warriors Orochi 2"
+  region: "NTSC-U"
 SLUS-21804:
   name: "Avatar - The Last Airbender - Into the Inferno"
   region: "NTSC-U"
@@ -38408,16 +39784,39 @@ SLUS-21816:
   name: "King Of Fighters 98 - Ultimate Match"
   region: "NTSC-U"
   compat: 5
+  patches:
+    E5A904B3:
+      content: |-
+        author=refraction
+        // Fix for Depth precision.
+        // Game fills upper 16bits of depth with 0xFFFF.
+        // This results in a really high 32 bit value which is then converted to float
+        // because both hw and sw renderers lack double precision the lower 16 bits of the initial 32 bit value lose precision.
+        // Modifies GIF Packets to use 24bit Z and fill in FOG (unused in game).
+        patch=1,EE,00100cc8,word,24050004
+        patch=1,EE,00168b7c,word,3c050041
+        patch=1,EE,00168b80,word,34a63413
+        patch=1,EE,00436f48,word,24020004
+        patch=1,EE,00436f54,word,3c021341
+        patch=1,EE,00436f5c,word,34423413
+        patch=1,EE,001de210,word,24084343
+        patch=1,EE,00177524,word,24084343
+        patch=1,EE,00176BF4,word,24084343
+        patch=1,EE,0015D890,word,24084343
+        patch=1,EE,004475c4,word,3c030041
+        patch=1,EE,004475c8,word,346c3413
+        patch=1,EE,004370b0,word,3c020043
+        patch=1,EE,004370b4,word,34424343
 SLUS-21817:
   name: "SBK Superbike World Championship"
   region: "NTSC-U"
   compat: 5
 SLUS-21818:
-  name: "Spongebob Squarepants Featuring Nicktoons - Globs of Doom"
+  name: "Spongebob SquarePants Featuring Nicktoons - Globs of Doom"
   region: "NTSC-U"
   compat: 5
 SLUS-21819:
-  name: "High School Musical 3"
+  name: "High School Musical 3: Senior Year Dance!"
   region: "NTSC-U"
   compat: 5
 SLUS-21820:
@@ -38487,6 +39886,8 @@ SLUS-21843:
   name: "Guitar Hero - Metallica"
   region: "NTSC-U"
   compat: 5
+  roundModes:
+    vuRoundMode: 0  # Crashes without.
 SLUS-21844:
   name: "Bolt"
   region: "NTSC-U"
@@ -38515,7 +39916,7 @@ SLUS-21849:
   region: "NTSC-U"
   compat: 5
 SLUS-21850:
-  name: "Baja 1000"
+  name: "Score International Baja 1000: The Official Game"
   region: "NTSC-U"
   compat: 5
 SLUS-21851:
@@ -38574,7 +39975,7 @@ SLUS-21867:
   region: "NTSC-U"
   compat: 5
 SLUS-21868:
-  name: "Nobunagas Ambition - Iron Triangle"
+  name: "Nobunaga's Ambition: Iron Triangle"
   region: "NTSC-U"
   compat: 5
 SLUS-21869:
@@ -38588,7 +39989,7 @@ SLUS-21871:
   name: "Major League Baseball 2K9"
   region: "NTSC-U"
 SLUS-21872:
-  name: "Pimp my Ride - Street Racing"
+  name: "MTV Pimp my Ride - Street Racing"
   region: "NTSC-U"
 SLUS-21873:
   name: "Dynasty Warriors - Gundam 2"
@@ -38622,8 +40023,8 @@ SLUS-21880:
   name: "X-Men Origins - Wolverine"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - FpuCompareHack # Flickering objects, sound loop.
+  clampModes:
+    eeClampMode: 3  # Flickering objects, sound loop.
 SLUS-21881:
   name: "Transformers: Revenge of the Fallen"
   region: "NTSC-U"
@@ -38658,8 +40059,6 @@ SLUS-21890:
   name: "Mana Khemia 2: Fall Of Alchemy"
   region: "NTSC-U"
   compat: 5
-  gameFixes:
-    - GIFFIFOHack # Fixes flickering sprites.
 SLUS-21891:
   name: "G-Force"
   region: "NTSC-U"
@@ -38682,6 +40081,12 @@ SLUS-21896:
   name: "Secret Saturdays, The: Beasts of the 5th Sun"
   region: "NTSC-U"
   compat: 5
+SLUS-21897:
+  name: "Shin Megami Tensei - Devil Summoner 2 - Raidou Kuzunoha vs. King Abaddon"
+  region: "NTSC-U"
+  memcardFilters: # Allows import of save from Devil Summoner 1.
+    - "SLUS-21897"
+    - "SLUS-21431"
 SLUS-21898:
   name: "Band Hero"
   region: "NTSC-U"
@@ -38726,11 +40131,11 @@ SLUS-21908:
 SLUS-21909:
   name: "DJ Hero"
   region: "NTSC-U"
-  gameFixes:
-    - GIFFIFOHack
 SLUS-21910:
   name: "Marvel Super Hero Squad"
   region: "NTSC-U"
+  gameFixes:
+    - EETimingHack # Broken textures.
 SLUS-21913:
   name: "Star Wars The Clone Wars: Republic Heroes"
   region: "NTSC-U"
@@ -38770,12 +40175,18 @@ SLUS-21918:
 SLUS-21919:
   name: "Backyard Football 2010"
   region: "NTSC-U"
+SLUS-21920:
+  name: "Disney Sing It: Pop Hits"
+  region: "NTSC-U"
 SLUS-21921:
   name: "Ben 10: Alien Force - Vilgax Attacks"
   region: "NTSC-U"
   compat: 5
 SLUS-21923:
   name: "Dora the Explorer: Dora Saves the Crystal Kingdom"
+  region: "NTSC-U"
+SLUS-21924:
+  name: "Guitar Hero: Van Halen"
   region: "NTSC-U"
 SLUS-21926:
   name: "Ni Hao, Kai-Lan: Super Game Day"
@@ -38790,6 +40201,12 @@ SLUS-21928:
 SLUS-21929:
   name: "Major League Baseball 2K10"
   region: "NTSC-U"
+  patches:
+    2283765A:
+      content: |-
+        author=Prafull
+        // Avoid hanging at loading screen.
+        patch=1,EE,003cd6d8,word,00000000
 SLUS-21930:
   name: "Sakura Wars: So Long, My Love [Japanese - Disc 2]"
   region: "NTSC-U"
@@ -38846,16 +40263,34 @@ SLUS-21942:
 SLUS-21944:
   name: "Dora's Big Birthday Adventure"
   region: "NTSC-U"
+SLUS-21945:
+  name: "Major League Baseball 2K11"
+  region: "NTSC-U"
 SLUS-21946:
   name: "Madden NFL 12"
   region: "NTSC-U"
   compat: 5
   clampModes:
     vuClampMode: 3  # Missing geometry with microVU.
+SLUS-21947:
+  name: "FIFA Soccer 12"
+  region: "NTSC-U"
 SLUS-21948:
   name: "Pro Evolution Soccer 2012"
   region: "NTSC-U"
   compat: 5
+SLUS-21949:
+  name: "Netflix Streaming Disc"
+  region: "NTSC-U" # Brazil / Portuguese
+SLUS-21950:
+  name: "NBA 2K12"
+  region: "NTSC-U"
+SLUS-21951:
+  name: "Major League Baseball 2K12"
+  region: "NTSC-U"
+SLUS-21954:
+  name: "FIFA 13"
+  region: "NTSC-U" # Latin America with En,Fr,Es
 SLUS-21955:
   name: "Pro Evolution Soccer 2013"
   region: "NTSC-U"
@@ -38868,6 +40303,9 @@ SLUS-27030:
 SLUS-27034:
   name: "Disney Sing It! High School Musical 3: Senior Year"
   region: "NTSC-U"
+SLUS-27093:
+  name: "FIFA 14"
+  region: "NTSC-U" # Brazil with En,Fr,Es
 SLUS-28002:
   name: "Red Faction [Trade Demo]"
   region: "NTSC-U"
@@ -38935,7 +40373,10 @@ SLUS-28031:
   name: "Auto Modellista - Public Beta Volume 2.0"
   region: "NTSC-U"
 SLUS-28032:
-  name: "dot Hack - Part 2 - Mutation [Trade Demo]"
+  name: ".hack//Mutation Part 2 [Trade Demo]"
+  region: "NTSC-U"
+SLUS-28034:
+  name: "Disgaea: Hour of Darkness [Trade Demo]"
   region: "NTSC-U"
 SLUS-28037:
   name: "Kya - Dark Lineage [Trade Demo]"
@@ -38969,6 +40410,9 @@ SLUS-28050:
 SLUS-28051:
   name: "Samurai Western [Trade Demo]"
   region: "NTSC-U"
+SLUS-28052:
+  name: "Shin Megami Tensei: Digital Devil Saga 2 [Trade Demo]"
+  region: "NTSC-U"
 SLUS-28053:
   name: "Magna Carta [Trade Demo]"
   region: "NTSC-U"
@@ -38978,11 +40422,14 @@ SLUS-28054:
 SLUS-28056:
   name: "State of Emergency 2 [Trade Demo]"
   region: "NTSC-U"
+SLUS-28059:
+  name: "Metal Saga [Trade Demo]"
+  region: "NTSC-U"
 SLUS-28061:
   name: "Steambot Chronicles [Trade Demo]"
   region: "NTSC-U"
 SLUS-28062:
-  name: "Shin Megami Tensei: Digital Devil Saga 2 [Trade Demo]"
+  name: "Dance Factory [Trade Demo]"
   region: "NTSC-U"
 SLUS-28063:
   name: "Rule of Rose [Trade Demo]"
@@ -38991,7 +40438,16 @@ SLUS-28064:
   name: "Shin Megami Tensei - Devil Summoner [Trade Demo]"
   region: "NTSC-U"
 SLUS-28065:
-  name: "Odin Sphere [Demo]"
+  name: "Odin Sphere [Trade Demo]"
+  region: "NTSC-U"
+SLUS-28067:
+  name: "Shin Megami Tensei: Persona 3 [Trade Demo]"
+  region: "NTSC-U"
+SLUS-28068:
+  name: "Shin Megami Tensei: Persona 3 FES [Trade Demo]"
+  region: "NTSC-U"
+SLUS-28069:
+  name: "Shin Megami Tensei: Persona 4 [Trade Demo]"
   region: "NTSC-U"
 SLUS-29001:
   name: "ESPN Winter Games Snowboarding [Demo]"
@@ -39030,11 +40486,14 @@ SLUS-29012:
 SLUS-29013:
   name: "Victorious Boxers - Ippo's Road to Glory [Demo]"
   region: "NTSC-U"
+SLUS-29014:
+  name: "Half-Life [Demo]"
+  region: "NTSC-U"
 SLUS-29015:
   name: "Dark Summit [Demo]"
   region: "NTSC-U"
 SLUS-29016:
-  name: "ESPN International Winter Sports [Demo]"
+  name: "X-Games Winter SnoCross + ESPN International Winter Sports 2002 + Winter X Games Snowboarding 2002 [Demo]"
   region: "NTSC-U"
 SLUS-29017:
   name: "AirBlade [Demo]"
@@ -39055,7 +40514,7 @@ SLUS-29025:
   name: "R.A.D. - Robot Alchemic Drive [Demo]"
   region: "NTSC-U"
 SLUS-29026:
-  name: "MX Superfly [Demo]"
+  name: "MX SuperFly [Demo]"
   region: "NTSC-U"
 SLUS-29027:
   name: "Red Faction II [Demo]"
@@ -39064,7 +40523,7 @@ SLUS-29029:
   name: "Summoner 2 [Demo]"
   region: "NTSC-U"
 SLUS-29030:
-  name: "Fire Blade [Demo]"
+  name: "FireBlade [Demo]"
   region: "NTSC-U"
 SLUS-29032:
   name: "Egg Mania - Eggstreme Madness [Demo]"
@@ -39191,7 +40650,7 @@ SLUS-29082:
   roundModes:
     eeRoundMode: 0  # Fixes SPS with water in some places.
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 SLUS-29083:
   name: "Maximo vs. The Army of Zin [Demo]"
   region: "NTSC-U"
@@ -39204,7 +40663,7 @@ SLUS-29086:
   clampModes:
     vuClampMode: 2  # Missing geometry with microVU.
 SLUS-29087:
-  name: "Square Enix Sampler Disc Vol.1"
+  name: "Square Enix Sampler Disc Vol.1: Drakengard Playable Demo"
   region: "NTSC-U"
 SLUS-29088:
   name: "Champions of Norrath - Realms of EverQuest [Demo]"
@@ -39227,7 +40686,7 @@ SLUS-29096:
   name: "Final Night 2004 [Demo]"
   region: "NTSC-U"
 SLUS-29098:
-  name: "Square Enix Sampler Disc Vol.2"
+  name: "Square Enix Sampler Disc Vol.2: Front Mission 4 Playable Demo"
   region: "NTSC-U"
 SLUS-29100:
   name: "Ribbit King [Demo]"
@@ -39237,7 +40696,7 @@ SLUS-29101:
   region: "NTSC-U"
   gameFixes:
     - XGKickHack # Fixes bad geometry.
-    - VU0KickstartHack # Fixes loading hang (only for Crash).
+    - VUKickstartHack # Fixes loading hang (only for Crash).
 SLUS-29104:
   name: "Galactic Wrestling - Featuring Ultimate Muscle [Demo]"
   region: "NTSC-U"
@@ -39280,6 +40739,9 @@ SLUS-29126:
   name: "Champions - Return to Arms [Demo]" # aka "Champions of Norrath 2 [Demo]"
   region: "NTSC-U"
   compat: 4
+SLUS-29127:
+  name: "FIFA Soccer 2005 [Demo]" 
+  region: "NTSC-U"
 SLUS-29129:
   name: "25 to Life [Public Beta Vol.1.0]"
   region: "NTSC-U"
@@ -39295,12 +40757,17 @@ SLUS-29132:
 SLUS-29134:
   name: "Namco Transmission Demo Disc Vol.2"
   region: "NTSC-U"
+SLUS-29135:
+  name: "NCAA March Madness 2005 [Demo]"
+  region: "NTSC-U"
 SLUS-29137:
   name: "Mercenaries [Demo]"
   region: "NTSC-U"
 SLUS-29138:
-  name: "Punisher [Demo]"
+  name: "Punisher, The [Demo]"
   region: "NTSC-U"
+  gameFixes:
+    - VUKickstartHack # Fixes Character SPS and Flying Characters.
 SLUS-29139:
   name: "Shadow of Rome [Demo]"
   region: "NTSC-U"
@@ -39308,7 +40775,7 @@ SLUS-29140:
   name: "MX vs. ATV Unleashed [Demo]"
   region: "NTSC-U"
 SLUS-29141:
-  name: "NBA Street v3 [Demo]"
+  name: "NBA Street V3 [Demo]"
   region: "NTSC-U"
 SLUS-29145:
   name: "Final Night - Round 2 [Demo]"
@@ -39375,14 +40842,17 @@ SLUS-29170:
 SLUS-29171:
   name: "Final Fantasy XII [Demo]"
   region: "NTSC-U"
+SLUS-29172:
+  name: "Battlefield 2: Modern Combat [Demo]"
+  region: "NTSC-U"
 SLUS-29173:
   name: "Sims 2, The [Demo]"
   region: "NTSC-U"
 SLUS-29174:
-  name: "Namco Transmission Demo Disc Vol.3.1"
+  name: "Namco Transmission Demo Disc Vol. 3.1"
   region: "NTSC-U"
 SLUS-29175:
-  name: "Namco Transmission Demo Disc Vol.3.2"
+  name: "Namco Transmission Demo Disc Vol. 3.2"
   region: "NTSC-U"
 SLUS-29178:
   name: "TOCA Race Driver 3 [Demo]"
@@ -39395,6 +40865,9 @@ SLUS-29180:
   region: "NTSC-U"
   clampModes:
     vuClampMode: 3  # Fixes SPS.
+SLUS-29183:
+  name: "Fight Night: Round 3 [Demo]"
+  region: "NTSC-U"
 SLUS-29185:
   name: "Driver - Parallel Lines [Demo]"
   region: "NTSC-U"
@@ -39434,6 +40907,21 @@ SLUS-29197:
 SLUS-29198:
   name: "Guitar Hero II [Demo]"
   region: "NTSC-U"
+SLUS-29199:
+  name: ".hack//G.U. Vol. 1//Rebirth"
+  region: "NTSC-U"
+SLUS-29200:
+  name: "FIFA Soccer 08 [Demo]"
+  region: "NTSC-U"
+SLUS-80421:
+  name: "Resident Evil 2 [Demo]"
+  region: "NTSC-U"
+SLUS-90009:
+  name: "Resident Evil 2 [Trade Demo]"
+  region: "NTSC-U"
+SLUS-97405:
+  name: "ATV Offroad Fury 3 [Greatest Hits]"
+  region: "NTSC-U"
 SLUS-97657:
   name: "MLB 11: The Show"
   region: "NTSC-U"
@@ -39471,7 +40959,8 @@ TCES-52456:
   name: "Ratchet and Clank 3 Beta Trial Code"
   region: "PAL-E"
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
+    - EETimingHack # Fixes SPR errors while going in-game.
 TCES-52582:
   name: "Everybody's Golf 4 Beta Trial Code"
   region: "PAL-E"
@@ -39488,7 +40977,7 @@ TCES-53286:
   region: "PAL-E"
   compat: 5
   gameFixes:
-    - VU0KickstartHack # Fixes Character SPS.
+    - VUKickstartHack # Fixes Character SPS.
 TCPS-10058:
   name: "Densha de Go! Shinkansen [with Controller]"
   region: "NTSC-J"

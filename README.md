@@ -9,7 +9,7 @@ A PS2 integration for GOG Galaxy 2.0
 
 ## Quick Install
 
-Download this repo, place it in the plugins/installed folder and rename it to "ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e"
+Download the "src" folder, place it in the plugins/installed folder and rename it to "ps2_1e814707-1fe3-4e1e-86fe-1b8d1b7fac2e"
 
 For more details look at [the wiki](https://github.com/AHCoder/galaxy-integration-ps2/wiki)
    

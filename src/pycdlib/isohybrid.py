@@ -498,13 +498,17 @@ class GPT(object):
         offset = 512
         offset += self.header.parse(instr[offset:])
         if mac:
-            # Now go looking for the APMs
+            # Now go looking for the APMs.  Note that we've seen ISOs in the
+            # wild (Fedora 34 Workstation DVD) with Apple partition entries,
+            # but no APM parts.  If we see all zeros where we expect the
+            # first APM part, we skip the parsing here.
             offset = 2048
-            for i_unused in range(0, APM_PARTS):
-                apm_part = APMPartHeader()
-                apm_part.parse(instr[offset:])
-                self.apm_parts.append(apm_part)
-                offset += 2048
+            if instr[offset:offset + 2] != b'\x00\x00':
+                for i_unused in range(0, APM_PARTS):
+                    apm_part = APMPartHeader()
+                    apm_part.parse(instr[offset:])
+                    self.apm_parts.append(apm_part)
+                    offset += 2048
 
         offset = self.header.partition_entries_lba * 512
         for i_unused in range(0, self.header.num_parts):
@@ -553,7 +557,7 @@ class GPT(object):
             raise pycdlibexception.PyCdlibInternalError('This GPT object is already initialized')
 
         offset = 0
-        for i in range(0, self.header.num_parts):
+        for i_unused in range(0, self.header.num_parts):
             # Some GPT implementations have large numbers of "empty"
             # partition headers (like syslinux).  We could store a slew
             # of these empty partition headers, but that's just a waste
@@ -941,7 +945,7 @@ class IsoHybrid(object):
         if not self._initialized:
             raise pycdlibexception.PyCdlibInternalError('This IsoHybrid object is not initialized')
 
-        self.rba = current_extent
+        self.rba = current_extent * 4  # Plain old ISOLINUX expects LBA * 4 too, apparently
 
     def update_efi(self, current_extent, sector_count, iso_size):
         # type: (int, int, int) -> None
